@@ -320,6 +320,24 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - The edges are soft but clean around the hair and shoulders; the lower frame edge crops the
      torso as in the source.
 
+### H. Undo/redo gate (agent-verified 2026-09-15)
+- **Auto removal takes two undo steps.** The first Ctrl+Z after processing finishes undoes a
+  **hidden step**: the draft has 0 unfiltered diffs, the cut-out stays, and only the **redo arrow
+  lights** (`35-gate-undo.png`). The second Ctrl+Z undoes the removal itself:
+  - first poll: `matting.flag` **3 → 0**
+  - the background is back in the preview; the Auto removal box is unticked (`36-gate-undo2.png`)
+  - draft vs `draft-before-removebg.json`: **no differences**
+  - desk `stable_level` stays 2 and the timeline stays 30.0 s
+- **Ctrl+Shift+Z ×2:** first poll flag **3**. Cut-out shown with **no reprocessing**, because the
+  masks are cached in the project. The redo arrow is dim again (`38-gate-redo2.png`). Draft vs
+  `draft-after-removebg.json`: **no differences**.
+- An earlier attempt pressed Ctrl+Y as redo. It did nothing; see Failure modes.
+- **Stabilize** was not undo-tested separately. It sits below Auto removal on the undo stack, and
+  its only draft change is the single `stable_level` field already diffed in F.4.
+- **Rule for AI tools:** after Ctrl+Z, if the draft is unchanged but the redo arrow lit, press Ctrl+Z
+  once more and verify. Poll a field that must *not* change (here `stable_level`), so an
+  over-undo shows up.
+
 ## Wait conditions
 
 ## Verification
