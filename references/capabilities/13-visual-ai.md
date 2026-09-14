@@ -1,14 +1,15 @@
 # Capability 13: Visual Pro AI (remove background, stabilization, camera tracking)
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-15. Remove background (Auto removal) and Stabilize (Recommended).
+  Camera tracking is out of scope by user choice.
 - **Approved:** not yet
-- **Practice project:** to be chosen with the user. It must be agent-owned: a CapCut duplicate or a
-  new project. The approved masters `0914 (4)-copy` (horizontal) and `0914 (4)-copy-copy` (vertical)
-  stay intact.
-- **Evidence:** `evidence/2026-09-14/cap13/`
+- **Practice project:** `0915`, a new agent-owned project: talk 80–95 s + desk 2–17 s, 30 s total.
+  The approved masters `0914 (4)-copy` (horizontal) and `0914 (4)-copy-copy` (vertical) are intact.
+- **Evidence:** `evidence/2026-09-15/cap13/`, with candidates in `evidence/2026-09-14/cap13/`.
+  Sheet: `rung13-contact-sheet.png`.
 
 ## Goal
 Run CapCut's visual AI tools natively on suitable footage, verifying each in the draft and in frames:
@@ -339,14 +340,57 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   over-undo shows up.
 
 ## Wait conditions
+- **Trim (Q/W):** the draft duration changes on the first 0.5 s poll (`segs.py <project> --wait-change <old_dur>`).
+- **Stabilize:**
+  - The draft `stable_level` saves within ≈3 s, but that does **not** mean the work is finished.
+  - Done means the clip label loses "Applying Stabilize… N%" and becomes "Stabilize", and the
+    inspector row has no %.
+  - The file signal is `User Data\Cache\stable\<md5>_<srcStart>_<srcEnd>.json` appearing (≈35 s
+    for 15 s).
+- **Auto removal:**
+  - The draft `matting.flag` 3 saves within ≈3 s.
+  - Done means the "Applying Auto cutout… N%" label and "Processing N%" are gone (≈30 s for
+    15 s).
+  - The file signal is `matting/<md5>/2/matting_result.json` present, with a `mask/` count ≈
+    (analysed range s × 30).
+- **Frame stepping:** after each Right press, wait for the timecode crop to change, not a fixed
+  sleep.
 
 ## Verification
+**Agent-verified 2026-09-15, on disk after Menu ▸ Back to home page.**
+- The Menu screenshot was checked first (`39-menu-open.png`). HomeWindow appeared after 4 s and
+  the `0915` draft mtime moved to 01:37:01.
+- `draft_diff.py final-before-save.json final-after-save.json`: **no differences**.
+- **Final `0915` state:**
+  - canvas original 1920×1080, duration **30.000 s**, one main track
+  - talk `VID_20260720_190542` 0 → 15 s (source 80 s) with **Auto removal** (`matting.flag` 3,
+    632 masks for source 77–98 s)
+  - desk `VID_20260501_233809` 15 → 30 s (source 2 s) with **Stabilize Recommended**
+    (`stable_level` 2)
+- **Frames:**
+  - `31-removed-*.png` and `34`/`38` (cut-out), `36-gate-undo2.png` (original background)
+  - `stabilize-compare.png`; sheet `rung13-contact-sheet.png`
+- **Cost:** no cost, credit or upsell dialog for Stabilize or Auto removal. Both ran locally
+  (`is_clould` false).
+- **Scope:** after the save, all 14 other project mtimes match `mtimes-before.txt`; `0915` is the
+  only new project. The approved masters `0914 (4)-copy` and `0914 (4)-copy-copy` are untouched.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Stabilize Level | Recommended (`stable_level` 2) | default; other levels not tried | jitter from `player_frames.py` + `shake_metric.py --frames`, same 300-frame window before/after; note the crop-in (≈1.26× here) |
+| Auto removal | on (flag 3), Stroke off | universal toggle | cut-out frames at 3+ points; edges around hair, hands, cable |
+| Analysis padding | Remove BG analysed source ±3 s beyond the segment | CapCut behaviour | `matting_result.json` result_time_range |
+| Player capture crops | video (922,105)–(1125,475) portrait desk box inset 6 px; timecode (615,528)–(712,555) | layout-specific (1920×1030, Medium preview, 16:9 canvas) | re-derive from a screenshot when the canvas or clip orientation differs |
+| Shake metric | 96 px wide grayscale, ±6 px search, 30 fps | tool setting | directional only; compare like with like |
+| Timeline zoom for 30 s targets | 1 zoom-out step from ≈65 → ≈32.7 px/s | project-specific | target visible on the ruler before clicking |
 
 ## Undo / recovery
+- **Wrong trim:** Ctrl+Z once, verified by `segs.py`.
+- **Auto removal:** **two** Ctrl+Z steps (a hidden step, then the removal). Redo is **Ctrl+Shift+Z** ×2, with no
+  reprocessing. Verify with `draft_diff.py` against the saved baselines.
+- **Stabilize:** untick the checkbox, or Ctrl+Z. The draft change is a single field. The global
+  `Cache\stable` file stays; that's harmless.
 
 ## Failure modes seen
 | Symptom | Cause | Recovery |
@@ -368,5 +412,25 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
 - Evidence from 2026-09-15 onward goes to `evidence/2026-09-15/cap13/` (date rollover). The
   candidate files stay in `evidence/2026-09-14/cap13/`.
 
+## Tree coverage notes
+- Nothing new in UIA. Inspector sub-tabs (Basic / Remove BG), the Stabilize and Auto removal
+  checkboxes, the Level dropdown, and the progress labels are all **screenshot-only** (QML inside
+  MainWindow).
+- The only extra top-level window seen was the known player overlay
+  `Qt622QWindowToolSaveBits` (621,99)–(1427,482), plus a full-screen `Qt622QWindowIcon` while the Menu
+  was open.
+- **Reusable helpers** in `evidence/2026-09-15/cap13/`, all read-only except for playhead moves:
+  - `segs.py`: duration and segments, with wait-for-change
+  - `player_frames.py`: frame-exact player capture
+  - `shake_metric.py`: shake statistics, PIL only
+  - `stabilize_compare.py`
+  - `draft_diff.py`: flattened JSON diff
+  - `flag_poll.py` / `matting_poll.py`
+  - `contact_sheet13.py`
+
 ## Open questions for the user
-- Which of the three features, and which footage for each.
+- Approve rung 13 (Remove BG + Stabilize demonstrated on `0915`)?
+- Should a background go behind the cut-out, e.g. a colour, a blurred copy or an image via Canvas
+  or an overlay? It wasn't requested, so it wasn't done.
+- Try a stronger Stabilize level or a shakier clip? The Recommended level gave a modest −24 %
+  jitter on this slow-pan clip.
