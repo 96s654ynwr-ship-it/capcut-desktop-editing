@@ -296,6 +296,29 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
      - The player header shows "Applying 1 feature… ▾"; the inspector shows "Processing N%".
      - The clip label reads **"Applying Auto cutout… N%"**; the toolbar cut-out icon is highlighted.
      - A new **Stroke ▾** row appears under Auto removal.
+4. **Done in ≈30 s** for the 15 s segment. Autosave went 01:27:05 → 01:27:39. The inspector % and
+   the clip-label prefix disappear (`30-autoremoval-progress.png`); the cut-out icon stays highlighted.
+   - **Result on disk (inside the project):** `matting/<md5>/2/`:
+     - `mask/<source µs>` × **632** (114 688 B each)
+     - `maskinfo/<source µs>` × 632 (≈152 B)
+     - `mocf` (5.7 KB)
+     - `matting_result.json` = `{"result_time_range":[{"start":77000000,"end":98000000}]}`
+
+     CapCut analysed **source 77–98 s**, the segment's 80–95 s **plus 3 s of padding each side**,
+     so small trims don't need re-analysis.
+   - A folder watcher started after the tick only saw files changed after its baseline, so list the
+     folder directly.
+5. **Agent-verified draft diff** (`draft-before-removebg.json` → `draft-after-removebg.json`): only
+   the talk material's `matting` changes: `flag` 0 → 3, `path` → `…/matting\<md5>`,
+   `custom_matting_id` → UUID. No new material, no segment change, `is_clould` false (local
+   processing).
+6. **Visual check:** ruler clicks at x≈296/475/655 give 00:00:02:02 / 07:16 / 13:00
+   (`31-removed-02s/07s/13s.png`).
+   - The speaker is **cleanly cut out on black**: head, beard, T-shirt, hands and mic cable kept.
+   - The busy background (window, frame, chair, shelves) is fully removed, and the canvas shows
+     black because nothing sits behind.
+   - The edges are soft but clean around the hair and shoulders; the lower frame edge crops the
+     torso as in the source.
 
 ## Wait conditions
 
@@ -310,6 +333,8 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| `key right --repeat 390 --gap 0.04` landed at 00:28:00 instead of 00:30:00; W trimmed the desk clip to 13 s | CapCut dropped 60 of 390 fast key presses | Ctrl+Z once (draft verified back). Zoom out so the target is on screen, click the ruler, correct with 1–2 arrows, crop the timecode, then W. For frame-by-frame work use `player_frames.py`, which waits for the timecode to change after every press |
+| Undo gate: Ctrl+Z then **Ctrl+Y** left the draft unchanged (matting flag 3) and the **redo arrow lit** | Ctrl+Y is not CapCut's redo. Also, the first Ctrl+Z after Auto removal finished undid a step with no draft or preview change | Press **Ctrl+Shift+Z** (the redo arrow went dim; the draft had no differences). Always use Ctrl+Shift+Z, and look at the undo/redo arrows in a screenshot |
 
 ## Tree coverage notes
 

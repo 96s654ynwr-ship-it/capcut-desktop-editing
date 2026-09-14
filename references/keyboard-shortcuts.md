@@ -109,7 +109,7 @@ This completes the Timeline tab (7 scroll pages).
 | Paste attributes | Ctrl+Shift+V | listed | |
 | Delete | Backspace | **agent-verified 2026-09-14** | deletes the selected timeline segment; with the main track magnet on it ripples. ⚠ On the home screen Backspace deletes a selected project card — check the tree root is `MainWindow` first |
 | Undo | Ctrl+Z | **agent-verified 2026-09-14** | reverted a split completely (draft diff: No differences) |
-| Redo (labelled "Reset") | Ctrl+Shift+Z | **agent-verified 2026-09-14** | CapCut's label is "Reset", but it redoes: re-applied an undone split identically |
+| Redo (labelled "Reset") | Ctrl+Shift+Z | **agent-verified 2026-09-14** | CapCut's label is "Reset", but it redoes: re-applied an undone split identically. **Ctrl+Y is NOT redo** (2026-09-15, rung 13): it did nothing and left the redo arrow lit, so always use Ctrl+Shift+Z |
 | Import media | Ctrl+I | **agent-verified 2026-09-14** | in the editor it opens the native Windows file dialog ("From device") directly. Detect it with `cc.py wait-for --type Edit --id 1148 --depth 30` (about 2 s), then `act set-value --id 1148` + `act invoke --id 1 --name Open` |
 | Export still frames | (unassigned) | listed | |
 | Export | Ctrl+E | listed | opens the export dialog |
