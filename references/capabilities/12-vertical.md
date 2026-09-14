@@ -429,6 +429,53 @@ against beat marks) and in frames.
       `pre-apply-draft_content.json` (copied *out* of the project for diffing), and
       `pre-apply-files.txt` (83 project files). SmartCrop cache newest was 20:04:17 (the user's
       `0914 (6)`).
+12. **Processing result before Apply** (`reframe-watch/`: 48 panel crops at ≈6 s intervals over 296 s,
+    plus `final.png`):
+    - "Processing …%" was **already gone at the first crop (≈4 s)**. The reframe analysis takes
+      only a few seconds for 35.5 s of footage.
+    - The player now draws a **cyan 9:16 crop box** inside the letterboxed 16:9 frame (player
+      x≈977–1046), centred on the speaker's face. It is a **preview** of the reframe window; the
+      canvas is still letterboxed.
+    - Aspect ratio 9:16, Image stabilization Default, Camera moving speed Default, and **Apply is
+      still enabled**.
+    - Over the whole watch: **draft unchanged** (mtime 22:37:23), **no new project files**, SmartCrop
+      cache unchanged, and no dialog, cost or upsell window.
+    - The playhead read **00:00:35:15** in `final.png` (it was 00:00:00:00). Cause unknown (possibly
+      the preview scrub); no input was sent during the watch.
+    - **Conclusion:** analysis is automatic on picking a ratio. **Apply commits it.**
+
+### H. Apply Auto reframe (executed + agent-verified 2026-09-14)
+1. Check the tree for no `MenuWindow` or dialog, then click **Apply** (≈1844,398). A watcher polled
+   every 2 s: screenshots, extra windows, draft mtime and new files, stopping on any window.
+2. **Result:**
+   - The draft saved at **22:47:44.655**, within 2 s, and stayed stable.
+   - **No extra window, credit, cost or upsell dialog.**
+   - No new project files (see step 4 for the cache).
+3. **`diff` vs `pre-apply.json`:** exactly `materials.smart_crops 0 → 1` and `+ref smart_crops` on main
+   seg 0.
+   - **Deep diff** (raw pre-apply copy vs live): segment fields and video material are **identical**,
+     so clip scale/transform are untouched. The only addition is the new extra ref:
+     `smart_crops` = `{type: "smart_crop", crop_ratio: "9:16", stability: 2, track_speed: 1,
+     cache_path: "##_draftpath_placeholder_…_##/smart_crop/<uuid>/1/2_1", apply_source: 1}`.
+   - `stability` 2 and `track_speed` 1 presumably encode Image stabilization "Default" and Camera
+     moving speed "Default".
+   - Canvas 9:16 1080×1920 and duration 35.533 s are unchanged.
+   - Master `0914 (4)-copy` mtime is still **22:00:40.991**.
+4. **Observed after Apply** (`reframe-apply/t01.png`, `final.png`, `final-panel.png`; 00:00:35:15):
+   - **The player fills the whole 9:16 canvas with the reframed shot.** The speaker is centred, head
+     in the upper third, «DIESEL» shirt visible. There are no black bars, and the chair and window
+     edge are cropped out.
+   - The 16:9 letterbox and the cyan preview box are gone.
+   - **Apply greys out** (committed). Auto reframe ✓ with 9:16 / Default / Default.
+   - "Auto saved: 22:47:44".
+5. **Where the analysis cache lives** (project folder listing, read-only):
+   `smart_crop/<uuid>/0/2_1/vid_timerange` (54 B) was written at **22:37:23**, the tick.
+   `smart_crop/<uuid>/1/2_1/{config, totalCache (3 995 B), vid_timerange, <hash>_43933333_41533333}`
+   was written at **22:40:13–17**, the 9:16 pick. The analysed source range 43.933 s + 41.533 s
+   covers the segment (46.933 + 35.533) with ≈3 s padding on each side.
+   - That is why the Apply watcher saw no *new* files: the cache already existed.
+   - `cache_path` in the draft points at `…/1/2_1`, i.e. index 1 = the 9:16 analysis.
+   - "2_1" appears to match `stability` 2 / `track_speed` 1.
 
 ## Wait conditions
 
