@@ -282,6 +282,13 @@ Right group:
 **With a clip selected** (observed 2026-09-14): extra clip tools appear after the shield icon,
 ending in a "<" that collapses the run.
 
+**Layout offset when maximized.** The tooltip x positions below were measured with the editor at
+1920×1080 (not maximized), where the toolbar row sat at y≈623. After `cc.py focus --maximize`
+the window is 1920×1030 and the **toolbar row moves up to y≈598**. The x positions stayed the
+same: Transcript ≈592, AI extend ≈637, AI edit ≈680, Split scenes ≈725, Remove background ≈770,
+Auto adjust ≈815, Enhance visuals ≈860, Extract audio ≈902. Always read y from a fresh
+screenshot.
+
 **Tooltips seen by hovering** (observed 2026-09-14, `evidence/2026-09-14/cap0/toolbar-tooltips.png`).
 Tooltips appear just **below** the icon.
 

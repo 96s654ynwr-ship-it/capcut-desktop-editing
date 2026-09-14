@@ -1,7 +1,7 @@
 # Capability 02: Timeline basics
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, start Cap 3 (credits OK)")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. All six operations were verified, then undone. The
   final draft equals `baseline.json`.
