@@ -401,6 +401,34 @@ against beat marks) and in frames.
      itself (minus timeranges/refs) is identical.
    - So **ticking only sets a feature bit**. No reframe data exists yet; the real reframe happens
      with a target **Aspect ratio** plus **Apply**.
+10. **Aspect ratio dropdown** (click ≈1751,223; `38-aspect-dropdown.png`):
+    - It opens an **inline popup**, not a separate tree window (tree: MainWindow plus a tooltip
+      only). The draft is unchanged.
+    - Rows are the same set as the player Ratio menu minus Custom:
+
+      | Row | Position |
+      |---|---|
+      | **Original ✓** | ≈(1676,264) |
+      | 16:9 | ≈(1667,300) |
+      | 4:3 | ≈(1664,335) |
+      | 2.35:1 | ≈(1673,370) |
+      | 2:1 | ≈(1663,405) |
+      | 1.85:1 | ≈(1672,440) |
+      | **9:16** | ≈(1667,476) |
+      | 3:4 | ≈(1664,511) |
+      | 5.8-inch | ≈(1680,546) |
+      | 1:1 | ≈(1662,581) |
+
+    - Pick a row **in the same command session** that opened the popup, with no `cc.py focus` in
+      between (rung-8 pitfall).
+11. **Pick 9:16** (click ≈1667,476; `39-aspect-916-*`):
+    - The popup closes and Aspect ratio reads **9:16**. No dialog; the draft is unchanged at first.
+    - **Processing starts immediately without pressing Apply.** The Auto reframe row shows
+      **"Processing 74.6%"** in grey on the right about 1.2 s after the pick.
+    - Before watching it, the agent saved read-only snapshots: `pre-apply.json`, the raw
+      `pre-apply-draft_content.json` (copied *out* of the project for diffing), and
+      `pre-apply-files.txt` (83 project files). SmartCrop cache newest was 20:04:17 (the user's
+      `0914 (6)`).
 
 ## Wait conditions
 
