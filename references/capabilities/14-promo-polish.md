@@ -82,6 +82,24 @@ by player frames:
   yousef-omar-landing project in E:\client-projects\yousef-omar-landing\public\brand. If you didn't
   find them go with any text brand mark". Search those two places read-only; import the chosen file
   natively (Ctrl+I); fall back to a Text brand mark.
+  - **Candidates found (read-only, `evidence/2026-09-15/cap14/logo-candidates.png`):**
+    - Downloads: `lockup-yousef-ai-removebg-preview.png`, `lockup-yousef-ai-on-accent-removebg-preview.png`,
+      `lockup-yousef-ai-cream-on-ink-removebg-preview.png` (661×377 RGBA, ≈96 % transparent)
+    - `public/brand`:
+      - `logo-cream-tight.png` / `logo-ink-tight.png` (386×211, ≈77 % transparent)
+      - `logo-cream-on-ink.png` / `logo-ink-on-cream.png` (≈443×295, ≈86 % transparent)
+      - `monogram-app-icon.png` (708², 4.7 % transparent)
+      - `monogram-accent-square`, `monogram-ink-on-cream`, `monogram-knockout`,
+        `monogram-yousef-ai-on-accent`: fully opaque, so they are not corner overlays
+  - **Chosen: `E:\client-projects\yousef-omar-landing\public\brand\logo-ink-tight.png`** (#7).
+    - It is the official brand file, transparent and tightly cropped: ink wordmark with the blue
+      accent dots.
+    - Both sections have light walls (a cream blurred room and a white/purple desk wall), where
+      the cream variants would disappear.
+    - The Downloads lockups are lower-quality "removebg-preview" exports.
+    - Imported natively by path, read-only. The project's "Imported media: Stay in original
+      location" setting means CapCut only references the file and never writes to the client
+      project.
 - **Transition:** "Subtle free (Recommended)": a free dissolve/mix-type card, default duration; skip
   Pro diamonds.
 - **Colour:** "Pro Auto adjust": Inspector Adjust ▸ Auto adjust (Pro). Stop if a cost or credit
