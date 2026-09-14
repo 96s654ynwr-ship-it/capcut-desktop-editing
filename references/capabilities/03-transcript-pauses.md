@@ -1,7 +1,7 @@
 # Capability 03: Transcript editing (remove pauses and filler words)
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, try Cap 4 on 152759")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Route mapped on `0914-copy`, where nothing was
   detected. Removal demonstrated on the raw take `VID_20260623_152043.mp4` in practice project
