@@ -145,8 +145,23 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - Ruler click at x = 229 + 95 × 1.053 ≈ **329** lands on **00:01:35:02** (`03-hdr-tc.png`), off by
      2 frames. The playhead handle sits at x≈329 over the selected clip (`03-timeline.png`); the draft
      is unchanged.
-   - `key left --repeat 2` → 00:01:35:00, then **W** (delete right). Then ruler ≈80 s (x≈313), read
-     the timecode, correct, and press **Q** (delete left; the main-track magnet ripples the start to 0).
+   - `key left --repeat 2` → **00:01:35:00**, confirmed by crop (`04-tc-before-W.png`), then **W**
+     (delete right).
+     - **Agent-verified (first poll):** duration 523.467 → **95.000 s**; one segment target 0 → 95,
+       source start 0.
+     - The clip stays selected; the timeline total reads 00:01:35:00.
+   - Ruler click at x≈313 (80 s) lands on **00:01:19:27** (`06-hdr-tc.png`), 3 frames short. The
+     clip is still selected (`06-timeline.png`).
+   - `key right --repeat 3` → 00:01:20:00, then **Q** (delete left).
+     - **Agent-verified (first poll):** duration **15.000 s**; segment target 0 → 15.000 s, **source
+       start 80.000 s**. The magnet rippled the start to 0.
+4. **Append the desk clip:** `drag 382 313 900 829 --steps 30 --hold 0.35` from the desk media card
+   to the main track, right of the talk clip.
+   - **Agent-verified (first poll):** 2 main-track segments.
+     - talk: 0 → 15.000 s, source 80 s
+     - **desk `VID_20260501_233809`: 15.000 → 52.967 s (37.967 s), source 0**. The magnet snapped
+       it flush.
+   - Canvas stays **original 1920×1080** (set by the first clip); duration 52.967 s.
 
 ## Wait conditions
 
