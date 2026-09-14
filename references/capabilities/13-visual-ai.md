@@ -381,6 +381,14 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
     - No dialog.
     - **Agent-verified:** main material `matting.flag` **3 → 1** (not 0: flag 1 appears to mean
       "analysed but off"; the path is kept). The overlay material stays **3**.
+    - The preview now shows the full room again (`45-main-removal-off.png`). That's expected: the
+      cut-out overlay sits exactly over an unblurred copy.
+  - **Find a blur effect:**
+    1. Asset tab **Effects** ≈(286,70) opens Video effects ▸ Trending (`46-effects-tab.png`).
+    2. Search box ≈(380,127), placeholder "People are searching …". `type "blur"`, then Enter.
+    3. The results panel shows **"Loading…"** for more than 3 s (`47-effects-blur-search.png`), so
+       wait before screenshotting.
+    - The main clip stays selected throughout.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
