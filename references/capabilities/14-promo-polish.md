@@ -369,6 +369,12 @@ by player frames:
    - Options: **✓ None** ≈(1520,561), **Blur** ≈(1516,601), Color ≈(1520,641), Pattern ≈(1526,681),
      Brand backgrounds ≈(1564,721).
    - No Pro diamonds are shown in the list.
+7. **Pick "Blur"** ≈(1516,601). The popup closes and the dropdown reads **Blur**; a row of
+   blur-strength thumbnails appears underneath, partly cut off at y≈560
+   (`35-canvas-blur-picked.png`).
+   - ⚠ **Picking Blur alone changes nothing in the draft.** 20 polls (10 s) plus a re-check all
+     show `canvas_color` on every segment, and the draft mtime stayed 02:48:56.967.
+   - A **blur level thumbnail must be clicked** to apply it.
 
 ## Wait conditions
 
