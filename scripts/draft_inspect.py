@@ -6,6 +6,11 @@ Never writes to CapCut's project folders. Times in CapCut drafts are microsecond
   draft_inspect.py list [--all]
   draft_inspect.py summary <project name|folder> [--json out.json] [--copy-json-to DIR]
   draft_inspect.py diff <before_summary.json> <after_summary.json>
+  draft_inspect.py words <project> [--around SEC --window SEC]
+  draft_inspect.py gaps <project> [--min 0.6 --keep 0.125]
+  draft_inspect.py keyframes <project> [--json out.json]
+
+diff ignores CapCut's float re-serialisation noise (values rounded to 6 places, times within 1 ms).
 """
 from __future__ import annotations
 
@@ -122,6 +127,48 @@ def _mat_label(cat: str, mat: dict, index: dict | None = None) -> str:
     return name
 
 
+def _kf_detail(s: dict) -> list[dict]:
+    """A segment's keyframes on the timeline clock.
+
+    CapCut stores keyframe time_offset on the segment's SOURCE clock (microseconds), so a keyframe on
+    the first frame of a segment whose source starts at 328.267 s has time_offset 328266666.
+    """
+    tr = s.get("target_timerange") or {}
+    sr = s.get("source_timerange") or {}
+    speed = s.get("speed") or 1.0
+    rows = []
+    for g in s.get("common_keyframes") or []:
+        for k in g.get("keyframe_list") or []:
+            off = k.get("time_offset") or 0
+            rows.append(dict(
+                prop=g.get("property_type"), offset=off,
+                time=(tr.get("start") or 0) + round((off - (sr.get("start") or 0)) / speed),
+                values=k.get("values"), curve=k.get("curveType"),
+                left=k.get("left_control"), right=k.get("right_control"),
+                string=k.get("string_value") or None,
+            ))
+    return sorted(rows, key=lambda r: (r["prop"] or "", r["offset"]))
+
+
+def _norm(v, nd: int = 6):
+    """Round floats so CapCut's re-serialisation noise (1.0999999999999999 vs 1.1) doesn't show as a change."""
+    if isinstance(v, float):
+        return round(v, nd)
+    if isinstance(v, dict):
+        return {k: _norm(x, nd) for k, x in v.items()}
+    if isinstance(v, list):
+        return [_norm(x, nd) for x in v]
+    return v
+
+
+def _kf_line(r: dict, fps: float) -> str:
+    ctl = ""
+    if r.get("left") or r.get("right"):
+        l, rt = r.get("left") or {}, r.get("right") or {}
+        ctl = f" L({l.get('x', 0):.3g},{l.get('y', 0):.3g}) R({rt.get('x', 0):.3g},{rt.get('y', 0):.3g})"
+    return f"{r['prop']} @ {tc(r['time'], fps)} = {_norm(r['values'], 4)} {r['curve']}{ctl}"
+
+
 def summarize(folder: Path) -> dict:
     content = folder / "draft_content.json"
     raw = content.read_bytes()
@@ -166,6 +213,7 @@ def summarize(folder: Path) -> dict:
                 clip=dict(scale=clip.get("scale"), pos=clip.get("transform"), rotation=clip.get("rotation"),
                           alpha=clip.get("alpha"), flip=clip.get("flip")) if clip else None,
                 keyframes=len(s.get("common_keyframes") or []),
+                kf=_kf_detail(s),
                 refs=sorted(refs, key=lambda r: (r["cat"], r["name"])),
             )
             segs.append(seg)
@@ -287,12 +335,20 @@ def cmd_diff(a):
         for sid in s0.keys() & s1.keys():
             x, y = s0[sid], s1[sid]
             diffs = []
-            for k in ("start", "duration", "src_start", "src_duration", "speed", "volume", "visible", "clip", "keyframes"):
-                if x.get(k) != y.get(k):
-                    if k in ("start", "duration", "src_start", "src_duration"):
-                        diffs.append(f"{k} {tc(x.get(k), fps)} -> {tc(y.get(k), fps)}")
-                    else:
-                        diffs.append(f"{k} {x.get(k)} -> {y.get(k)}")
+            for k in ("start", "duration", "src_start", "src_duration"):
+                xv, yv = x.get(k), y.get(k)
+                # <=1 ms is CapCut float re-serialisation, not an edit (a frame is 33 ms at 30 fps)
+                if (xv is None) != (yv is None) or (xv is not None and abs(xv - yv) > 1000):
+                    diffs.append(f"{k} {tc(xv, fps)} -> {tc(yv, fps)}")
+            for k in ("speed", "volume", "visible", "clip"):
+                if _norm(x.get(k)) != _norm(y.get(k)):
+                    diffs.append(f"{k} {_norm(x.get(k))} -> {_norm(y.get(k))}")
+            if "kf" in x and "kf" in y:
+                kx = {_kf_line(r, fps) for r in x["kf"]}
+                ky = {_kf_line(r, fps) for r in y["kf"]}
+                diffs += [f"+kf {line}" for line in sorted(ky - kx)] + [f"-kf {line}" for line in sorted(kx - ky)]
+            elif x.get("keyframes") != y.get("keyframes"):
+                diffs.append(f"keyframes {x.get('keyframes')} -> {y.get('keyframes')}")
             if x["material"]["sig"] != y["material"]["sig"]:
                 diffs.append(f"material changed ({x['material']['name']!r} -> {y['material']['name']!r})")
             rx = {(r["cat"], r["name"], r["sig"]) for r in x["refs"]}
@@ -442,8 +498,33 @@ def main():
     p.add_argument("--words-json", help="also save the word list used")
     p.add_argument("--json")
     p.set_defaults(fn=cmd_gaps)
+    p = sp.add_parser("keyframes", help="every segment keyframe on the timeline clock, with curve/easing data")
+    p.add_argument("project")
+    p.add_argument("--json")
+    p.set_defaults(fn=cmd_keyframes)
     a = ap.parse_args()
     a.fn(a)
+
+
+def cmd_keyframes(a):
+    """Keyframes per segment: property, timeline time, offset into the segment, value, curve type, handles."""
+    s = summarize(resolve_project(a.project))
+    fps = s["fps"]
+    rows = []
+    for t in s["tracks"]:
+        for seg in t["segments"]:
+            if not seg["kf"]:
+                continue
+            rows.append(dict(track=t["i"], seg=seg["i"], start=seg["start"], end=seg["end"], keyframes=seg["kf"]))
+            print(f"Track {t['i']} [{t['type']}] seg {seg['i']}  {tc(seg['start'], fps)} -> {tc(seg['end'], fps)}")
+            for r in seg["kf"]:
+                print(f"    +{(r['time'] - seg['start']) / 1e6:8.3f}s  {_kf_line(r, fps)}")
+    if s["keyframe_groups"]:
+        print(f"top-level keyframe groups: {s['keyframe_groups']}")
+    if a.json:
+        Path(a.json).write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    n = sum(len(r["keyframes"]) for r in rows)
+    print(f"-- {n} keyframe(s) on {len(rows)} segment(s)" if n else "No segment keyframes.")
 
 
 if __name__ == "__main__":

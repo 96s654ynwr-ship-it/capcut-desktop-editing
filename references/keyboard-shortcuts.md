@@ -50,7 +50,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Shuttle right | L | listed | (Shuttle left presumably J; see rest of list) |
 | Delete left | Q | listed | trims the selected clip's part left of the playhead |
 | Delete right | W | **agent-verified 2026-09-14** | with the segment selected and the playhead at 15.000 s inside it, the segment now ends at 15.000 s (start and source start unchanged) |
-| Show/Hide keyframe panel | Alt+K | listed | |
+| Show/Hide keyframe panel | Alt+K | **agent-verified 2026-09-14** | with a keyframed clip selected, it opens an inline graph panel above that clip on the timeline ("Transform ▴ / Scale ▴", curve-preset icons, ‹◆›, a value axis). The track shifts down about 60 px while it's open, so re-measure clip y before clicking. Draft unchanged. Also in the keyframe right-click menu as "Show variable speed animation" |
 | Add keyframe on keyframe panel | Shift+Click | listed | |
 | Add keyframe | Shift+Alt+K | listed | |
 | Ease in / Ease out / Easing / Linear / Adjust properties | (unassigned) | listed | no default key |

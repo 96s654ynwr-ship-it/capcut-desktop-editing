@@ -376,6 +376,14 @@ Which icon is which gets established by behaviour in rung 2, then recorded here.
   - **Position** X / Y steppers
   - **Rotate** (0.00°) with a dial
   - a row of 6 alignment buttons
+- **Keyframe controls** (agent-verified 2026-09-14, rung 7): every Transform row ends in `‹ ◇ ›`,
+  meaning previous keyframe / add or remove keyframe / next keyframe.
+  - The ◇ is **hollow** off a keyframe and **filled cyan** on one.
+  - Once a property has a keyframe, typing a new value (Enter) **auto-adds a keyframe** at the
+    playhead.
+  - Between keyframes the value box shows the **interpolated** value, rounded to 1%.
+  - A selected clip shows white diamond markers on its strip. Right-click one for Ease in / Ease
+    out / Easing / Linear (see Context menus).
 - **Blend:** checkbox (checked by default), with reset and keyframe icons.
 - **Stabilize:** checkbox with a **purple Pro diamond badge**.
 
@@ -534,6 +542,23 @@ reliable. Greyed items are disabled in the current state.
 | Edit effects / Show variable speed animation | disabled |
 | Range › | |
 | Render › | |
+
+**On a keyframe marker** (small white diamond on a selected clip's thumbnail strip; executed
+2026-09-14, `evidence/2026-09-14/cap7/kf-rightclick.png`):
+
+| Item | Notes |
+|---|---|
+| Ease in | curve preset |
+| Ease out | curve preset |
+| Easing | ease in-out preset |
+| Linear | ✓ by default |
+| Show all presets | |
+| Show variable speed animation | Alt+K |
+| Copy | Ctrl+C |
+| Delete | Backspace |
+
+The first time a keyframe is added, a yellow tip says *"Right-click the keyframe to create
+variable speed animations"*. Dismiss it with its **OK** button.
 
 **On empty timeline space:**
 - Close gap (disabled)

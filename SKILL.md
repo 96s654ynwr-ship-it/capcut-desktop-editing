@@ -161,6 +161,7 @@ PY <skill>\scripts\draft_inspect.py summary "0707 copy" [--json out.json]
 PY <skill>\scripts\draft_inspect.py diff before.json after.json
 PY <skill>\scripts\draft_inspect.py words "0914 (4)" --around 295 --window 8   # caption word timings (after Auto captions)
 PY <skill>\scripts\draft_inspect.py gaps "0914 (4)" --min 0.6 --keep 0.125     # silences between words + proposed cuts (flags edit joins)
+PY <skill>\scripts\draft_inspect.py keyframes "0914 (4)"                        # segment keyframes on the timeline clock: property, value, curve + Bezier handles
 PY <skill>\scripts\tighten_gaps.py --project "0914 (4)" --dry-run                # plan silence tightening (needs Auto captions; no input)
 PY <skill>\scripts\tighten_gaps.py --project "0914 (4)" --count 5 --undo-captions  # do it natively: exact splits + W, verified per cut (rung 5)
 ```
