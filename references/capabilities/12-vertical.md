@@ -511,6 +511,15 @@ against beat marks) and in frames.
      a timeline linkage toggle. Next: zoom into the toolbar's right-hand toggle group
      (`42-toolbar-right-before-3x.png`), deselect by clicking the player's dark area, and
      compare with rung 0's toggle map.
+3. **Toolbar toggles** (3× crop): mic; **magnet** (≈1432, cyan outline, on); middle toggle (≈1477,
+   filled cyan); **chain-link icon** (≈1522, cyan, with ▾ ≈1547); compare/split icon with ▾;
+   monitor; zoom.
+   - The chain-link glyph is the likely **Linkage switch (~)**, currently on. Rung 0 left the
+     middle and third toggles unidentified.
+4. **Deselect:** click the player's dark area (≈1300,300), outside any menu. **All borders cleared**
+   (`43-after-deselect-tracks.png`), and the draft is unchanged.
+5. **Test** (next): hover the chain toggle for its tooltip, then click a single caption with nothing
+   selected. This separates "selection inherited from the undo" from "linkage".
 
 ## Wait conditions
 
