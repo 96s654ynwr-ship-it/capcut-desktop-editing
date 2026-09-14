@@ -284,6 +284,64 @@ by player frames:
    - Chips: ★, Trending, Basic, Light, Glitch, Mask…
    - In cards: None (selected), Zoom 1, Unmelting, Rock V…ically, Magi…wave, **Fade In** (no
      diamond), Zoom Out, Zoom In, and more. Pro diamonds appear on some cards.
+4. **Out sub-tab** ≈(1678,126), wait ≈5 s (`24-animation-out.png`). Cards:
+   - None (selected)
+   - Zoom In (Pro), Mini Zoom (Pro)
+   - **Fade Out** ≈(1792,303), **no diamond**
+   - Blurr…de-in, Finger Swipe, TV Off, Quick…n-out, most with Pro diamonds
+
+   **Chosen: Fade Out** (free).
+5. **Click the Fade Out card.** A single click **applies** it; there's no separate add button.
+   - No dialog; the window list is unchanged.
+   - **Agent-verified** (`diff-fadeout.txt`, 15 lines), a new entry in the clip's existing
+     `material_animations` helper:
+     - `animations[0]`: **`name` Fade Out, `type` out**, `material_type`/`panel` video
+     - **`start` 14 500 000 µs, `duration` 500 000 µs**, i.e. the last 0.5 s of the 15 s clip
+       (default)
+     - `resource_id` 6798320902548230669, `category_name` Trending-2
+     - `path` in the global `User Data\Cache\effect\<id>\…`, so the card was downloaded on the
+       click
+   - Nothing else changed: no track, time, transition, blur, logo or Auto adjust changes.
+   - **Owner verified** (`anim_owner.py`): the only segment with a non-empty animation is **track 1
+     (`flag` 2) 0–15 s, matting 3**, the cut-out overlay, with `[('Fade Out', 'out', 14.5, 0.5)]`.
+   - **Observed** (`25-fadeout-applied.png`):
+     - The Fade Out card gets a cyan border.
+     - A **Duration** slider + box (**0.5s**, box ≈(1845,545)) appears at the bottom of the panel.
+     - A small fade arrow marks the end of the overlay clip.
+     - The player (playhead 15:00) shows the blend with no opaque speaker, so the overlay no longer
+       pops at the cut.
+6. **Lengthen the fade to 1.0 s** to cover the first half of the 2.0 s Cross Fade (14–16 s): click
+   the Duration box ≈(1845,545), then `key ctrl+a`, `type "1.0"`, `key enter`.
+   - **Agent-verified (first poll):** `[('Fade Out', 'out', 14.0, 1.0)]`.
+   - The diff vs `draft-after-fadeout.json` is **exactly** `duration` 500 000 → 1 000 000,
+     `start` 14 500 000 → 14 000 000, and `request_id` cleared.
+   - CapCut keeps the Out animation anchored to the clip end, so `start` moves back as the
+     duration grows.
+   - The inspector box reads **1.0s** and the fade arrow on the overlay clip is longer
+     (`26-fadeout-1s.png`).
+7. **Frames with the 1.0 s fade** (ruler x≈813/834/846 → 14:00, 14:14, 14:23;
+   `27-fade-*.png`):
+   - **14:00:** fade start. The speaker is fully present and sharp over the blurred room; the logo
+     is readable.
+   - **14:14:** the speaker is still clearly there, slightly more transparent (edges softer against
+     the room).
+   - **14:23:** the speaker is **semi-transparent**, ghosting together with the desk image coming
+     in. The overlay dissolves with the Cross Fade.
+   - **15:00** (`26-fadeout-1s.png` player): blend only, no opaque speaker.
+   - **The pop is fixed:** the overlay now fades out across the first half of the transition
+     instead of cutting at 15:00.
+8. **Undo/redo gate (agent-verified).** Polled with `anim_owner.py`; guards are the Auto adjust
+   count 3 and Cross Fade present, and both stayed unchanged at every step:
+   - Ctrl+Z → `(14.5, 0.5)`: the duration change is its own undo step.
+   - Ctrl+Z → no animation: the Fade Out is removed (`28-gate-undo-fade.png`).
+   - Ctrl+Shift+Z → `(14.5, 0.5)`.
+   - Ctrl+Shift+Z → `(14.0, 1.0)` (`29-gate-redo-fade.png`).
+   - Every step landed on the first poll.
+   - Diff vs `draft-after-fadeout-1s.json`: **no differences**.
+
+### F. Fix 2: Canvas blur behind the desk clip (2026-09-15)
+1. **Baseline:** `draft-before-canvas.json`.
+2. **Select only the desk clip:** `click 1170 895` (`30-desk-selected.png`).
 
 ## Wait conditions
 
