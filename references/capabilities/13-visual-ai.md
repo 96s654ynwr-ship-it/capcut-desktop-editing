@@ -356,6 +356,22 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
           desk = 45 s) and whether `matting` is kept.
        3. Drag the **0–15 s** copy up from its centre. The main track ripples back to talk 0–15 +
           desk 15–30, and the overlay holds the other copy at 0–15.
+- **Executed (agent-verified 2026-09-15):**
+  - The project was reopened from Home by clicking the `0915` card (≈383,793; name confirmed after
+    `scroll 1000 700 -3`). `MainWindow` appeared after 4 s. The draft mtime was unchanged, and the
+    diff vs `final-after-save.json` showed no differences (`draft-before-bg.json`).
+  - At the reopened layout, zoom is ≈41.7 px/s: talk clip x≈230–855, desk 855–1480, playhead
+    00:00, nothing selected (`42-reopened.png`).
+  - Click the talk clip (≈540,835), then **Ctrl+C**, then **Ctrl+V** with the playhead at 00:00.
+    **The paste does NOT insert on the main track.** It creates a **new overlay track** (`flag` 2)
+    with the copy at the **playhead**: 0 → 15 s, source 80 s (`43-after-paste.png`, overlay row
+    y≈745).
+    - The main track is unchanged; duration stays 30.0 s. The drag step is not needed.
+    - The copy gets its **own video material** (new id) with `matting.flag` **3** copied, plus a
+      new set of per-clip helper materials (canvases, speeds, colors, … 2 → 3). The pasted clip
+      is auto-selected.
+  - Layer order: the overlay (top) is already the cut-out, and the main-track copy is below it. So
+    the main copy needs Auto removal **off** plus a blur.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
