@@ -342,6 +342,13 @@ by player frames:
 ### F. Fix 2: Canvas blur behind the desk clip (2026-09-15)
 1. **Baseline:** `draft-before-canvas.json`.
 2. **Select only the desk clip:** `click 1170 895` (`30-desk-selected.png`).
+   - Only the desk clip gets the white border.
+   - The inspector stays on the last tab (Animation ▸ Out) with tabs **Video ≈(1480,70) / Audio /
+     Speed / Animation / Adjust / …**.
+   - The playhead sits at 14:23 from the gate frames; the player shows the mid-transition blend.
+3. **Verification helper:** `canvas_state.py <project> [--want-blur-desk]` prints each video
+   segment's canvas material (type / blur / color / image), resolved through
+   `extra_material_refs`.
 
 ## Wait conditions
 
