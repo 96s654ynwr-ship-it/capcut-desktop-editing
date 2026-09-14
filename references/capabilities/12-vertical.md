@@ -593,6 +593,16 @@ against beat marks) and in frames.
     - The template's black word-box is presumably drawn through these Background settings.
     - Each `-4` scroll jumps ≈1.5 sections, so Position sits between scroll positions 1 and 2.
     - Captions are still single-selected (`51-selection-check.png`), and the draft is unchanged.
+12. **Transform ▸ Position for a caption in 9:16** (`scroll 1480 440 6` from scroll 3, i.e. net
+    `-6`; `52-caption-inspector-transform.png`): Uniform scale on, **Position X 0 / Y −1402**, Plane
+    rotation 0.00°, alignment row.
+    - The Y box is ≈(1756,367); `-1` more scroll moves Position out of view (`…-b.png`).
+    - **Units in 9:16 (agent-verified by readout):** the stored `transform.y` −0.73 displays as
+      **−1402 = −0.73 × 1920**. The typed Y scales with **canvas height** (1920 here, 1080 in 16:9).
+      As in rung 10, `transform` 1.0 = half the canvas, so one typed unit is ½ canvas px and −0.73
+      is ≈701 px below centre (≈86.5 % down). That matches the measured 86 %.
+    - **Target:** caption centre ≈70 % down means 384 px below centre, i.e. `transform.y` −0.40,
+      i.e. type **−768**.
 
 ## Wait conditions
 
