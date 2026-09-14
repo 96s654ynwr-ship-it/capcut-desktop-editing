@@ -12,6 +12,31 @@ manual. Every row carries an evidence label (`observed` / `executed` / `agent-ve
 `user-approved`). Don't record pixel coordinates. Record names, control types, AutomationIds,
 routes and visual landmarks. Re-verify after CapCut updates.
 
+## Contents
+
+1. **Headline finding.** CapCut is invisible to UIA/MSAA, so work screenshot-first.
+2. **Coverage summary.** Per-area tree coverage.
+3. **Method notes.** Probes, DPI, sandbox, foreground stealing.
+4. **Areas**
+   - Home / project list
+   - Editor top bar · Asset toolbar · Media panel (import popup, file dialog)
+   - Player (tree-exposed geometry)
+   - Inspector (Details) · Timeline toolbar (tooltips) · Timeline tracks
+   - Inspector: clip selected (Video → Basic)
+   - Inspector: other clip tabs (Audio, Speed, Animation, Adjust, AI stylize)
+   - Asset panels (Audio, Text, Stickers, Effects, Transitions, Captions, Filters, Adjustment,
+     Templates, AI avatar)
+   - Menu (File, Edit, More, Help, Account ⚠)
+   - Inspector: Video and Audio sub-tabs (Remove BG, Mask, Retouch, Voice changer)
+   - Context menus (clip, empty timeline; tooltip windows)
+   - Menu ▸ Layout
+   - Settings dialog
+   - Transcript editor (deferred)
+   - Export dialog (sync-to-space ⚠)
+
+Search this file for a control name before taking a screenshot. If a control isn't here, map it
+and add it.
+
 ## Headline finding (observed, 2026-09-14)
 
 **The CapCut home window exposes only its root element to UI Automation.** With CapCut verified in
@@ -539,8 +564,6 @@ Not opened in Capability 0. The Transcript tool (toolbar, and the clip right-cli
 **Pro** and may start cloud transcription that uses credits. Open it in rung 3, with the user's
 confirmation.
 
-### Context menus
-
 ### Export dialog
 Opened via the cyan **Export** button (top-right) — shortcut **Ctrl+E**. Observed 2026-09-14 (opened and cancelled, nothing exported).
 
@@ -554,5 +577,17 @@ Opened via the cyan **Export** button (top-right) — shortcut **Ctrl+E**. Obser
 - The settings list scrolls (scrollbar on the right) — more options below Audio may exist; scroll inside the list before assuming.
 
 ### Settings / shortcuts
+See **Settings dialog** above and `keyboard-shortcuts.md`. That file holds the full list,
+transcribed from Menu ▸ Help ▸ Shortcuts.
 
 ### Modals
+Seen so far (2026-09-14):
+- **Onboarding tooltip.** A yellow "Layers can be reordered in…" bubble sits at the bottom of the
+  Details inspector. It's harmless, but it can cover the **Modify** button.
+- **CapCut popups/menus.** `MenuWindow` in the tree; close with a click on empty space.
+- **Named dialogs.** `HelpDialog` (Shortcuts), `ExportWindow_Container` (Export),
+  `GlobalSettingsWindow` (Settings). Their presence in `cc.py tree --depth 2` means they're open.
+
+Not yet seen: upsell/subscription prompts, login prompts, update prompts, crash dialogs. When
+one appears, screenshot it, record its landmarks and close route here, and never accept
+purchases or updates.
