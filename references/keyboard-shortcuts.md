@@ -24,7 +24,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Action | Shortcut | Status | Notes |
 |---|---|---|---|
 | Split | Ctrl+B | **agent-verified 2026-09-14** | With the clip selected, it splits exactly at the playhead (draft: segment ends at 10.000 s, new one starts at 10.000 s) |
-| Split all | Ctrl+Shift+B | listed | splits every track at the playhead |
+| Split all | Ctrl+Shift+B | **agent-verified 2026-09-14** | With nothing selected, it splits every track that **crosses** the playhead. Tracks in a gap at that time are untouched (rung 12: only the main track split at 35.533 s; captions, title and PiP were unaffected). Per-clip audio materials (loudness/denoise/enhance) are duplicated onto the new piece, pointing at the same processed source range. |
 | Select mode | A | listed | selection tool |
 | Split mode | B | listed | blade tool: clicking a clip splits it |
 | Select leftward | [ | listed | |

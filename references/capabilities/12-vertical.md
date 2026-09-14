@@ -90,6 +90,59 @@ against beat marks) and in frames.
      0914 (4)-copy moved to second (≈566,703).
    - The rest shift one slot right, so re-read card names before every click.
 
+### B. Open the copy and place the playhead at the section end (executed 2026-09-14)
+1. Click the first card (≈383,703). `MainWindow` appears on the first poll. After ≈6 s,
+   `focus --maximize`.
+   - Title bar: **0914 (4)-copy-copy**. Details Name/Path are the copy's.
+   - The timeline matches the master: PiP row, title TT, caption TT, 7 main clips.
+   - The draft is unchanged by opening.
+2. **Ruler click** at fit zoom: x = 229 + 2.7833 × 35.533 ≈ **328** (y 628).
+   - The playhead landed on **00:00:37:10**, not ≈35.5 s. It snapped to the caption boundary
+     «وانا هاعمل» at 37.33 s, as in rungs 5, 8 and 10.
+3. `key left` × **54** (1120 → 1066 frames at 30 fps) → **00:00:35:16** (35.533 s), confirmed on
+   a zoomed timecode crop (`05-tc.png`). The draft stays unchanged.
+
+### C. Split all at the section end (executed + agent-verified 2026-09-14)
+1. With the playhead at 00:00:35:16 and nothing selected, press **`key ctrl+shift+b`** (Split all).
+   The draft saved on the first 0.5 s poll.
+2. **`diff` vs `copy-baseline.json`:**
+   - **Only the main track was split**, because it is the only track crossing 35.533 s. The caption
+     track sits in a gap (35.27–35.80), the title ends at 4 s, and the PiP starts at 96 s. Split
+     all leaves tracks that don't cross the playhead alone.
+   - Main seg 0: duration 122.200 → **35.533 s** (src_duration likewise).
+   - New seg: **35.533 → 122.200 s**, `VID_20260720_190542.mp4`.
+   - segment_count 248 → 249, and every per-clip material +1 (videos, canvases, speeds,
+     placeholder_infos, sound_channel_mappings, material_colors, vocal_separations,
+     material_animations). The rung-11 **loudnesses / realtime_denoises / vocal_beautifys also +1**:
+     the new piece gets its own copies.
+   - Side effect: `+ref loudnesses; -ref loudnesses` on main segs at 122.2, 359.467 and 426.867 s.
+     Their loudness materials were re-linked; values are checked in step 3.
+3. **Audio refs after the split** (`audio_check.py` → `audio-after-split.json`, agent-verified):
+   - Both halves of old clip 0, seg 0 (0–35.533) and the new seg 1 (35.533–122.2), keep denoise
+     True, enhance `enable` True / 75, **the same `time_range` 46 933 333 + 122 200 000 µs** and
+     the same loudness `file_id`, `avg` −11.67 and target −23.
+   - The split did **not** re-run Enhance voice. Each piece plays the matching slice of the
+     original enhanced result.
+   - Segs 2–7 (former 1–6) keep identical values (−12.63, −12.62, −11.41, −11.34, −13.81, −13.71).
+     The "re-linked" loudness refs are new material objects with unchanged values.
+4. **After-split frame** (`06-after-split-all.png`):
+   - A split line on main clip 0 at the playhead (x≈327). The left piece is labelled
+     "VID_20260720_1…", the right one "VID_20260720_190542.mp4 00:01:26:2…".
+   - The playhead stays at 00:00:35:16, nothing is selected, and the title bar reads "Auto saved:
+     22:13:42".
+
+### D. Selecting everything right of the playhead (in progress)
+1. **Empty-timeline right-click** (`click 1000 680 --right`, `07-empty-timeline-menu.png`):
+   - A `MenuWindow` appears in the tree. The right-click did **not** move the playhead (still
+     00:00:35:16) or touch the draft.
+   - Items: Close gap (disabled) ≈(1059,701), Close all gaps (disabled) ≈(1071,736), **Select**
+     ≈(1047,777), Paste (disabled) ≈(1045,818), **Range ›** ≈(1048,854), **Render ›** ≈(1050,889).
+   - "Select" has no ›, so it is an action or mode, not a submenu. Not clicked.
+2. **Better route found in the shortcuts list:** **Select rightward = `]`** (and Select leftward =
+   `[`), both "listed" and not yet verified. Plan: close the menu with a neutral click, refocus the
+   timeline without seeking, then press `]`. The expected selection is every clip on every track
+   starting at or after the playhead.
+
 ## Wait conditions
 
 ## Verification
