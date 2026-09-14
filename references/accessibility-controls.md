@@ -30,11 +30,14 @@ The Qt UIA bridge is loaded and answers, but CapCut's QML item tree isn't publis
 the items have no accessible roles, or are marked ignored. Until a later probe finds otherwise, **the
 home screen is screenshot-driven**: landmarks + grid coordinates + keyboard.
 
-Still to probe (needs the user's go-ahead):
+**Relaunched with `QT_ACCESSIBILITY=1`** (graceful close, env var for that launch only, user
+approved 2026-09-14): **no change**. The home window was still root only on every probe (walkers
+1, FindAll 0, hit-test 1, MSAA 0). This environment variable doesn't unlock CapCut's tree.
+
+Still to probe:
 - the **editor** window (a different QML root, may differ)
 - popups, menus and dialogs (separate top-level windows)
 - CEF web panels
-- relaunching CapCut with `QT_ACCESSIBILITY=1`
 
 The probe script is kept at `evidence/2026-09-14/cap0/uia_probe.py` (gitignored).
 
@@ -70,11 +73,21 @@ Coverage levels:
   screenshots.
 - **Popups/menus as separate windows:** not yet checked.
 - **CEF:** not yet checked.
-- **DPI:** the process is per-monitor aware. The window rect from DWM (0,0,1920,1030) matched the
-  screenshot layout exactly at 125% scale. A click-mapping test is still pending, because it needs
-  a harmless clickable target.
+- **DPI: agent-verified 2026-09-14 at 125%.** Grid-label screen coordinates hit their targets:
+  the Create project banner, Import, From device, the file dialog's Open (via UIA), and a
+  media-card → timeline drag that the draft diff confirmed. The window rect from DWM matches the
+  screenshot layout. Home is 1920×1030 maximized; the editor window is 1920×1080.
 - **Agent sandbox:** Claude Code (desktop app, Windows) ran UIA queries, `SetForegroundWindow` and
   screen capture without any escalation.
+- **Editor MSAA:** `AccessibleObjectFromWindow` on the editor showed 2 children, but a full walk
+  (47 objects) contained **only generic Windows frame parts** (system menu bar, title bar with
+  IME/Minimize/Maximize/Context help/Close, application menu bar, vertical/horizontal scroll bars,
+  grip), duplicated for two nested windows. **No CapCut content is exposed through MSAA either.**
+  Script: `evidence/2026-09-14/cap0/msaa_probe.py`.
+- **Conclusion for 9.4.0.4015:** CapCut's own UI (home and editor) is invisible to every Windows
+  accessibility API. Operate it by **grid screenshots + visual landmarks + keyboard shortcuts**.
+  Use the tree only for native Windows dialogs CapCut opens (e.g. the file picker) and for window
+  management.
 - **Foreground stealing:** the Claude desktop app re-raised itself during a probe, and a
   point-sweep sampled the Claude window instead. Always verify the foreground and the element's
   `ProcessId`. `cc.py` screenshots now refocus CapCut and report `foreground_ok`.
@@ -101,19 +114,198 @@ For each area add a table:
 | Projects section | "Projects" heading with search icon, grid/list toggle, **Trash**, **Project sync** buttons on the right; project thumbnail cards below (scroll down for more) | observed |
 | Title bar | Top-right icon row before the minimize/maximize/close controls (purpose to confirm by hover tooltips) | observed |
 
+> **Editor window (observed 2026-09-14, blank project):**
+> - root `Window "CapCut"`, AutomationId `MainWindow`, ClassName `MainWindow_QMLTYPE_498`
+> - UIA walkers 1, FindAll 0, hit-test root only
+> - MSAA reports 2 child objects (see Method notes)
+>
+> Opening a blank project: home → click the **Create project** banner. The project is auto-named
+> with the date (`MMDD`, e.g. `0914`) and saved in the default draft root. The editor window
+> replaces the home window (a new hwnd).
+
 ### Editor top bar
+Visual landmarks (observed, 125%, blank project), left to right:
+- CapCut logo
+- **Menu** dropdown
+- project name centred (`0914`)
+- layout-switcher icon with dropdown
+- **Pro** badge
+- **Share** button
+- cyan **Export** button
+- minimize / restore / close
 
 ### Asset toolbar
+A tab row across the top-left: **Media, Audio, Text, Stickers, Effects, Transitions, Captions,
+F(ilters)…**, with a ">" arrow that scrolls to more tabs (Adjustment, Templates, AI… to confirm).
+The active tab is cyan. (observed)
 
 ### Media panel
+Left sub-navigation under Media:
+- **Import** (expanded)
+- **Media**
+- **Subprojects**
+- **Yours** ▾
+- **Generate** ▾ (AI badge)
+- **Spaces** ▾
+- **Library** ▾
+- **Dreamina**
+
+Main area:
+- A large **Import** drop zone ("+ Import"; "Drag and drop videos, photos, and audio files
+  here").
+- Under "No media? Create with these tools": **Generate**, **AI avatars**, **Record**.
+
+(observed)
+
+**Import popup** (executed 2026-09-14):
+- Clicking the **+ Import** drop zone opens a small dark popup under the cursor with **From
+  device** (monitor icon) and **From library** (folder icon).
+- The popup is a separate top-level CapCut window: `cls=MenuWindow`, a full-screen transparent
+  overlay rect, title "CapCut". Its tree is root only.
+- **A CapCut popup or menu is open when `cc.py windows` lists a `MenuWindow`.** Press Esc or
+  click outside it to dismiss.
+
+**From device → native Windows file dialog** (executed 2026-09-14). Tree coverage is **full**: it's
+a standard Win32 `#32770` dialog titled "Select a media resource", owned by CapCut.
+
+| Control | ControlType | Name / AutomationId | Patterns | Evidence |
+|---|---|---|---|---|
+| File name box | Edit | "File name:" / `1148` | Value | executed |
+| Open | Button | "Open" / `1` | Invoke | executed |
+| Cancel | Button | "Cancel" / `2` | Invoke | observed |
+| Search box | Edit | "Search Box" / `SearchEditBox` | Value | observed |
+
+**Route:**
+
+```
+cc.py act set-value --type Edit --id 1148 --value "E:\videos\clip.mp4"
+cc.py act invoke --type Button --id 1 --name Open
+```
+
+The dialog also appears inside the main window's UIA subtree, so older `cc.py` builds listed every
+match twice.
+
+**After import** (observed 2026-09-14):
+- The Media panel switches to a grid with an **Import** button, a **Record** button,
+  sort/filter icons and an "All" label.
+- The imported clip is a thumbnail-strip card labelled with its filename, and a duration badge
+  sits on the card.
+- The player title changes to **Previewing — video**. It shows the clip, and the timecode reads
+  `00:00:00:00 / <clip duration>` (e.g. `00:00:23:13`).
+- The top bar shows **Auto saved: HH:MM:SS** next to Menu. Use it as the autosave indicator before
+  running `draft_inspect.py`.
+- Importing alone does not put anything on the timeline.
 
 ### Player
+**The tree exposes the player's geometry** (observed 2026-09-14, clip loaded). Under the
+`MainWindow` root:
+- `Window` id `editPanelLoader.editWin` (cls `EditPanel_QMLTYPE_618`): the player panel
+- `Window` id `MainWindow.surface_main` (cls `QQuickWindow`): the video render surface
+
+They have no children, but their rects are exact. Use
+`cc.py find --id MainWindow.surface_main` to get a precise crop region for preview checks
+(`cc.py screenshot --region l,t,r,b`). Not present on an empty project before import.
+
+Panel titled **Player-Timeline 01**:
+- a timecode readout `00:00:00:00 / 00:00:00:00` at the bottom left
+- play button in the centre
+- on the bottom right: quality, fit/zoom, **Ratio**, and fullscreen icons
+
+(observed; greyed out while empty)
 
 ### Inspector
+Right panel. With nothing selected it shows **Details**:
+- Name
+- Path
+- Imported media ("Stay in original location")
+- Arrange layers ("Turned on")
+- Proxy ("Turned off")
+- Timeline name ("Timeline 01")
+- Aspect ratio ("Original")
+- Resolution ("Adapted")
+- Frame rate ("30.00fps")
+- **Modify** button
+
+A yellow onboarding tooltip ("Layers can be reordered in…") may cover its bottom. (observed)
 
 ### Timeline toolbar
+The row above the tracks.
+
+Left group:
+- add-track/"+" (with a blue dot)
+- **selection tool** with a ▾ dropdown
+- undo
+- redo
+- split
+- split-left / split-right (trim to playhead)
+- delete
+- a shield/marker icon (to confirm by tooltip)
+
+Right group:
+- microphone (record voiceover)
+- four toggles (main-track magnet, auto snapping, linkage, preview axis; confirm by tooltip),
+  one with a ▾
+- a split/compare icon ▾
+- a preview/monitor icon
+- zoom **−** / slider / **+**
+
+(observed)
+
+**With a clip selected** (observed 2026-09-14): extra clip tools appear after the shield icon,
+ending in a "<" that collapses the run.
+
+**Tooltips seen by hovering** (observed 2026-09-14, `evidence/2026-09-14/cap0/toolbar-tooltips.png`).
+Tooltips appear just **below** the icon.
+
+Order left → right after crop:
+
+| Icon (landmark) | Tooltip | Badge |
+|---|---|---|
+| film-frame with bars | **Freeze** | — |
+| document with sound waves | **Transcript** | Pro diamond |
+| clip with arrow | **AI extend** ("Drag to extend your clip from…") | — |
+| magic wand | **AI edit** ("Edit images and videos just by…") | — |
+| split-screen square | **Split scenes** | "Free" |
+| person with sparkle | **Remove background** ("Automatically detect huma…") | Pro diamond |
+| wand with sparkles | **Auto adjust** | Pro diamond |
+| "HD" | **Enhance visuals** | — |
+| page with arrow | **Extract audio** | — |
+
+**Not yet confirmed by tooltip:**
+- The basic group: "+", selection ▾, undo, redo, `][` split, split-left, split-right, trash
+  delete, shield, crop. Their tooltips were outside the capture. Re-hover with a taller crop
+  (y+40…+110).
+- The right-hand group: mic and the four cyan toggles.
 
 ### Timeline tracks
+- **Empty timeline:** a drop row reads "Drag material here and start to create". (observed)
+- **Adding a clip** (executed + agent-verified 2026-09-14):
+  - Route: drag the clip card from the Media panel onto the drop row (`cc.py drag` with
+    `--steps 30 --hold 0.3`).
+  - Result: the clip lands at 00:00 on the main video track and is auto-selected (white border).
+  - Draft diff: 1 video track, 1 segment 0 → clip duration.
+  - **The canvas follows the first clip:** a vertical clip set the project to 1080×1920 ("Aspect
+    ratio: Original").
+- **Track header** (left of the track): video/track icon, **lock**, **eye** (hide), **speaker**
+  (mute), "…" menu, then a **Cover** button. (observed)
+- **Clip body:** thumbnail strip labelled `<filename>  <duration>`. It isn't in the UIA tree, so
+  locate it by screenshot. (observed)
+- **Ruler and playhead:** the ruler runs above the tracks with 00:00, 00:10, 00:20… labels. The
+  playhead is a vertical line with a handle on the ruler. (observed)
+
+### Inspector: clip selected (Video)
+- **Tab row:** **Video, Audio, Speed, Animation, Adjust, A…** with a ">" for more.
+- **Video sub-tabs:** **Basic, Remove BG, Mask, Retouch**.
+- **Basic → Transform** (collapsible, with reset and keyframe-diamond icons):
+  - **Scale** slider + stepper (100%)
+  - **Uniform scale** toggle (on)
+  - **Position** X / Y steppers
+  - **Rotate** (0.00°) with a dial
+  - a row of 6 alignment buttons
+- **Blend:** checkbox (checked by default), with reset and keyframe icons.
+- **Stabilize:** checkbox with a **purple Pro diamond badge**.
+
+(observed)
 
 ### Transcript editor
 

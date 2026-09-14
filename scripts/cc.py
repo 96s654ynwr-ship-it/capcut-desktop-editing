@@ -387,7 +387,12 @@ def roots_for(auto, args) -> list:
     wins = capcut_windows()
     if not wins:
         die("No visible CapCut window.")
-    return [auto.ControlFromHandle(w["hwnd"]) for w in wins]
+    # Owned windows (menus, dialogs) already appear inside their owner's UIA subtree; walking them
+    # as separate roots would list every element twice.
+    user32.GetWindow.restype = wt.HWND
+    handles = {w["hwnd"] for w in wins}
+    top = [w for w in wins if (user32.GetWindow(wt.HWND(w["hwnd"]), 4) or 0) not in handles]  # GW_OWNER
+    return [auto.ControlFromHandle(w["hwnd"]) for w in (top or wins)]
 
 
 def walk(auto, roots, max_depth: int, max_nodes: int, patterns: bool, within: str | None = None):
@@ -814,7 +819,7 @@ def cmd_act(a):
         p = pattern("Value")
         if p:
             p.SetValue(a.value)
-            result = f"Value set to {a.value!r}"
+            result = f"Value set to: {a.value}"
         else:
             ensure_focus(a)
             mouse("click")

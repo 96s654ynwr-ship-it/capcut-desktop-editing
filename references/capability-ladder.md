@@ -12,7 +12,7 @@ Status values:
 
 | # | Capability | Styles | Status | Procedure file | Demonstrated | Approved | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Environment + accessibility/control map | all | in-progress | `accessibility-controls.md` | | | 2026-09-14: scripts work (version/windows/focus/screenshot/draft_inspect). Home window UIA = root only. Editor, dialogs and CEF still to probe. |
+| 0 | Environment + accessibility/control map | all | in-progress | `accessibility-controls.md` | | | 2026-09-14: scripts work end to end. CapCut UI is invisible to UIA/MSAA (root windows only; relaunch with QT_ACCESSIBILITY=1 changed nothing). Native file dialog fully exposed. Practice project `0914` (blank, agent-created): clip imported via dialog and dragged to timeline, verified by draft. Toolbar tooltips partly mapped. **Remaining:** basic-tool and toggle tooltips, inspector tabs, asset tabs, shortcut list, export dialog. |
 | 1 | Duplicate project, open copy, one split at an exact time, undo test, save | all | not-started | `capabilities/01-single-split.md` | | | |
 | 2 | Timeline basics: select, delete/ripple, trim, move, add media, track lock/mute | all | not-started | `capabilities/02-timeline-basics.md` | | | |
 | 3 | Transcript editing: remove pauses/silences and filler words | YouTube | not-started | `capabilities/03-transcript-pauses.md` | | | |

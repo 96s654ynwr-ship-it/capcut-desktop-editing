@@ -16,7 +16,14 @@ rungs) replaces it with the route actually observed in this install. Columns:
 |---|---|---|---|---|---|---|
 | Auto captions | Captions/Text tab → Auto captions | | | | 8 | unverified |
 | Speaker-identified captions | Auto captions options | | | | 8 | unverified |
-| Transcript-based editing ("edit via transcript") | Captions area or clip context | | | | 3 | unverified |
+| Transcript-based editing ("edit via transcript") | Captions area or clip context | Timeline toolbar (clip selected) → **Transcript** icon | Pro diamond | ? | 3 | route observed 2026-09-14 (not run) |
+| Split scenes | — | Timeline toolbar (clip selected) → **Split scenes** | "Free" badge | ? | 2 | route observed 2026-09-14 (not run) |
+| AI extend | — | Timeline toolbar (clip selected) → **AI extend** | none seen | likely | — | route observed 2026-09-14 (not run) |
+| AI edit | — | Timeline toolbar (clip selected) → **AI edit** | none seen | likely | — | route observed 2026-09-14 (not run) |
+| Auto adjust | — | Timeline toolbar (clip selected) → **Auto adjust** | Pro diamond | ? | 14 | route observed 2026-09-14 (not run) |
+| Enhance visuals | — | Timeline toolbar (clip selected) → **Enhance visuals** (HD icon) | none seen | ? | — | route observed 2026-09-14 (not run) |
+| Extract audio | — | Timeline toolbar (clip selected) → **Extract audio** | none seen | no | 2 | route observed 2026-09-14 (not run) |
+| Freeze frame | — | Timeline toolbar (clip selected) → **Freeze** | none seen | no | 2 | route observed 2026-09-14 (not run) |
 | Remove filler words / pauses | Transcript editor | | | | 3 | unverified |
 | Vocal isolation | Inspector → Audio | | | | 11 | unverified |
 | Enhance voice | Inspector → Audio | | | | 11 | unverified |
