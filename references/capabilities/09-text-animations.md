@@ -1,9 +1,11 @@
 # Capability 09: Animated text (titles, text templates, word-by-word)
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-14. Animated Arabic title «زهقت من التأجيل» from the Arabic text template
+  #3, at 00:00:01:00 for 3 s, scale 55%, Position Y 800, built-in type-on in-animation. Verified on
+  the draft, frames, undo/redo and save.
 - **Approved:** not yet
 - **Practice project:** `0914 (4)-copy`. It is the agent-owned duplicate carrying the approved
   house captions (Arabic-only, "Classic: black box") plus the rung 4–7 edits, 7:30.533.
@@ -302,6 +304,16 @@ Evidence levels for rung 9 (2026-09-14, `0914 (4)-copy`):
   2. `key ctrl+shift+z` → first poll: `transform.y` **0.74074** again. Start/duration/text are
      identical, and `diff` vs pre-add is the same 6 additive lines.
   - Frames `frames/gate-undo.png` and `gate-redo.png`.
+- **Save (section H):** Menu (≈140,22) → **Back to home page** (≈183,303).
+  - Copy draft mtime 20:29:46.508 → **20:31:27.215**.
+  - **Final on-disk state:** title exactly as verified (text, 1.000 s / 3.000 s, scale 0.55, y
+    0.74074, template, single in-animation 0–1 s).
+  - `diff` vs pre-add: the same 6 additive lines. `track_styles.py`: 239 × house captions at −0.73,
+    plus 1 × title at 0.7407.
+  - `keyframes`: rung-7 push-in intact (seg 4, ScaleX 1.0 → 1.08, FreeCurveInOut).
+  - `final.json` summary saved.
+  - **Scope:** every other project's mtime is unchanged: 0707, 0720, 0728, the Arabic-titled one,
+    0914, 0914 (1)–(5), **0914 (6)** (user's, 20:05:02), 0914-copy.
 - **Full removal, if needed:** select the title block on its TT row, then Delete (not Backspace
   inside a text field), then verify `title_check.py` shows 0 non-house segments and the text track
   count is back to 2.
@@ -309,6 +321,7 @@ Evidence levels for rung 9 (2026-09-14, `0914 (4)-copy`):
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| The save script printed `HomeWindow: C:\Users\Yousef` plus "Cannot overwrite variable HOME". | PowerShell variables are case-insensitive, so `$home` is the read-only `$HOME`. The HomeWindow poll never ran. | Never name variables `$home`, `$host`, `$input`, `$error`, `$pid`, `$args` or `$profile`; use `$atHome`. Confirm the save by draft mtime plus a screenshot of the home page. |
 | Clicking empty timeline space (≈1000,675) to deselect also **moved the playhead** to that x (≈00:04:34). The 45 × Right presses then landed at 00:04:36:03, not 2:15. | In the empty area above the tracks, a click both deselects and seeks. | Harmless: the draft was unchanged. After deselecting, press `home`, then step with Right (75 × for 00:00:02:15). Read the timecode before trusting a frame. |
 | While polling right after typing the title, `title_check.py` failed with `JSONDecodeError: Invalid control character`. The next poll had no JSON output. | CapCut autosaves mid-typing, and the read caught `draft_content.json` half-written. | `title_check.py` now parses with `strict=False` and retries up to 10 × 0.4 s. Poll for the *expected text* instead of trusting the first read. The third poll matched «زهقت من التأجيل». |
 | Between turns the editor was closed (Home showing) and the copy's draft mtime moved 19:23:11 → 19:49:10. `diff` then listed 22 caption rows as `material changed` with identical text. | The user reviewed or closed the project, and CapCut re-serialized 22 caption text materials on close. `material_probe.py` showed only the summary `sig` hash differs. Text, template (239 × 边框弹出黑色), y −0.73 and the video track are unchanged. | Not an edit, so no action. Before trusting a baseline, re-run `track_styles.py` plus `diff`. Treat `material changed` with an identical name as re-serialization only after the template/position/text checks pass. The user also created `0914 (6)` at 20:05, which the agent does not touch. |
@@ -328,4 +341,12 @@ Evidence levels for rung 9 (2026-09-14, `0914 (4)-copy`):
   segments, draft 19:23:11).
 
 ## Open questions for the user
-- Which text template (shown as a contact sheet before applying).
+- ~~Which text template~~: answered "3 yellow bold (Recommended)".
+- The template has **no out animation**, so the title cuts off at 4:00. Keep it, or add an out
+  animation or fade? The inspector for a text template shows no Animation tab, so this route is
+  still to be explored.
+- Is the placement (upper fifth, 55%) and the 3 s duration right, or should the title stay on
+  longer, e.g. through the caption «زهجت من التأجيل وخلاص»?
+- Should this become a house-style default for opening titles? Only if the user says so.
+- Not yet demonstrated: word-by-word animated text (as distinct from the house captions, which
+  already highlight word by word) and hand-built Add text + Animation tab in/out presets.
