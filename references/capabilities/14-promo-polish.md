@@ -73,6 +73,18 @@ by player frames:
    (16 folders). `layers.py 0915-copy` shows the same state as `0915`: blurred-room main copy +
    muted cut-out overlay + stabilized desk, 30.0 s. The `0915` draft mtime is unchanged
    (01:55:20.315).
+   - Filtered `draft_diff.py` of `0915` → `0915-copy`: **no differences** (`draft-baseline.json`).
+   - ⚠ **The duplicate keeps the source's draft mtime** (both 01:55:20.315). For scope checks on the
+     source, diff its content against a saved copy (`draft-0915-source.json`) instead of relying on
+     mtime alone.
+   - A "Copied" toast appears. The new card is **first** in Projects ≈(383,793) and `0915` moves
+     to second ≈(566,793) (`02-after-duplicate.png`).
+
+### B. Open the copy and import the logo (2026-09-15)
+1. Click the `0915-copy` card. `MainWindow` appears after 4 s. The title bar and Details panel both
+   read **0915-copy**; the state is identical (`03-copy-opened.png`).
+2. **Logo file baseline:** `logo-before.txt` (mtime 2026-09-13 22:26:21.494, 22 638 B, sha256
+   DE5C…0597), used to prove afterwards that CapCut didn't write to the client project.
 
 ## Wait conditions
 
