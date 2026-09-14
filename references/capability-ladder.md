@@ -12,7 +12,7 @@ Status values:
 
 | # | Capability | Styles | Status | Procedure file | Demonstrated | Approved | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Environment + accessibility/control map | all | demonstrated | `accessibility-controls.md`, `keyboard-shortcuts.md`, `pro-features.md` | 2026-09-14 | | CapCut UI invisible to UIA/MSAA (root windows only; QT_ACCESSIBILITY=1 no effect) → screenshot-first. Named tree windows for dialogs (Shortcuts, Export) and the player surface; native file dialog fully exposed. DPI mapping verified at 125%. Practice project `0914`: clip imported + placed, verified by draft. Mapped: home, editor layout, asset tabs, inspector tabs, menu, full shortcut list (CapCut's own), export dialog (cancelled). **Known gaps:** Menu ▸ Layout and Settings not opened; Video ▸ Remove BG/Mask/Retouch and Audio ▸ Voice changer sub-tabs; transcript panel; right-click context menus; basic-tool icons have no tooltips (identify via shortcuts/behaviour in rungs 1–2). |
+| 0 | Environment + accessibility/control map | all | approved | `accessibility-controls.md`, `keyboard-shortcuts.md`, `pro-features.md` | 2026-09-14 | 2026-09-14 | CapCut UI invisible to UIA/MSAA (root windows only; QT_ACCESSIBILITY=1 no effect) → screenshot-first. Named tree windows for dialogs (Shortcuts, Export) and the player surface; native file dialog fully exposed. DPI mapping verified at 125%. Practice project `0914`: clip imported + placed, verified by draft. Mapped: home, editor layout, asset tabs, inspector tabs, menu, full shortcut list (CapCut's own), export dialog (cancelled). **Gaps filled after approval (2026-09-14, view-only, draft unchanged):** Menu ▸ Layout; Settings (all 4 tabs, closed with Cancel); Video ▸ Remove BG/Mask/Retouch; Audio ▸ Voice changer; right-click menus on a clip and on empty timeline. **Deferred:** Transcript panel (Pro, may use credits) → rung 3 with the user's confirmation; basic-tool icons show no tooltips → identify in rungs 1–2 via shortcuts and behaviour. |
 | 1 | Duplicate project, open copy, one split at an exact time, undo test, save | all | not-started | `capabilities/01-single-split.md` | | | |
 | 2 | Timeline basics: select, delete/ripple, trim, move, add media, track lock/mute | all | not-started | `capabilities/02-timeline-basics.md` | | | |
 | 3 | Transcript editing: remove pauses/silences and filler words | YouTube | not-started | `capabilities/03-transcript-pauses.md` | | | |
@@ -106,3 +106,4 @@ Status values:
 
 | Date | Rung | User's words | Commit |
 |---|---|---|---|
+| 2026-09-14 | 0 | "Approve, fill gaps first" (approved; mapped the listed gaps without editing before starting rung 1) | see git log |

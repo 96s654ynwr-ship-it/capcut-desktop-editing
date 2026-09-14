@@ -39,6 +39,10 @@
    TikTok/YouTube and team spaces all require explicit user approval.
 7. **Export only to a folder the user named.** Never overwrite existing files without asking. The
    Export dialog pre-fills **Export to** with the last-used folder, so change it deliberately.
-8. **Uncheck "Sync exported videos to space" in the Export dialog before every export.** In
+8. **Auto sync is ON on the user's machine.** Menu ▸ Settings ▸ Draft shows the Auto sync toggle on,
+   with Synced items: Exported videos ☑ and Projects ☐. Don't change it; it's the user's setting.
+   Instead, handle sync per export as below. Never click Settings ▸ Save, and never the Cache
+   trash button.
+9. **Uncheck "Sync exported videos to space" in the Export dialog before every export.** In
    9.4.0.4015 it is checked by default and uploads the video to CapCut cloud. Take a screenshot of
    the dialog showing it unchecked before pressing Export.

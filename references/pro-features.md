@@ -75,6 +75,15 @@ run, so credits are unknown.
 | Auto lyrics | Asset → Captions | (to check) |
 | AI avatar tools (Avatar library, Photo to avatar, Fashion model, Video translator, AI dialogue scene) | Asset → AI avatar | Pro diamond on each |
 | Pro stickers / effects / transitions | Asset tabs; purple diamond on the card corner | Pro diamond |
+| Auto removal (background) | Inspector → Video → Remove BG | Pro diamond |
+| Custom removal / Chroma key | Inspector → Video → Remove BG | none seen |
+| Brush mask / Pen mask | Inspector → Video → Mask | Pro diamond |
+| Retouch (Face/Body/Hair, Auto styles, Skin) | Inspector → Video → Retouch | (to check per item) |
+| Voice filters / Voice characters / Speech to song | Inspector → Audio → Voice changer | (cards not loaded yet) |
+| Isolate voice (Keep vocal / Remove vocal) | Clip right-click → **Isolate voice ›** | "Free" badge |
+| Extract audio | Clip right-click (Ctrl+Shift+S) | Pro diamond in context menu (toolbar icon showed none) |
+| Transcript | Clip right-click; timeline toolbar | Pro diamond |
+| Create multi-camera clip | Clip right-click | "Free" badge |
 
 ## Rules
 

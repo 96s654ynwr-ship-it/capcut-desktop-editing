@@ -410,7 +410,134 @@ Credits are likely; confirm with the user before generating.
   `MenuWindow`. Verify with `cc.py tree --depth 1` and a screenshot. Close it by clicking a neutral
   area (e.g. the empty timeline background) if it is still open.
 
+### Inspector: Video and Audio sub-tabs (observed 2026-09-14)
+- **Video ▸ Remove BG:**
+  - **Auto removal** (Pro)
+  - **Custom removal** ▾
+  - **Chroma key** ▾ (with keyframe icons)
+- **Video ▸ Mask:**
+  - **Mask** checkbox + **Add mask**
+  - shapes: Split, Filmstrip, Circle, Rectangle, Stars, Heart, Text, **Brush** (Pro), **Pen** (Pro)
+  - The shapes are greyed out until Add mask is used.
+- **Video ▸ Retouch:**
+  - chips: Face, Body, Hair, Face presets, Body presets
+  - "Single face" dropdown
+  - **Auto styles** (loads for about 1 s), **Skin** (Clear, Smooth… sliders)
+  - Save as preset
+- **Audio ▸ Voice changer:**
+  - Apply to all
+  - search
+  - chips: **Voice filters, Voice characters, Speech to song**
+  - filter icon
+  - The list loads for about 1 s.
+
+### Context menus (observed 2026-09-14)
+Right-click opens a CapCut menu window: an extra `Qt622QWindowIcon` in `cc.py windows`, and
+`cls=MenuWindow` in the tree. **Close it by left-clicking empty space**, because Esc isn't
+reliable. Greyed items are disabled in the current state.
+
+**On a video clip** (full menu, `evidence/2026-09-14/cap0/gaps/ctx-clip-full.png`):
+
+| Item | Notes |
+|---|---|
+| Copy | Ctrl+C |
+| Cut | Ctrl+X |
+| Copy attributes | Ctrl+Shift+C |
+| Paste attributes | disabled until attributes are copied |
+| Delete | Backspace |
+| Edit › | submenu (not yet opened) |
+| Split scenes | "Free" |
+| Transcript | Pro |
+| Isolate voice › | "Free" |
+| Extract audio | Pro, Ctrl+Shift+S |
+| Sync video and audio | disabled |
+| Create compound clip (subproject) | Alt+G |
+| Create multi-camera clip | "Free", disabled |
+| Save preset | |
+| Group / Ungroup | disabled with one clip |
+| Export selected clips | |
+| Deactivate clip | V |
+| Trim clip | disabled |
+| Replace clip | |
+| Link to media | disabled |
+| Open file location | |
+| Edit effects / Show variable speed animation | disabled |
+| Range › | |
+| Render › | |
+
+**On empty timeline space:**
+- Close gap (disabled)
+- Close all gaps (disabled)
+- Select
+- Paste (disabled)
+- Range ›
+- Render ›
+
+**Tooltips in the tree:** while a CapCut tooltip is showing, a window with
+`cls=LVToolTipWindow_QMLTYPE_*` appears in `cc.py tree`. It gives the tooltip's rect but not its
+text. Use it to confirm a hover produced a tooltip, then crop that rect in a screenshot.
+
+### Menu ▸ Layout (observed 2026-09-14)
+- **Default** ✓
+- Media
+- Attributes
+- Vertical
+- **Reset current layout**
+
+Every procedure in this skill assumes **Default**. If a screenshot shows panels in different
+places, check this submenu first.
+
+### Settings dialog (observed 2026-09-14; nothing changed)
+- **How to open it:** Menu ▸ **Settings**.
+- **Tree:** named window `Window "Settings"`, id `GlobalSettingsWindow`, rect about 640×823
+  centred.
+- **Tabs:** **Draft | Edit | Performance | General**.
+- **Footer:** cyan **Save** and **Cancel**. **Close with Cancel. Never Save**, because changing
+  settings is off-limits without the user.
+- **Draft tab:**
+  - **Save to** (draft root), **Screen recording** folder, **Download to** folder
+  - **Cache:** Don't delete / Auto delete cache from N days ago
+  - **Cache size** with a ⚠ trash button (clears cache; never click)
+  - **Auto sync** toggle: **ON on this machine**, "upload your projects to space automatically"
+  - **Synced items:** Projects ☐, **Exported videos ☑**
+  - **Default space**
+  - **Size limit** (500 MB)
+  - **Preset save path**
+- **Edit tab** (values as found):
+  - **Image duration** 5.0 s
+  - **Target loudness** Default (-23 LUFS)
+  - **Play audio while scrubbing** off
+  - **Linkage** → Settings button. Linked items: Text, Effects, Stickers, Filters, Adjust, Sound
+    effects, Text to speech.
+  - **Arrange layers** ☑
+  - **Frame rate** 30.00 fps (default for new projects)
+  - **Time code** `HH:MM:SS+frame`: the player timecode's last field is **frames**, not
+    milliseconds
+  - **Sound for export** ☐
+  - **Dreamina sync** ☐
+- **Performance tab:**
+  - **Interface rendering** (GPU)
+  - **Auto optimization** None
+  - **Auto remux** off, with a save folder and file-size trash button
+  - **Proxy** ☐, with a save folder and proxy-size trash button
+  - **Sound output device**
+  - **Rendering cache location**, rendering cache size with a trash button
+  - **Auto clear** 10 GB
+  - **Auto render** off
+- **General tab:**
+  - interface **language list** at the top (scrollable; hovering highlights rows, which isn't a
+    selection)
+  - **Notification** ☐
+  - **Software update:** ● **Automatic updates** / ○ Get notified. **CapCut updates itself here**,
+    so always run `cc.py version` at session start.
+  - **Right-click menu:** "Add CapCut to Windows right-click menu" ☐
+- **Closing:** Cancel discarded everything. The tree confirmed `GlobalSettingsWindow` was gone,
+  and the draft diff showed no change.
+
 ### Transcript editor
+Not opened in Capability 0. The Transcript tool (toolbar, and the clip right-click menu) is
+**Pro** and may start cloud transcription that uses credits. Open it in rung 3, with the user's
+confirmation.
 
 ### Context menus
 
