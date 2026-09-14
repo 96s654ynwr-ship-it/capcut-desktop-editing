@@ -1,9 +1,12 @@
 # Capability 12: Vertical (9:16 canvas, auto reframe, beat-synced cuts)
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-14 (Claude Code). A 35.5 s 9:16 short on `0914 (4)-copy-copy`:
+  - opening section of the master; CapCut **Auto reframe** (9:16, defaults) keeps the face centred
+  - captions resized (22) and raised (≈70 % height); title kept
+  - verified on the draft, frames, undo/redo and save
 - **Approved:** not yet
 - **Practice project:** to be chosen with the user. It must be an agent-owned project: a CapCut
   duplicate or a new project. `0914 (4)-copy`, which holds rungs 4–11, stays intact as the
@@ -623,12 +626,66 @@ against beat marks) and in frames.
     - The draft is unchanged by stepping.
 
 ## Wait conditions
+- **Duplicate:** poll the drafts folder for a new directory containing `draft_content.json`. It
+  appeared within ≈1 s.
+- **Split all / Delete / Ratio 9:16 / font size / Position:** synchronous. The draft saved on the
+  first 0.5 s poll. Poll `section_check.py` or an inline JSON check for the *expected value*.
+- **Auto reframe analysis:** starts on the **Aspect ratio pick**, not on Apply. The row shows
+  "Processing N%" and was gone within ≈4 s for 35.5 s of footage. The cache lands in the project's
+  `smart_crop/<uuid>/<n>/2_1/`. The draft does **not** change until Apply.
+- **Auto reframe Apply:** synchronous. The draft saves within 2 s with one `smart_crops` material.
+  Watch for any extra top-level window (cost/upsell) with `tree --depth 0` every 2 s. None appeared.
+- **Menus and popups:** the ratio menu and card menu are `MenuWindow`s; the Aspect-ratio and
+  selection-tool dropdowns are inline popups (not in the tree). Always screenshot and read the
+  popup's rectangle before clicking a row or clicking outside it.
 
 ## Verification
+**Agent-verified 2026-09-14, on disk after Back to home page** (copy mtime 23:07:24 → 23:08:46;
+`diff` vs `final-before-save.json` = No differences):
+- **Canvas:** `canvas_config` `{ratio "9:16", 1080×1920}`; duration **35.533 s**.
+- **Tracks:**
+  - main video 1 segment (target 0 → 35.533 s, source 46.933 s + 35.533 s)
+  - captions 18
+  - title 1
+  - no overlay
+  - all `attribute` 0 (unlocked)
+- **`section_check`:** nothing after or straddling 35.533 s on any track.
+- **Reframe:** main clip `clip` untouched (scale 1, transform 0,0). One `smart_crops` ref
+  `{crop_ratio "9:16", stability 2, track_speed 1, apply_source 1}`, cache in the project's
+  `smart_crop/`.
+- **Carried from rung 11:** denoise ✓, Enhance voice ✓ (75), loudness target −23.
+- **Captions:** 18 × template 边框弹出黑色, font_size **22**, `transform.y` **−0.4**.
+- **Title:** «زهقت من التأجيل», template "Arabic An ordinary day, an ordinary life", scale 0.55,
+  y 0.7407, 1.0 s + 3.0 s.
+- **Frames (9:16):**
+  - before reframe: letterboxed
+  - after: 35:15 speaker fills frame; 02:15 title readable at top; 04:15 caption readable at
+    ≈70 %; 17:20 long caption paged to one line
+  - sheet: `vertical-short-sheet.png`
+- **Undo/redo gates:**
+  - section delete: 450.533 ↔ 35.533 s, one step
+  - caption Position: −0.73 ↔ −0.4, one step
+- **Scope:**
+  - master `0914 (4)-copy` unchanged at 22:00:40.991
+  - every other project unchanged, including 0707, 0720, 0728, 0914 (4), 0914 (5), 0914 (6), and
+    the Arabic-titled one at 17:50:24.926
+- **Incident:** the accidental Cut (Failure modes) was fully restored with one Ctrl+Z,
+  diff-verified before continuing.
+- **Not verified:** export or phone playback. The platform safe zone was judged by eye (bottom
+  ≈20 % kept clear). Rung 15 covers export.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Source | CapCut duplicate of the horizontal master (`0914 (4)-copy` → `0914 (4)-copy-copy`) | Universal: never edit the master | Master mtime unchanged; structure diff of copy vs master = No differences |
+| Section | 00:00:00:00 → 00:00:35:16 (35.533 s) | Shot-specific | Cut in a caption gap (35.27 → 35.80 s) so no sentence is split; ends on a hook |
+| Section method | Playhead at end → **Ctrl+Shift+B** (Split all) → select everything right of the cut → Delete | Universal | `section_check.py`: nothing straddles or remains after the cut; duration = end |
+| Canvas | Player **Ratio ▸ 9:16** (1080×1920) | Universal for Shorts/Reels/TikTok | `canvas_config.ratio` "9:16" |
+| Reframe | Video ▸ Basic ▸ **Auto reframe** ✓, Aspect ratio **9:16**, Image stabilization Default, Camera moving speed Default → **Apply** | Default settings fine for a static talking head | `smart_crops` {crop_ratio 9:16, stability 2, track_speed 1}; face centred in frames |
+| Caption size | Font size **22** (from 10.5), Apply to all main captions | Shot/format-specific | Glyph band ≈5 % of frame height; one line fits the width |
+| Caption position | Position Y **−768** in 9:16 (`transform.y` −0.40, ≈70 % down) | Format-specific (keep out of the bottom ≈20 % platform UI) | Frame: caption above the lower UI zone, not over the face |
+| Title | unchanged (scale 0.55, `transform.y` 0.7407) | Shot-specific | Frame 02:15: readable at top, clear of the face |
+| Beat sync / music | none | User choice | — |
 
 ## Undo / recovery
 
@@ -660,4 +717,10 @@ against beat marks) and in frames.
     (1–4 s) is included. The PiP (96 s) and every caption after 35.8 s fall outside it.
 
 ## Open questions for the user
-- Source, length, beat-sync yes/no, music choice.
+- ~~Source, length, beat-sync, reframe method~~: answered (see User choices).
+- **Caption look in 9:16:** size 22 at ≈70 % height was an agent choice made for legibility and
+  platform safe zones. Keep it, go bigger, or move it?
+- **Beat-synced cuts** are still undemonstrated (skipped by choice). Do them later with music, or
+  drop them from the ladder?
+- The 9:16 **TikTok icon** in the player (≈1227,541) is unexplored. It may be a safe-zone overlay,
+  useful for checking caption placement. Try it?
