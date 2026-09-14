@@ -1,7 +1,7 @@
 # Capability 07: Keyframed eased push-ins
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, start Cap 8")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Segment 4 of `0914 (4)` got an eased Scale push-in,
   100% at 00:04:22:15 → 108% at 00:05:59:13. Undo/redo verified. Saved via Menu ▸ Back to home
