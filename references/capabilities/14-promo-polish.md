@@ -127,6 +127,19 @@ by player frames:
      (rung 10).
    - The top-right corner shows the window/wall in the talk section and a white wall in the
      desk section; the face stays clear.
+7. **Set size and position** (logo clip selected, Video ▸ Basic). For each value box: click it,
+   `key ctrl+a`, `type "<value>"`, `key enter`.
+   - **Scale** box ≈(1792,257) → `12`.
+   - **Position X** box ≈(1666,352) → `1610`.
+   - **Position Y** box ≈(1788,352) → `874`.
+
+   **Agent-verified (`logo_state.py`, first poll after each step):**
+   - `clip.scale` 1.0 → **0.12**
+   - `clip.transform` → **x 0.838542 (= 1610/1920), y 0.809259 (= 874/1080)**
+   - duration 30.0 s; refs 7; other tracks unchanged (`draft-before-logo-place.json` is the
+     baseline)
+   - This confirms the typed-unit rule again: typed X = transform.x × canvas width, typed Y =
+     transform.y × canvas height.
 
 ## Wait conditions
 
