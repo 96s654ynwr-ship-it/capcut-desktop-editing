@@ -32,7 +32,7 @@ rungs) replaces it with the route actually observed in this install. Columns:
 | Text to speech | Text inspector | | | | — | unverified |
 | Auto ducking / loudness normalize | Inspector → Audio | **Normalize loudness:** select clip(s), then Inspector **Audio ▸ Basic**, then the **Normalize loudness** checkbox (no options). **Auto ducking:** not located (music was out of scope in rung 11). | Pro diamond | **none seen**: no dialog, applied in <1 s | 11 | **Normalize agent-verified 2026-09-14** on 7 clips: draft `loudnesses` per segment, `target_loudness` **−23.0 LUFS (fixed)**, `loudness_param` avg/peak analysed on the Enhance-voice result when present; UI reads "Normalized loudness to -23 LUFS"; project `loudness/<hash>` text files `avg,peak`. Ducking still unverified |
 | Beat detection (auto beat marks) | Audio clip → Beat / timeline toolbar | | | | 12 | unverified |
-| Auto reframe | Inspector → Video / canvas ratio | | | | 12 | unverified |
+| Auto reframe | Inspector → Video / canvas ratio | **Single clip selected** (lock caption/title tracks first, or captions get co-selected and the inspector turns into "Properties") → Inspector **Video ▸ Basic** → scroll down ≈12 ticks → **Auto reframe** checkbox + ▾ (between Relight and Remove flickers) | Pro diamond | (to observe on run) | 12 | route observed 2026-09-14 (not run yet) |
 | Remove background (auto) | Inspector → Video → Remove BG | | | | 13 | unverified |
 | Chroma key | Inspector → Video → Remove BG | | | | 13 | unverified |
 | Stabilization | Inspector → Video | | | | 13 | unverified |

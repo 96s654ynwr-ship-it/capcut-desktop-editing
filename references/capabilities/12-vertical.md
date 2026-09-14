@@ -325,6 +325,52 @@ against beat marks) and in frames.
        00:20 at x≈562). The main clip spans x≈229–820 at y≈805–870, captions at y≈764, title at
        y≈731.
      - Inspector: mixed "Properties" (Scale "-", Position Y "-"). "Auto saved: 22:31:38".
+6. **Clip-only selection by locking the text tracks:**
+   - With no `MenuWindow` open, click the player panel's dark area (≈1300,300) to deselect
+     (`29-deselect-*`).
+   - Click the **lock** icons on the caption row (≈59,764) and the title row (≈59,731).
+   - **Agent-verified draft:** caption track `attribute` 0 → **4**, title track 0 → **4**. Main
+     video stays 0, duration 35.533 s and ratio 9:16 are unchanged.
+   - Then click the main clip body (≈500,845), screenshot `30-clip-only-*`.
+   - Unlock both tracks again before saving, so the text stays editable. Verify `attribute` back to
+     0.
+   - **Result (`30-clip-only-*`):**
+     - The player-area click cleared the selection (no borders in `29-deselect-tracks.png`).
+     - After locking, both text rows show the **diagonal lock hatch** with cyan lock icons.
+     - The clip click selects **only the main clip**, and the inspector shows the full single-clip
+       tabs **Video · Audio · Speed · Animation · Adjust · A…›** with sub-tabs Basic / Remove BG /
+       Mask / Retouch.
+     - Transform: Scale 100%, Position 0/0, Blend ✓. No reframe control is visible in the top of
+       Video ▸ Basic.
+   - **Lesson:** to get the single-clip Video inspector on a timeline with auto captions, lock the
+     caption and title tracks first.
+7. **Where Auto reframe lives** (single clip selected; `31–33`):
+   - **Toolbar** (`31-toolbar-single-clip.png`): the clip tools after Delete are crop/transform
+     icons, AI icons and HD. No labelled reframe button.
+   - **Video ▸ Basic** scrolls to a long list below Transform/Blend (`scroll 1480 450 -4` × 3):
+
+     | Control | Badge / extras |
+     |---|---|
+     | Enhance quality | Pro ▾ |
+     | Reduce image noise | Pro ▾ |
+     | Optical flow | Pro ▾, "Apply to all" |
+     | AI remove | Pro ▾, reset |
+     | AI expand | **Free** ▾, reset |
+     | AI remix | **Try free** ▾, reset |
+     | Lip sync | Pro ▾ |
+     | Relight | Pro ▾, keyframe ◇ |
+     | **Auto reframe** | **Pro ▾** |
+     | Remove flickers | Pro ▾ |
+     | AI movement | Pro ▾, reset |
+     | Camera tracking | Pro ▾, reset |
+     | Motion blur | ⓘ Pro ▾, reset |
+     | Canvas | ✓ ▾, "Apply to all" (bottom of the list) |
+
+   - **Auto reframe checkbox** ≈(1468,172), with **▾** ≈(1603,172), at the third scroll position
+     (`32-video-basic-scroll3.png`).
+   - The inspector tab row's **›** (≈1891,70) scrolls the tabs to reveal **AI stylize** after
+     Adjust (`33-inspector-tabs-more.png`). The body stays on Video ▸ Basic.
+   - Browsing only: the draft is unchanged.
 
 ## Wait conditions
 
