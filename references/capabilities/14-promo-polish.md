@@ -59,6 +59,21 @@ by player frames:
 
 ## Procedure
 
+### A. Duplicate `0915` (executed + agent-verified 2026-09-15)
+1. **Baseline:** all project mtimes saved to `cap14/mtimes-before.txt` (15 projects).
+2. **Home:** `scroll 1000 700 -3` brings the Projects row into view; the `0915` card is at ≈(383,793)
+   with its name below (`00-home-projects.png`).
+3. **Right-click the card** (`click 383 793 --right`). An **inline menu** opens, not a separate
+   window (`01-card-context-menu.png`):
+   - **Upload** ≈(423,816): cloud, never click.
+   - **Rename** ≈(426,856).
+   - **Duplicate** ≈(430,902).
+   - **Delete ⌫** ≈(421,942), directly under Duplicate. ⚠ Click Duplicate exactly.
+4. **Click Duplicate:** the new draft folder **`0915-copy`** appeared on the first 1 s poll
+   (16 folders). `layers.py 0915-copy` shows the same state as `0915`: blurred-room main copy +
+   muted cut-out overlay + stabilized desk, 30.0 s. The `0915` draft mtime is unchanged
+   (01:55:20.315).
+
 ## Wait conditions
 
 ## Verification
