@@ -216,6 +216,36 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   - Consistent with the source reference in C (0.24 / 0.14 / 0.062 over source 2–17 s), so player
     frames are a valid measurement surface.
 
+### F. Stabilize the desk segment (executed 2026-09-15)
+1. **Baseline** (`draft-before-stabilize.json`): both video materials have `stable` {stable_level 0,
+   matrix_path "", time_range 0/0} and `matting.flag` 0. Non-empty material lists: canvases,
+   material_animations, material_colors, placeholder_infos, sound_channel_mappings, speeds, videos,
+   vocal_separations.
+2. **Route:** with the desk clip selected, go to Inspector **Video ▸ Basic** and `scroll 1680 400 -3`.
+   **Stabilize** (Pro diamond) sits **directly under Blend**, above Enhance quality
+   (`23-basic-scrolled.png`). Checkbox ≈(1468,247), ▾ ≈(1574,247).
+   - ▾ opens **Level** (dropdown, default **Recommended**), greyed out until the box is ticked
+     (`24-stabilize-dropdown.png`). No side effect.
+3. **Tick the checkbox** (Level Recommended):
+   - **No cost, upsell or confirmation dialog**; the window list is unchanged.
+   - **Agent-verified (first poll, 2.8 s):** the desk material has `stable.stable_level` **2**
+     (Recommended); `matrix_path` is still "", time_range 0/0. The talk material is unchanged.
+   - **Asynchronous** (`25-stabilize-ticked.png`): the player header shows "Applying 1 feature… ▾",
+     the inspector row shows "Processing N%", and the clip label reads "Applying Stabilize… N%".
+     The "HD" toolbar icon is highlighted.
+   - After 300 s of polling, `matrix_path` was still "" and no file had been added or changed inside
+     the project folder.
+   - **The analysis result goes to a global cache, not the project:**
+     `%LOCALAPPDATA%\CapCut\User Data\Cache\stable\<md5>_2000000_17000000.json`.
+     - It was written **≈35 s after the tick** (01:18:13 → 01:18:48) for the 15 s segment.
+     - The name encodes the **source range in µs** (2–17 s).
+     - It is 134 KB of **binary** data despite the `.json` extension ("jianyingpro" header).
+     - Consequence: the effect depends on this cache, so clearing CapCut's cache would force
+       re-analysis.
+   - **Done state** (`26-stabilize-progress.png`): the header is back to "Player-Timeline 01", the
+     inspector row shows no %, and the clip label becomes **"Stabilize"**. The preview is visibly
+     **cropped in**, because stabilization zooms the frame to hide the moving borders.
+
 ## Wait conditions
 
 ## Verification
