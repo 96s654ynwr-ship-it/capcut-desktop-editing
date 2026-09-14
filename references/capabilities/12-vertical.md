@@ -534,6 +534,44 @@ against beat marks) and in frames.
      of selecting clips immediately. Clicks then select everything in that direction across tracks.
      That would also explain the captions pulled into the D.11 Ctrl+click selection.
    - Check: icon crops (`select-tool-icon-compare.png`) and the tool's ▾ menu (`46-select-tool-menu.png`).
+8. **Confirmed (agent-verified):**
+   - **Icon crops:** a plain **arrow** in `06` (before `]`); a **double-arrow "select rightward"
+     glyph** in `10`, `11`, `12` and `45` (after the first `]` press).
+   - **The tool ▾ menu** (click ≈111,596) opens an inline popup (not in the UIA tree):
+
+     | Row | Position | Key |
+     |---|---|---|
+     | Select | ≈(126,638) | A |
+     | Split | ≈(120,673) | B |
+     | Select leftward | ≈(153,708) | [ |
+     | **Select rightward** (highlighted, current) | ≈(157,743) | ] |
+
+   - **So `[` / `]` switch the timeline's click tool**; they don't select immediately. In "Select
+     rightward" mode, a click selects everything from the click point rightward on **all tracks**.
+   - **Consequences for this rung:**
+     - D.6 "no effect": the key did switch modes; no clicks were made to show it.
+     - D.11: the Ctrl+clicks in this mode pulled in every caption right of the cut. The delete in
+       E still produced exactly the intended section, verified by `section_check`.
+     - G.1 and I.2: whole-timeline selections.
+   - **Fix:** pick **Select** (≈126,638) or press **A**.
+9. **Select mode restored:**
+   - Click **Select** (≈126,638). The tool icon is a plain arrow again (`47-tool-after-select-4x.png`).
+   - Deselect via the player's dark area (≈1300,300), then click one caption (≈307,764).
+   - **Only that caption is selected** (`49-single-caption-tracks.png`), and the draft is unchanged.
+   - The inspector is the rung-8 caption inspector (`49-single-caption-inspector.png`):
+     - tabs **Captions · Text · Animation · Tracking · Text to speech ›**; Text ▸ **Basic** /
+       Templates / Effects
+     - **Apply to all main captions ✓**; text box «زهجت من التاجيل وخلاص»
+     - Font **Staatliches-Regular**; **Font size 11** (box ≈1826,396)
+     - Pattern B/U/I; Case TT/tt/Tt; Save as preset
+10. **Caption font size for 9:16** (Apply to all main captions ✓):
+    - Click the Font size box (≈1826,396), then `key ctrl+a`, `type "22"`, `key enter`.
+    - **Agent-verified (first poll):** all **18** captions `font_size` and content style `size`
+      **10.5 → 22**.
+      - The inspector showed "11" for a stored 10.5 (display rounding).
+      - Template still **边框弹出黑色** on all; `transform.y` still −0.73.
+    - To refocus the timeline without seeking, click the selected caption block (≈307,764). Then
+      `key home`, `key right --repeat 135` → 00:00:04:15. Frame: `frames-916/5-0415-font22.png`.
 
 ## Wait conditions
 

@@ -27,8 +27,8 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Split all | Ctrl+Shift+B | **agent-verified 2026-09-14** | With nothing selected, it splits every track that **crosses** the playhead. Tracks in a gap at that time are untouched (rung 12: only the main track split at 35.533 s; captions, title and PiP were unaffected). Per-clip audio materials (loudness/denoise/enhance) are duplicated onto the new piece, pointing at the same processed source range. |
 | Select mode | A | listed | selection tool |
 | Split mode | B | listed | blade tool: clicking a clip splits it |
-| Select leftward | [ | listed | |
-| Select rightward | ] | listed, **no effect seen 2026-09-14** | Rung 12: with a main-track piece selected and timeline focus, `cc.py key "]"` (VK_OEM_6) changed nothing and selected no clips to the right. Don't rely on it until a working context is found. |
+| Select leftward | [ | **tool mode (by analogy with `]`, verified 2026-09-14 via the tool ▾ menu)** | Listed in the toolbar tool ▾ menu as "Select leftward [". It switches the click tool; clicks then select everything leftward on all tracks. Return with **A**. |
+| Select rightward | ] | **agent-verified 2026-09-14: a tool mode, not an action** | `]` switches the timeline click tool to **Select rightward** (toolbar tool icon becomes a double arrow). Nothing is selected until you click. Every later click then selects everything from the click point rightward **on all tracks**. The mode **persists** and silently turns ordinary clicks into range selections (rung 12). Switch back with **A** (Select) or the tool ▾ menu ≈(111,596) ▸ Select. `[` is the leftward twin. |
 | Main track magnet | P | **agent-verified 2026-09-14** | toggles the first cyan toggle in the right-hand timeline group: cyan = on, grey = off, no toast. When on, deleting on the main track ripples and dropped clips snap flush |
 | Auto snapping | N | listed | |
 | Linkage switch | ~ | listed | |
