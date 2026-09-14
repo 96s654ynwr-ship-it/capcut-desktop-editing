@@ -197,6 +197,25 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - Rule: **never trust long key-repeat stepping.** Zoom so the target is on screen, click the
      ruler, correct by a few frames, and crop the timecode before every Q/W.
 
+### E. "Before" player frames of the desk section (executed + agent-verified 2026-09-15)
+- Ruler click at x≈721 (00:15 at 32.7 px/s) snapped to **00:00:15:00**, the desk clip start
+  (`22-tc-desk-start.png`).
+- **`player_frames.py <out> 300`** takes these crops:
+  - preview crop (922,105)–(1125,475): the portrait video box inset 6 px, to avoid the selection
+    handles
+  - timecode crop (615,528)–(712,555)
+
+  For each frame it presses Right, waits until the **timecode crop changes** (re-sending once after
+  1 s), waits until the preview changes (≤0.35 s), and saves a 96 px-wide grayscale frame.
+  - Result: 300 frames in **20 s**, **0 re-sends, 0 unchanged previews**.
+  - **Agent-verified:** the saved timecode crops read 00:00:19:29 at frame 150 and **00:00:24:29 at
+    frame 300**, so no frame was skipped. That contrasts with `key --repeat` in D.6.
+- **`shake_metric.py shake-player-before --frames player-before`:** 299 pairs.
+  - mean |dx| **0.288**, |dy| **0.177** px/frame; 35.5 % of pairs moved
+  - **jitter 0.067**; path x −38…+3, y +1…+28; residual 3.19
+  - Consistent with the source reference in C (0.24 / 0.14 / 0.062 over source 2–17 s), so player
+    frames are a valid measurement surface.
+
 ## Wait conditions
 
 ## Verification
