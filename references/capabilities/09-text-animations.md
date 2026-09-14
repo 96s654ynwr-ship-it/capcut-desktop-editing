@@ -209,15 +209,102 @@ Animation), how animations are stored in the draft, and how to verify them frame
    - It covers the speaker's chest and the lower-middle.
    - **Not acceptable as-is.** It needs a smaller scale and Position Y moved up (section F).
 
+### F. Scale and place the title in the upper area (executed 2026-09-14)
+1. Click the title block on its TT row (≈236,731). This **selects it without moving the playhead**,
+   which stayed at 00:00:02:15. The inspector returns to Text ▸ Basic in the one-line layout (see
+   section E), and the draft is unchanged.
+2. **Scale:** click the Scale box (≈1785,333), then `key ctrl+a`, `type "55"`, `key enter`.
+3. **Position Y:** click the Y box (≈1768,428), then `key ctrl+a`, `type "450"`, `key enter`.
+4. **Agent-verified** (first poll): `clip.scale` = **(0.55, 0.55)** (uniform), `clip.transform` =
+   **(0, 0.41667)**.
+   - Y px / 1080, the same mapping as captions (positive = up).
+   - Start 1.000 s, duration 3.000 s, text unchanged.
+5. **Frame at 2:15 with scale 55%, Y 450** (`18-scaled-moved.png`, `18-player2x.png`):
+   - The whole title is visible, correctly joined, with no clipping. It spans player x≈815–1235
+     (≈62% of frame width).
+   - The selection box (dashed, with a ⟳ rotate handle below) is taller than the glyphs: player
+     y≈187–322.
+   - **But the text band (y≈230–290) crosses the speaker's forehead and eyes** (head ≈225–320),
+     so Y 450 is too low for this shot.
+6. **Y 700:** repeat step 3 with `"700"`. The target text band is player y≈139–199, above the head.
+   - Draft: `transform.y` **0.64815** (700/1080), first poll.
+   - `diff` vs `after-close.json` is still only the 6 additive lines: track +1, segment +1,
+     texts / text_templates / material_animations +1.
+   - `track_styles.py`: track 1 is still 239 × 边框弹出黑色 at y −0.73. Track 2 is 1 × "Arabic An
+     ordinary day, an ordinary life" at y 0.6481.
+   - **Frame** (`19-player2x.png`): the title is fully in frame and clean, but the descenders of
+     «من التأجيل» still graze the top of the speaker's head. Still slightly too low.
+7. **Y 800:** repeat step 3 with `"800"` for about 36 px (2× crop) of clearance above the head, with
+   ≈15% top margin. Then check frames across the title's life (section G).
+
+### G. Frame check across the title's life (executed 2026-09-14, Y 800)
+- Draft: `transform.y` **0.74074** (800/1080), scale 0.55, start 1.000 s, duration 3.000 s, text
+  «زهقت من التأجيل», first poll.
+- **Route:**
+  1. Click empty timeline (≈1000,675) to deselect, so no selection box shows in the frames.
+  2. `key home`, then Right × 42 / +33 / +40 / +10.
+  3. After each, `screenshot --region 612,90,1436,560`.
+  - Output: `cap9/frames/*.png`, contact sheet `frames/title-frames-sheet.png`.
+- **Observed (agent-verified on frames plus timecode):**
+
+  | Timecode | Phase | What the frame shows |
+  |---|---|---|
+  | 00:00:01:12 | in | **Type-on** reveal from the right: «زهقت م» visible, the rest not yet drawn. The house caption «بسم الله الرحمن الرحيم» is in the lower third, with no overlap. |
+  | 00:00:02:15 | hold | Full title, one line, player y≈85–135 (upper fifth), x≈205–620. **Clear above the speaker's head.** No caption at this instant. |
+  | 00:00:03:25 | hold, last frames | Full title, plus the caption «زهجت من التأجيل وخلاص». The speaker is saying the line, and the two layers are far apart vertically. |
+  | 00:00:04:05 | after | Title **gone** (segment ends at 4.000 s), caption intact. |
+
+  - There is **no out animation**: the title disappears on the cut at 4:00. This matches the
+    single `in` entry in `material_animations`.
+  - The caption spells the dialect «زهجت». The title uses «زهقت», as the user chose.
+
 ## Wait conditions
+- **Text template panel / category / search results:** a screenshot after ≈5–6 s (thumbnails load
+  lazily). No UIA signal is available.
+- **Preview:** the player header changes to "Previewing — Text template" immediately on tile click.
+- **Add / type / Scale / Position:** poll `title_check.py` for the *expected value*, not just an
+  mtime change. Every change here landed within 0.5–1.5 s. CapCut can write the draft mid-typing, so
+  the reader retries.
+- **Frames:** after stepping the playhead, wait ≈0.9 s before the screenshot, and always read the
+  timecode in the image.
 
 ## Verification
+Evidence levels for rung 9 (2026-09-14, `0914 (4)-copy`):
+- **Agent-verified (draft):**
+  - one new text track (track 2) with 1 `text_templates` segment "Arabic An ordinary day, an
+    ordinary life" (resource 7659823758919699730)
+  - start **1.000 s**, duration **3.000 s**
+  - text **«زهقت من التأجيل»** (placeholder fully replaced)
+  - `material_animations`: one **in**, 0–1 s
+  - clip scale **0.55**, transform **(0, 0.74074)** = Position Y 800
+  - `diff` vs the pre-add state shows only the 6 additive lines. `track_styles.py` shows the 239
+    house captions unchanged (边框弹出黑色, y −0.73).
+- **Agent-verified (frames):** type-on at 1:12, full title above the head at 2:15 and 3:25, gone at
+  4:05. No overlap with the lower-third captions. Arabic joined correctly at 2× zoom.
+- **Undo/redo gate:** see below.
+- **Save:** see section H.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Template | #3 "Arabic An ordinary day, an ordinary life" (search «عربي») | User taste choice | Shown as a contact sheet first. The user picked it. |
+| Start | 00:00:01:00 (playhead: Home + 30 × →) | Shot-specific | Near the start, after the first caption word begins. |
+| Duration | 3.000 s (the template default, not changed) | Template default | Check the title is gone after start + duration. |
+| Text | «زهقت من التأجيل», one line | User choice | Draft `texts` equals the string, and the frame shows correct joining. |
+| Scale | 55% | Shot-specific (depends on text length) | Whole line inside the frame with margin: ≈62% of width at 55% for 15 characters. At 100% it clipped both edges. |
+| Position Y | 800 px (`transform.y` 0.74074) | Shot-specific (framing) | The text band sits above the speaker's head at hold frames. 450 crossed the eyes and 700 grazed the scalp. |
+| Animation | Template built-in: in 1 s type-on, no out | Template default | `material_animations` has a single `in`, and the frame at 1:12 is partial. |
 
 ## Undo / recovery
+- **Gate executed 2026-09-14:** with the title at Y 800 and timeline focus (after stepping the
+  playhead):
+  1. `key ctrl+z` → first poll: `transform.y` **0.64815** (Y 700). Scale, text and timing unchanged.
+  2. `key ctrl+shift+z` → first poll: `transform.y` **0.74074** again. Start/duration/text are
+     identical, and `diff` vs pre-add is the same 6 additive lines.
+  - Frames `frames/gate-undo.png` and `gate-redo.png`.
+- **Full removal, if needed:** select the title block on its TT row, then Delete (not Backspace
+  inside a text field), then verify `title_check.py` shows 0 non-house segments and the text track
+  count is back to 2.
 
 ## Failure modes seen
 | Symptom | Cause | Recovery |
