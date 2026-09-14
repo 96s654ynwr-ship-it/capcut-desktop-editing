@@ -1,7 +1,8 @@
 # Capability 10: B-roll / overlay track (picture-in-picture)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved (2026-09-14, "Approve, start Rung 11 (Recommended)"; accepted as
+  demonstrated, not made a house default)
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14 (Claude Code). B-roll #6 as a muted upper-left PiP (40%, X −1557 /
   Y 528), 00:01:36:02–00:01:40:02, source in 2.000 s, on overlay track 3. Verified on the draft,
