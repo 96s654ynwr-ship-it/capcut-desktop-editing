@@ -217,6 +217,27 @@ by player frames:
    - Diff vs `draft-after-transition.json`: **no differences** (`diff-xfade-gate.txt` is empty).
    - The transition is a single undo step.
 
+### D. Pro Auto adjust on all three video clips (2026-09-15)
+1. **Why three clips:** the talk section is two layers (the blurred main copy and the cut-out
+   overlay), so both need the same colour treatment or the speaker won't match the background. The
+   desk clip gets it too. The logo (photo) is left out.
+2. **Baseline:** `draft-before-autoadjust.json`.
+3. **Multi-select:**
+   - `click 540 895` (main talk), then `click 540 812 --mod ctrl` (overlay talk), then
+     `click 1170 895 --mod ctrl` (desk).
+   - All three get a white border (`15-three-clips-selected.png`).
+   - The **multi-selection inspector** has tabs **Video / Audio / Speed / Adjust**. There's no
+     Animation or Remove BG, and Video shows only the Basic / Retouch sub-tabs.
+   - The player shows the frame at the playhead (15:06, mid-blend).
+4. **Adjust tab** ≈(1707,70) (`16-adjust-tab.png`):
+   - Sub-tabs **Basic / HSL / Curves / Color wheel**.
+   - Basic rows, top to bottom:
+     - **Auto adjust** (Pro diamond ▾), checkbox ≈(1468,193)
+     - **Color match** (Pro ▾)
+     - **Color correction** (Pro ▾)
+     - **LUT** (ticked by default, Name **None**, Intensity 100 greyed, **Protect skin tone** toggle)
+   - Each row has a reset button and a keyframe diamond.
+
 ## Wait conditions
 
 ## Verification
