@@ -1,12 +1,13 @@
 # Capability 09: Animated text (titles, text templates, word-by-word)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved (2026-09-14, "Approve, start Rung 10 (Recommended)")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14. Animated Arabic title «زهقت من التأجيل» from the Arabic text template
   #3, at 00:00:01:00 for 3 s, scale 55%, Position Y 800, built-in type-on in-animation. Verified on
   the draft, frames, undo/redo and save.
-- **Approved:** not yet
+- **Approved:** 2026-09-14. User's words: "Approve, start Rung 10 (Recommended)". Accepted as is: hard
+  cut at 4:00 with no out animation, 3 s duration, upper-fifth placement. Not made a house default.
 - **Practice project:** `0914 (4)-copy`. It is the agent-owned duplicate carrying the approved
   house captions (Arabic-only, "Classic: black box") plus the rung 4–7 edits, 7:30.533.
 - **Evidence:** `evidence/2026-09-14/cap9/`
