@@ -14,8 +14,8 @@ rungs) replaces it with the route actually observed in this install. Columns:
 
 | Feature | Reported location (unverified lead) | Verified route (tree/landmark) | Tier badge seen | Credits? | Rung | Status |
 |---|---|---|---|---|---|---|
-| Auto captions | Captions/Text tab → Auto captions | | | | 8 | unverified |
-| Speaker-identified captions | Auto captions options | | | | 8 | unverified |
+| Auto captions | Captions/Text tab → Auto captions | Captions → Auto captions → Spoken language (Arabic) → **Generate** | "Pro" tag on Generate | none seen | 8 | **agent-verified 2026-09-14**: ≈80 s for 7:30 Arabic, 239 captions, no credit prompt |
+| Speaker-identified captions | Auto captions options | **not found** in the 9.4.0.4015 Auto captions form or language list | | | 8 | observed absent 2026-09-14 (check caption inspector next) |
 | Transcript-based editing ("edit via transcript") | Captions area or clip context | Timeline toolbar (clip selected) → **Transcript** icon | Pro diamond | ? | 3 | route observed 2026-09-14 (not run) |
 | Split scenes | — | Timeline toolbar (clip selected) → **Split scenes** | "Free" badge | ? | 2 | route observed 2026-09-14 (not run) |
 | AI extend | — | Timeline toolbar (clip selected) → **AI extend** | none seen | likely | — | route observed 2026-09-14 (not run) |

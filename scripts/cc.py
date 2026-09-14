@@ -475,7 +475,8 @@ def matches(n: dict, a) -> bool:
         return False
     if a.name is not None and n["name"].lower() != a.name.lower():
         return False
-    if a.contains and a.contains.lower() not in (n["name"] + " " + n.get("help", "")).lower():
+    # CapCut puts live status text in AutomationId (e.g. id="Generating captions... 42%", Name="CapCut")
+    if a.contains and a.contains.lower() not in (n["name"] + " " + n.get("help", "") + " " + (n.get("id") or "")).lower():
         return False
     if a.regex and not re.search(a.regex, n["name"], re.I):
         return False
@@ -945,7 +946,7 @@ def cmd_evidence(a):
 
 def add_query(p, with_depth=True):
     p.add_argument("--name", help="exact Name (case-insensitive)")
-    p.add_argument("--contains", help="substring of Name or HelpText")
+    p.add_argument("--contains", help="substring of Name, HelpText or AutomationId (CapCut puts status like 'Generating captions... 42%%' in the id)")
     p.add_argument("--regex", help="regex on Name")
     p.add_argument("--type", help="ControlType, e.g. Button, Edit, TabItem")
     p.add_argument("--id", help="exact AutomationId")
