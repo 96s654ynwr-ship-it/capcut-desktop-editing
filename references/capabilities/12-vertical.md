@@ -236,6 +236,96 @@ against beat marks) and in frames.
    - `ctrl+shift+z` → first poll: **35.533 s**, t0 1/0, t1 18/0, t2 1/0.
    - Trimmed state saved as `trim-final.json`.
 
+### F. Canvas 9:16 (executed 2026-09-14)
+1. **Player Ratio button** (≈1371,541). A click opens a `MenuWindow` dropdown under the player
+   (`17-ratio-menu.png`); the draft is unchanged by opening it.
+
+   | Row | Position | Icon |
+   |---|---|---|
+   | **Original** ✓ (current) | ≈(1438,563) | — |
+   | Custom | ≈(1438,598) | — |
+   | 16:9 | ≈(1427,634) | landscape |
+   | 4:3 | ≈(1424,669) | landscape |
+   | 2.35:1 | ≈(1433,704) | landscape |
+   | 2:1 | ≈(1423,739) | landscape |
+   | 1.85:1 | ≈(1431,774) | landscape |
+   | **9:16** | ≈(1427,810) | portrait |
+   | 3:4 | ≈(1424,845) | portrait |
+   | 5.8-inch | ≈(1440,880) | portrait |
+   | 1:1 | ≈(1422,915) | square |
+
+   A separator sits after Custom, after 1.85:1, and before 1:1.
+2. **Click 9:16** (≈1427,810). The menu closes, and the draft saved on the first 0.5 s poll. No
+   dialog.
+3. **Agent-verified draft:**
+   - `canvas_config` `{ratio: "original", 1920×1080}` → **`{ratio: "9:16", width: 1080, height:
+     1920}`**. `diff` vs `trim-final.json` shows that single difference.
+   - Main clip `clip` unchanged: scale 1.0, transform (0, 0). The ratio change does **not**
+     auto-scale or reframe the video.
+   - Captions keep `transform.y` −0.73 and the title keeps scale 0.55 / y 0.7407. These are
+     normalised, so they move with the new canvas; frames still to check.
+   - Duration 35.533 s and the counts (1 / 18 / 1) are unchanged.
+4. **Observed after 9:16** (`18-after-916.png`, nothing selected, playhead 00:00:35:16):
+   - The player shows a **portrait canvas** (x≈916–1131, y≈99–482). The 16:9 video sits
+     **letterboxed in the middle** (y≈231–351) with **black bars above and below**. As the draft
+     says, nothing reframes automatically.
+   - The Ratio button now reads **"9:16"** (≈1373,541), and Details shows **Aspect ratio: 9:16**.
+   - A **new player icon** appeared at ≈(1227,541), left of "Medium", with a **cyan dot**. Not yet
+     identified: possibly a phone-preview or safe-zone toggle. Hover it before assuming.
+   - "Auto saved: 22:26:22".
+
+### G. Looking for Auto reframe (in progress)
+1. **A clip click in 9:16** (≈277,840) selected the main clip **and a group of captions**: a white
+   border on the main clip plus a white-bordered block on the caption row at x≈275–327
+   (`19-clip-selected-916.png`).
+   - The inspector became the **mixed "Properties" panel**: Transform only (Scale 100%, Uniform,
+     Position X 0 / Y "-" mixed, Rotate, alignment row). There are **no Video/Audio tabs**, so no
+     reframe control.
+   - Scrolling the inspector (`20–22`) shows nothing more; that is all of Properties.
+   - The toolbar shrinks to basic tools (`23-toolbar.png`), with no reframe icon.
+   - Player: the letterboxed 16:9 video gets selection handles (✕, corners, ⟳) inside the 9:16
+     canvas.
+   - Draft unchanged.
+2. **Hypothesis:** auto captions are linked to their source clip, so a clip click also selects
+   captions under it. This matches D.11. Rung 11 clicks at (400,891) on the 7-clip horizontal
+   timeline selected only the clip, which needs explaining. Next: right-click the clip (context
+   menu), and hover the new player icon.
+3. **New player icon** (≈1227,541): a **TikTok logo** with a cyan "new" dot
+   (`24-player-icon-tooltip.png`). It appears once the canvas is 9:16. Hovering 1.8 s showed no
+   tooltip; the only tooltip window was stale, over the timeline. Probably a TikTok safe-zone
+   or preview overlay. Not clicked.
+4. **Right-click on the clip in this mixed selection** (`click 277 845 --right`,
+   `25-clip-context-menu.png`) opens a `MenuWindow` from ≈(305,457) downward:
+   - Copy (Ctrl C), Cut (Ctrl X), Copy attributes (disabled), Paste attributes (disabled), Delete
+     (Backspace)
+   - Isolate voice (Free) ›, Sync video and audio (disabled)
+   - Create compound clip (subproject) (Alt G), Create multi-camera clip (Free, disabled), Save
+     preset
+   - Group (Ctrl G), Ungroup (disabled), Deactivate clip (V), Link to media (disabled), Show
+     variable speed animation (disabled)
+   - Range ›, then the menu runs off-screen at the bottom
+   - **No "Auto reframe" and no "Edit ›" item.** Compared with the single-clip menu from rung 0,
+     Split scenes, Transcript, Extract audio, Export selected clips, Trim clip, Replace clip and
+     Open file location are missing, consistent with a multi-selection.
+   - Ungroup is disabled, so the clip and captions are not a Group. The co-selection has another
+     cause.
+5. **Accidental Cut and restore** (see Failure modes):
+   - The "close menu" click at (380,480) landed inside the clip context menu. Draft at 22:30:00:
+     **0 tracks, duration 0**.
+   - Verified with no `MenuWindow` or dialog open, then a **single `ctrl+z`**. First poll: duration
+     **35.533 s, ratio 9:16, 3 tracks**.
+   - `diff` vs `trim-final.json` = **only the canvas change** (original 1920×1080 → 9:16
+     1080×1920). Every clip, caption and title is back exactly.
+   - The undo loop stops at the first state matching "35.533 / 9:16 / 3 tracks", and would redo
+     once if the ratio reverted, so it can't over-undo past the canvas change.
+   - **UI after the restore** (`28-after-restore.png`):
+     - **All 20 segments are selected** (main clip, 18 captions, title, all white-bordered); the undo
+       restores the cut selection.
+     - The playhead is at 00:00:00:00, and the timeline **re-zoomed** to ≈16.7 px/s (00:10 at x≈395,
+       00:20 at x≈562). The main clip spans x≈229–820 at y≈805–870, captions at y≈764, title at
+       y≈731.
+     - Inspector: mixed "Properties" (Scale "-", Position Y "-"). "Auto saved: 22:31:38".
+
 ## Wait conditions
 
 ## Verification
@@ -249,6 +339,7 @@ against beat marks) and in frames.
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| **The whole timeline vanished** (draft 22:30:00: 3 tracks → 0, duration 0). The player went black with "Drag material here and start to create". | **Agent error.** To close the clip context menu, the agent clicked a fixed "neutral" point (≈380,480) in the Media panel, which had worked for the *empty-timeline* menu. The *clip* context menu opened at the pointer and spanned x≈280–655, y≈440–1030, over the Media panel. The click landed inside it, between **Copy (457)** and **Cut (492)**, and most likely ran **Cut**, removing the selected clip and captions and apparently the title too. | Undo (`ctrl+z`) until the draft matches `trim-final.json` plus the 9:16 canvas (see the restore record). **Rule:** never close a CapCut menu with a fixed coordinate. Take a screenshot, read the menu's rectangle, and click clearly outside it (e.g. the player's empty dark area) or use a spot verified for that menu. Re-check the tree for `MenuWindow` before any other input. Recorded in `project-safety.md` too. |
 
 ## Tree coverage notes
 

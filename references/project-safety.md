@@ -33,6 +33,14 @@
 3. **Take a read-only snapshot for reference.** `cc.py evidence <label> --project "<copy>"` saves
    the draft summary and a copy of the JSON into `evidence/`. This is for diffs and for showing
    the user what changed. It is **not** a restore mechanism.
+4. **Closing CapCut menus: never click a fixed "neutral" coordinate** (lesson 2026-09-14, rung 12).
+   A clip context menu opens at the pointer and can cover the Media panel, player or timeline. A
+   remembered "safe" spot can land on a menu row. In rung 12 a close-click landed on **Cut** and
+   wiped the practice timeline; one Ctrl+Z restored it.
+   - Screenshot first, read the menu's rectangle, and click clearly **outside** it, e.g. the
+     player panel's dark area away from the canvas.
+   - Then confirm `MenuWindow` is gone from `cc.py tree --depth 0` before any other input.
+   - After any unexpected draft save, stop and diff before continuing.
 4. **Recovering from a bad edit:**
    - Use CapCut undo (Ctrl+Z), confirm the revert by screenshot and diff, then continue.
    - If undo can't fix it, stop and tell the user. Offer to delete the practice copy through
