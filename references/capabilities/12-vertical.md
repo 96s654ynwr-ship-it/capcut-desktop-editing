@@ -476,6 +476,41 @@ against beat marks) and in frames.
    - That is why the Apply watcher saw no *new* files: the cache already existed.
    - `cache_path` in the draft points at `…/1/2_1`, i.e. index 1 = the 9:16 analysis.
    - "2_1" appears to match `stability` 2 / `track_speed` 1.
+6. **Frames across the section** (`frames-916/`): click the clip body (≈500,845; text tracks
+   locked, so the clip only), `key home`, then `key right --repeat 40 / 95 / 395 / 385`.
+
+   | Timecode | Reframe | Text |
+   |---|---|---|
+   | 00:00:01:10 | speaker centred, head in upper third | title typing in («زهقت», small yellow, top); caption «بسم الله الرحمن الرحيم» tiny |
+   | 00:00:04:15 | centred, hand gesture in frame | caption «زهجت من التاجيل وخلاص» tiny |
+   | 00:00:17:20 | centred | long caption, tiny |
+   | 00:00:30:15 | centred | caption, tiny |
+
+   - **Auto reframe: good.** The face stays centred and nothing important is cropped. It holds
+     steady (a static shot, so little camera motion).
+   - **Text: not acceptable for 9:16.** Captions keep `transform.y` −0.73 and template scale, so they
+     sit at the lower third over the «DIESEL» logo. They render as one thin line about **⅓ of the
+     canvas width tall ≈8 px on the player**, unreadable on a phone. The title at scale 0.55 is also
+     small.
+   - `frame stepping` did not change the draft.
+   - **Measured** on `3-1720-long-caption.png`: caption glyph rows span **8 px** of a ≈381 px
+     player canvas height, **≈2.1 % of the frame height** (`caption-band-4x.png`, `title-4x.png`).
+     For comparison, vertical-video captions are commonly ≈4–6 % of frame height.
+
+### I. Fit the text layers to 9:16 (in progress)
+1. **Unlock the text tracks** again: click the lock icons (≈59,764 caption row, ≈59,731 title row).
+   - **Agent-verified draft:** caption and title track `attribute` 4 → **0** (first poll). Main video
+     stays 0; ratio 9:16 and `smart_crops` 1 are intact.
+2. **Select one caption** by clicking its block on the caption row (≈307,764), then screenshot the
+   inspector and the tracks (`41-caption-*`). The draft is unchanged.
+   - **Observed:** the click selected **everything**. All 18 caption blocks, the title and the main
+     clip are white-bordered, and the inspector is the mixed **"Properties"** panel (Transform only,
+     Position Y "-"). There are no Text / Templates tabs, so no "Apply to all main captions".
+   - Rung 8 (horizontal master) had a caption click select only that caption. Something now links
+     the selection: the undo of the accidental Cut (G.5), which restored an all-selected state, or
+     a timeline linkage toggle. Next: zoom into the toolbar's right-hand toggle group
+     (`42-toolbar-right-before-3x.png`), deselect by clicking the player's dark area, and
+     compare with rung 0's toggle map.
 
 ## Wait conditions
 
