@@ -154,6 +154,56 @@ by player frames:
    - Search box ≈(380,127), placeholder "People are searching …".
    - Trending cards include Slight Jitter, Negati…ssolve (Pro), Dust Flurry, Shake & Flash (Pro),
      Blur Focus, B&W Ghost, and several more Pro cards.
+2. **Search "dissolve":** click the search box, then `type "dissolve"`, Enter, and wait ≈9 s
+   (`09-transitions-dissolve.png`). The first rows are:
+   - **Dissolve** (Pro diamond)
+   - Dissolve II, Light Fade
+   - Negati…ssolve (Pro)
+   - **Cross Fade** ≈(360,360), no diamond
+   - Dissolve III
+   - a third row with one more Pro card
+
+   **Chosen: Cross Fade.** It is the plainest free dissolve, matching "Subtle free
+   (Recommended)".
+3. **Baseline:** `draft-before-transition.json`.
+4. **Drop Cross Fade on the cut:** `drag 360 360 855 895 --steps 40 --hold 0.4`, from the card
+   to the talk/desk boundary on the main track (00:15 = x≈855 at ≈41.7 px/s, main row y≈895).
+   - No dialog; the window list is unchanged.
+   - **Agent-verified** (`diff-transition.txt`, 23 filtered lines):
+     - **+`materials.transitions[0]`**: `name` **Cross Fade**, `type` transition, `category_name`
+       Transitions, **`duration` 2 000 000 µs (2.0 s default)**, **`is_overlap` true**,
+       `resource_id`/`effect_id` 7655002527276076308, `platform` all
+     - the **left (talk) segment**'s `extra_material_refs` gains the transition id (refs 8 → 9; it
+       is inserted at index 3, so the later refs shift)
+     - a +1 `material_animations` helper
+     - duration stays **30.0 s**; both main segments keep their target and source ranges (the
+       overlap does not shorten the timeline in the draft)
+     - overlay tracks unchanged
+   - **Observed** (`10-transition-dropped.png`):
+     - A highlighted transition block with a ⋈ icon spans the cut on the main track (≈x 812–898 =
+       14–16 s, centred on 00:15).
+     - The inspector switches to **Transition ▸ Transition parameters**: Name Cross Fade, a
+       **Duration** slider + box **2.0s**, a reset button, and an **"Apply to all"** button
+       (bottom right; not clicked, it would add the transition to every cut).
+     - The logo is visible top-right in the player.
+5. **Frames around the cut** (ruler clicks x≈792/834/876/917 land on 13:14, 14:14, 15:14, 16:14;
+   `11-xfade-*.png`):
+   - 13:14 and 14:14 show the talk section: sharp cut-out over the blurred room, logo readable
+     top-right. **No visible desk image mixed in at 14:14**, so the blend is checked at denser
+     points next.
+   - 15:14 and 16:14 show the desk section, pillarboxed.
+   - ⚠ **Logo legibility:** in the desk section the top-right corner is the **black pillarbox**, so
+     the dark ink wordmark is barely visible (only the blue dots stand out).
+   - ⚠ **Overlay pop:** the cut-out overlay (track 1) ends hard at 15:00. The main-track Cross Fade
+     cannot fade it, so the sharp speaker disappears abruptly at the cut.
+6. **Undo/redo gate (agent-verified):**
+   - The poll checks for `"Cross Fade"` in the draft text (PowerShell `Select-String`, no Python
+     quoting).
+   - Ctrl+Z → absent on the first poll; the logo guard is unchanged (scale 0.12, transform
+     0.8385 / 0.8093).
+   - Ctrl+Shift+Z → present on the first poll.
+   - Diff vs `draft-after-transition.json`: **no differences** (`diff-xfade-gate.txt` is empty).
+   - The transition is a single undo step.
 
 ## Wait conditions
 
