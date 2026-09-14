@@ -46,6 +46,10 @@ full paths. From the **Bash tool** (Git Bash), use forward slashes:
   the next batch.
 - **Long AI jobs:** use `cc.py wait-for ... --timeout 600` in one call rather than polling
   repeatedly.
+- **Name PowerShell helper functions Verb-Noun** (for example `Show-DraftDiff` or
+  `Wait-DraftSave`), never short words. On 2026-09-14 a helper called `Diff` silently ran the
+  built-in `diff` alias (`Compare-Object`) instead, and the verification step failed. Aliases take
+  precedence over functions.
 - **Permission prompts:** if the user wants fewer prompts, suggest allowlisting the venv python
   command in their Claude Code settings. Don't change settings yourself.
 

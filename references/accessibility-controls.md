@@ -313,6 +313,36 @@ Identify these by:
 
 Hovering the compare/preview icon around x≈1745 opened a small phone-style preview popover.
 
+**Right-hand toggle group, re-read at full resolution** (observed 2026-09-14, maximized, 125%).
+Left to right:
+- mic (≈1363)
+- **three cyan toggle icons** at ≈1422, ≈1477 and ≈1525. The third has a ▾ (≈1550).
+- a split/compare icon with ▾ (≈1590)
+- a monitor icon (≈1655)
+- zoom − (≈1710), slider, + (≈1885)
+
+All three toggles are drawn in cyan. The middle one (≈1477) also has a **filled cyan
+background**, while the outer two are cyan outlines on dark. The fill likely marks a different
+on/off state, but that isn't confirmed yet.
+
+The shortcut list names four timeline switches:
+- Main track magnet **P**
+- Auto snapping **N**
+- Linkage switch **~**
+- Preview axis switch **S**
+
+Which icon is which gets established by behaviour in rung 2, then recorded here.
+
+**Identified 2026-09-14 (agent-verified):**
+- **The first toggle (≈1422) is the Main track magnet.**
+  - Pressing **P** turned it from cyan to grey, and pressing P again turned it back to cyan.
+  - **Cyan = on, grey = off.**
+  - With it on, deleting a main-track segment ripples (rung 2, Op 2).
+- The middle toggle (≈1477, filled cyan) and the third (≈1525 ▾) are still unidentified. The
+  candidates are Auto snapping **N**, Linkage **~** and Preview axis **S**.
+- **No toast** appears when toggling with P. Confirm the state from the icon colour alone
+  (zoom `--region 1340,560,1920,620`).
+
 ### Timeline tracks
 - **Empty timeline:** a drop row reads "Drag material here and start to create". (observed)
 - **Adding a clip** (executed + agent-verified 2026-09-14):

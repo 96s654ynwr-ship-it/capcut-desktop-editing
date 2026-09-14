@@ -29,7 +29,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Split mode | B | listed | blade tool: clicking a clip splits it |
 | Select leftward | [ | listed | |
 | Select rightward | ] | listed | |
-| Main track magnet | P | listed | ripple behaviour on the main track |
+| Main track magnet | P | **agent-verified 2026-09-14** | toggles the first cyan toggle in the right-hand timeline group: cyan = on, grey = off, no toast. When on, deleting on the main track ripples and dropped clips snap flush |
 | Auto snapping | N | listed | |
 | Linkage switch | ~ | listed | |
 | Preview axis switch | S | listed | |
@@ -49,7 +49,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Shuttle stop | K | listed | |
 | Shuttle right | L | listed | (Shuttle left presumably J; see rest of list) |
 | Delete left | Q | listed | trims the selected clip's part left of the playhead |
-| Delete right | W | listed | |
+| Delete right | W | **agent-verified 2026-09-14** | with the segment selected and the playhead at 15.000 s inside it, the segment now ends at 15.000 s (start and source start unchanged) |
 | Show/Hide keyframe panel | Alt+K | listed | |
 | Add keyframe on keyframe panel | Shift+Click | listed | |
 | Add keyframe | Shift+Alt+K | listed | |
@@ -107,7 +107,7 @@ This completes the Timeline tab (7 scroll pages).
 | Paste | Ctrl+V | listed | |
 | Copy attributes | Ctrl+Shift+C | listed | copies effects/adjustments between clips |
 | Paste attributes | Ctrl+Shift+V | listed | |
-| Delete | Backspace | listed | |
+| Delete | Backspace | **agent-verified 2026-09-14** | deletes the selected timeline segment; with the main track magnet on it ripples. ⚠ On the home screen Backspace deletes a selected project card — check the tree root is `MainWindow` first |
 | Undo | Ctrl+Z | **agent-verified 2026-09-14** | reverted a split completely (draft diff: No differences) |
 | Redo (labelled "Reset") | Ctrl+Shift+Z | **agent-verified 2026-09-14** | CapCut's label is "Reset", but it redoes: re-applied an undone split identically |
 | Import media | Ctrl+I | listed | opens the "From device" file dialog? verify |
