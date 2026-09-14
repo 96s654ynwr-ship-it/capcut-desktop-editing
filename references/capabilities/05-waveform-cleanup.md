@@ -1,9 +1,10 @@
 # Capability 05: Waveform / manual cleanup pass
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated (awaiting user approval)
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** (in progress 2026-09-14, Claude Code)
+- **Demonstrated:** 2026-09-14, Claude Code. Five longest silences tightened in practice project
+  `0914 (4)` (473.433 → 450.533 s).
 - **Approved:** not yet
 - **Consent:** "Approve, start Cap 5". The approved plan names **CapCut's detected pauses plus
   caption word timings** as the main gap-finding tools, because the waveform strip is too thin to
@@ -82,6 +83,75 @@ draft.
      **W**.
   4. Verify the duration dropped by exactly the gap, and that the next segment starts at the gap
      start with the source of the gap end. Otherwise abort.
+
+### C. Result of the scripted pass (agent-verified 2026-09-14, 13:35:28 → 13:37:59, ≈2.5 min)
+- **Captions:** undone first. The timeline was confirmed back at baseline (2 segments, 473.433 s)
+  before any cut.
+- **Exact placement:**
+  - The first measuring split landed 1–57 frames off target: ruler clicks at fit zoom land about
+    ±2 s off.
+  - After one arrow correction, the second measuring split was **exact every time**. No attempt
+    needed a third pass.
+- **Each W checkpoint passed** (duration delta and resume source both within 1 frame):
+
+  | Gap (timeline) | Removed | Duration after | Join resumes src |
+  |---|---|---|---|
+  | 446.967 → 449.767 | 2.800 s | 470.633 | 499.800 |
+  | 375.200 → 379.567 | 4.367 s | 466.267 | 429.600 |
+  | 274.300 → 278.233 | 3.933 s | 462.333 | 328.267 |
+  | 254.500 → 263.667 | 9.167 s | 453.167 | 313.700 |
+  | 122.200 → 124.833 | 2.633 s | 450.533 | 171.767 |
+
+- **Final:** **7 segments, 450.533 s** (−22.900 s, matching the prediction exactly).
+- **W + main track magnet = ripple trim:** W removed the selected clip's part right of the playhead
+  (up to the split at the gap end), and the following clips slid left. There's no separate delete
+  of a small piece, so tiny pieces never need clicking.
+- **Final segments:**
+
+  | Timeline range | Source start |
+  |---|---|
+  | 0 → 122.200 | 46.933 |
+  | 122.200 → 245.733 | 171.767 |
+  | 245.733 → 251.867 | 298.400 |
+  | 251.867 → 262.500 | 313.700 |
+  | 262.500 → 359.467 | 328.267 |
+  | 359.467 → 426.867 | 429.600 |
+  | 426.867 → 450.533 | 499.800 |
+
+  The 245.733 join is rung 4's cut, shifted by −2.633.
+- **Undo / redo of the last W (agent-verified):**
+  - **Ctrl+Z:** duration 450.533 → 453.167, and only the 02:02 gap came back. Segment 0 extended to
+    124.833 and every later segment shifted +2.633 s. Its empty `material_animations` ref was
+    removed too.
+  - **Ctrl+Shift+Z:** diff against final: **No differences**. Each W trim is one undo step.
+- **Saved:** Menu ▸ Back to home page, then diff against final: **No differences** on disk.
+- **Scope:** the user's projects (0707, 0720, 0728, the Arabic-titled one) have unchanged
+  mtimes.
+
+### D. Spot-check (agent-verified 2026-09-14)
+- Click empty timeline space → **Home** → 00:00:00:00.
+- **↓** → **00:02:02:06** (122.200, gap join) → **00:04:05:22** (245.733, rung-4 join) →
+  **00:04:11:26** (251.867, join of the 9.167 s gap). All three match the draft boundaries to the
+  frame.
+- At the 9.167 s join: ← → 00:04:11:25 and →→ → 00:04:11:27. The frames either side are the same
+  framing with a small head/hand shift, a normal talking-head jump cut. There's no black frame and
+  no visible gap.
+- The yellow CapCut tip bubble ("…cut long videos…") still overlaps the right part of the timecode
+  readout. The playhead time on the left stays readable.
+
+## Wait conditions (rung 5)
+- **Auto captions:** ≈106 s for 7:53. Poll the draft for a non-empty `text` track.
+- **Each measuring split / undo / W:** the draft saved within about 1–4 s during the scripted pass.
+  `wait_save` polls the mtime with a 120 s timeout.
+- **Whole 5-gap pass:** ≈2.5 min (13:35:28 → 13:37:59).
+
+## Parameters (rung 5)
+| Parameter | Value used | Universal or shot-specific | How to judge it |
+|---|---|---|---|
+| Minimum gap considered | 0.60 s | editorial default | shorter gaps usually read as natural rhythm |
+| Silence kept each side | 0.125 s (→ 0.25 s total) | editorial default | tighter feels rushed; looser leaves dead air |
+| Gaps tightened | 5 longest (22.9 s) | demonstration scope | 79 candidates existed (90.6 s); ask the user how aggressive to go |
+| Edit-join gaps | skipped | universal | spans a previous cut, so it isn't real silence |
 
 ## Wait conditions
 
