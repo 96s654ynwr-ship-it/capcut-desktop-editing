@@ -65,7 +65,9 @@ skill's folder (resolve it from where you loaded this file).
    - deleting projects or media from disk
    - any AI feature that spends credits
 
-   Close upsell popups; never accept them. *Why:* these are irreversible or cost money, and
+   Close upsell popups; never accept them. **Menu ▸ Account holds a single item, "Delete
+   account"**, next to Settings and Back to home page. Move the pointer through that menu
+   deliberately and never click inside the Account submenu. *Why:* these are irreversible or cost money, and
    subscribing to Pro was the user's decision, not a licence for you to spend.
 7. **Keep your hands off the user's desktop when not editing.** Input goes to the foreground
    window. Tell the user before a batch starts that they shouldn't use the mouse or keyboard until

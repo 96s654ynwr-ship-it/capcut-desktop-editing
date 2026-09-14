@@ -30,7 +30,20 @@ Use pixels only where nothing else works.
 - **Resolve ambiguity deliberately.** When a query matches several elements, `act` refuses and
   lists them. Tighten the query (`--type`, `--id`, `--within "<ancestor name>"`) or pass `--nth`
   after checking which one you mean.
-- **Run `cc.py focus` before input.** Keyboard and mouse go to the foreground window.
+- **Run `cc.py focus` before input.** Keyboard input goes to the foreground window. Mouse clicks go
+  to whatever window is under the pointer.
+  - Windows' foreground lock sometimes refuses the refocus
+    (`WARN: could not confirm CapCut is foreground`). This was observed on 2026-09-14 while the
+    Claude app kept re-raising itself.
+  - A click still lands on CapCut if CapCut is visible under the pointer, but **never send keys
+    after that warning**. Re-run `cc.py focus`, then `cc.py screenshot`, and check
+    `foreground_ok` first.
+- **Popups change size with their state.** Dialog buttons move when a tab changes the dialog's
+  height. In the Shortcuts dialog, Cancel moved from y≈908 to y≈374.
+  - Prefer fixed anchors, like a dialog's ✕ in its top-right corner, or take a new screenshot
+    before clicking footer buttons.
+  - Named dialog windows in the tree (`HelpDialog`, `ExportWindow_Container`) give their current
+    rect.
 - **Screenshot before and after anything irreversible.**
 - **Stop on the unexpected.** A modal, upsell, crash dialog, login prompt or update prompt ends
   the batch. Deal with it (close/cancel) or ask the user.

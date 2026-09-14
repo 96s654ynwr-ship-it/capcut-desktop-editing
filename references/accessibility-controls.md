@@ -271,11 +271,19 @@ Order left → right after crop:
 | "HD" | **Enhance visuals** | — |
 | page with arrow | **Extract audio** | — |
 
-**Not yet confirmed by tooltip:**
-- The basic group: "+", selection ▾, undo, redo, `][` split, split-left, split-right, trash
-  delete, shield, crop. Their tooltips were outside the capture. Re-hover with a taller crop
-  (y+40…+110).
-- The right-hand group: mic and the four cyan toggles.
+**No tooltip on hover** (observed 2026-09-14): the basic group shows only a hover highlight and no
+tooltip within 1.8 s, even with a capture 120 px above and below. The basic group is "+",
+selection ▾, undo, redo, `][` split, split-left `][`-left, split-right, trash delete, shield,
+crop. The right-hand group (mic, the four cyan toggles, the compare ▾ and preview icons, zoom −/+)
+behaves the same.
+
+Identify these by:
+- **Icon shape**, a strong convention: `][` = split, trash = delete, curved arrows = undo/redo,
+  magnifier ± = zoom.
+- **The shortcut list** (Menu → see the Menu section).
+- **Behaviour tests in rungs 1–2**, confirmed by draft diff.
+
+Hovering the compare/preview icon around x≈1745 opened a small phone-style preview popover.
 
 ### Timeline tracks
 - **Empty timeline:** a drop row reads "Drag material here and start to create". (observed)
@@ -307,11 +315,116 @@ Order left → right after crop:
 
 (observed)
 
+### Inspector: other clip tabs (observed 2026-09-14, video clip selected)
+The tab row is **Video, Audio, Speed, Animation, Adjust**, then **AI stylize**, reached with ">".
+The row scrolls, so after ">" the positions shift. Take a new screenshot before clicking.
+Tabs switch on a single click.
+
+- **Audio.** Sub-tabs: **Basic | Voice changer**.
+  - Basic section (checkbox, reset, keyframe):
+    - **Volume** slider + dB stepper (0.0dB)
+    - **Fade in** / **Fade out** sliders + seconds steppers
+  - Below it:
+    - **Normalize loudness** (Pro), described as "Normalize the loudness of the selected clip or
+      clips to a target level"
+    - **Enhance voice** (Pro, ▾)
+    - **Video translator** (Pro, ▾)
+- **Speed.** Sub-tabs: **Standard | Curve | Velocity effects** (Pro).
+  - Standard has:
+    - **Speed** slider with detents + stepper (1.00x)
+    - **Duration** (source → result, stepper)
+    - **Change audio pitch** toggle
+    - **Smooth slow-mo** (Pro; disabled with "Only slow-speed videos are supported.")
+  - A **Reset** button at the bottom.
+- **Animation.** Shows "Loading…" for about 1 s on first open. Wait before the screenshot.
+- **Adjust.** Sub-tabs: **Basic | HSL | Curves | Color wheel | Mask**.
+  - Basic has:
+    - **Auto adjust** (Pro)
+    - **Color match** (Pro)
+    - **Color correction** (Pro)
+    - **LUT** (checked; Name dropdown "None", Intensity 100)
+    - "Protect skin tone…" below
+  - Bottom buttons: **Save as preset** (cyan), **Apply to all**.
+
+### Asset panels (observed 2026-09-14)
+The tab row is **Media, Audio, Text, Stickers, Effects, Transitions, Captions, Filters,
+Adjustment, Templates, AI avatar**:
+- The row scrolls. The ">" arrow at its right end reveals the later tabs, and "<" at the left end
+  scrolls back.
+- **Clicking where "Filters" was can hit the arrow instead.** Take a new screenshot after
+  scrolling.
+- Library panels share one layout: a left category list, a search box ("People are searching
+  …"), a filter icon, and thumbnail cards with a download arrow. **A purple diamond on a card
+  means Pro.**
+
+| Tab | Left list | Main area |
+|---|---|---|
+| Audio | Import, Yours ▾, **Music ▾** (Summer, Phonk, Vlog, Tense, …), Sounds effects ▾ | track rows: title, artist · duration, ☆ favourite, ⬇ download |
+| Text | **Add text**, Yours ▾, Text effects ▾, Text template ▾, **Auto captions**, **Local captions** | "Default text" card |
+| Stickers | Yours ▾, Stickers ▾ (Trending, Whimsical, Classic, NEW, Hits, Shapes…) | cards, many Pro |
+| Effects | Favorites, **Video effects ▾** (Trending, Classic, … Intro & Outro, Party), Body effects ▾ | named cards (e.g. "Club Mood"), many Pro |
+| Transitions | Favorites, Transitions ▾ (Trending, Classic, Overlay, Light, Camera, 3D…) | named cards (e.g. "Slight Jitter"), some Pro |
+| Captions | **Auto captions**, Templates ▾, **Auto lyrics**, **Add captions** | Auto captions form: **Spoken language** dropdown (Auto detect), **Bilingual captions** (Pro) dropdown (None), **Identify filler words** (Pro) toggle (on by default), **Delete current captions** checkbox, cyan **Generate** button with a **Pro** tag |
+| AI avatar | Avatar library, Photo to avatar, Fashion model…, Video translator, AI dialogue sce… (all Pro) | 2-step wizard: 1 Choose avatar → 2 Add speech; avatar cards; **Next** |
+
+**More asset panels** (observed 2026-09-14, after scrolling the tab row with ">"):
+
+| Tab | Left list | Main area |
+|---|---|---|
+| Filters | Favorites, **Filters ▾** (Featured, NEW, Hits, CCD, Life, Photo Booth, Pet, Landscape, Movies, Mono…) | named cards (e.g. "Bold Saturation"), some Pro |
+| Adjustment | **Add adjustment**, Yours ▾, **LUT** | "Custom adjustment" card (adds an adjustment layer) |
+| Templates | Yours ▾, **Templates ▾** (For you, then categories in the system/region language, here Arabic) | search "Search for templates". Loads slowly ("Loading……"), so wait before screenshotting |
+
+**Inspector → Animation** (after about 1–3 s of "Loading…"):
+- sub-tabs **In | Out | Combo**
+- a search box
+- category chips: ★, Trending, Basic, Light, Glitch, Mask…
+- cards: **None** (selected, cyan border), Zoom 2, Zoom In, Rock…, Fade In, Zoom Out, Swing Left,
+  Swing Right… Many are Pro (purple diamond), and each has ☆ favourite and ⬇ download.
+
+**Inspector → AI stylize** (reached via ">"):
+- **AI effects** checkbox + Prompt box with **Showcase ›**, **Random**, **Generate**
+  (disabled until a prompt is entered)
+- **Style** checkbox + chips: Trending, AI painting, AI Photo, Particle, Expressions, Hair Salon,
+  Motion, Split, Portrait, Face swap, Scene swap, Video effects. Pro cards below.
+
+Credits are likely; confirm with the user before generating.
+
+### Menu (observed 2026-09-14)
+- **Menu ▾** (top-left, next to the logo) opens: **File ›, Edit ›, Layout ›, More ›, Help ›,
+  Account ›, Settings, Back to home page, Quit**.
+- Hovering a › entry opens its submenu to the right. No click is needed.
+
+| Submenu | Items |
+|---|---|
+| File | New project, New timeline, Import, Export |
+| Edit | Undo, Recovery (disabled), Copy, Cut, Paste (disabled when clipboard empty), Delete |
+| Layout | (not yet opened) |
+| More | Terms of Service, Privacy Policy, Third-party copyright, Environment Testing, **Version:9.4.0** |
+| Help | Feedback, **Shortcuts**, Walkthrough, About |
+| Account | ⚠ **Delete account**: never hover-and-click here. It is the only item and sits directly under the pointer path to Settings. |
+
+- **Back to home page** is the clean way to leave the editor, and it forces the draft to save.
+- The top bar also shows **"Auto saved: HH:MM:SS"** with a cyan check next to Menu.
+- **Esc does not reliably close the Menu.** After `key esc esc`, the UIA tree still listed a
+  `MenuWindow`. Verify with `cc.py tree --depth 1` and a screenshot. Close it by clicking a neutral
+  area (e.g. the empty timeline background) if it is still open.
+
 ### Transcript editor
 
 ### Context menus
 
 ### Export dialog
+Opened via the cyan **Export** button (top-right) — shortcut **Ctrl+E**. Observed 2026-09-14 (opened and cancelled, nothing exported).
+
+- **Tree:** named window `Window "Export-<project>"`, id `ExportWindow_Container`, cls `ExportWindow_QMLTYPE_2488`, rect ≈ 900×828 centred. Presence = dialog open; no child controls exposed.
+- **Left:** cover preview with **Edit cover**.
+- **Right, top:** Export timeline (Timeline 01) · **Name** field (project name) · **Export to** path field + folder icon (defaulted to the last-used folder, here `E:/videos/<name>.mp4`).
+- **Video** section (checkbox, checked): **Resolution** ▾ (1080P) · **Bit rate** ▾ (Recommended) · **Codec** ▾ (H.264) · **Format** ▾ (mp4) · **Frame rate** ▾ (30fps) · Color space (Rec. 709 SDR, read-only).
+- ⚠ **Sync exported videos to space** checkbox — **checked by default** (uploads to CapCut cloud). Must be unchecked before any export unless the user asks for sync.
+- **Audio** section (checkbox, unchecked) · Format ▾ (MP3).
+- **Footer:** "Duration: 24s | Size: about 23 MB" · cyan **Export** · **Cancel** (bottom-right, left of nothing; Export is to its left).
+- The settings list scrolls (scrollbar on the right) — more options below Audio may exist; scroll inside the list before assuming.
 
 ### Settings / shortcuts
 

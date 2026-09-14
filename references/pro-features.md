@@ -49,6 +49,33 @@ rungs) replaces it with the route actually observed in this install. Columns:
 | Export 4K / high fps / high bitrate | Export dialog | | | | 15 | unverified |
 | Cloud storage / space sync | Home screen / project menu | | | | never (side effect) | unverified |
 
+## Pro badges observed in the UI (2026-09-14, CapCut 9.4.0.4015)
+
+A purple diamond next to a control or on a library card is the Pro marker. None of these were
+run, so credits are unknown.
+
+| Feature | Verified route | Badge |
+|---|---|---|
+| Normalize loudness | Inspector → Audio → Basic | Pro diamond |
+| Enhance voice | Inspector → Audio → Basic (▾ options) | Pro diamond |
+| Video translator | Inspector → Audio → Basic; also Asset → AI avatar | Pro diamond |
+| Voice changer | Inspector → Audio → **Voice changer** sub-tab | (to check) |
+| Velocity effects | Inspector → Speed → sub-tab | Pro diamond |
+| Curve speed | Inspector → Speed → **Curve** sub-tab | none seen |
+| Smooth slow-mo | Inspector → Speed → Standard (disabled for normal-speed clips) | Pro diamond |
+| Auto adjust | Inspector → Adjust → Basic; also timeline toolbar | Pro diamond |
+| Color match | Inspector → Adjust → Basic | Pro diamond |
+| Color correction | Inspector → Adjust → Basic | Pro diamond |
+| LUT / HSL / Curves / Color wheel / Mask | Inspector → Adjust | none seen |
+| Stabilize | Inspector → Video → Basic | Pro diamond |
+| Remove BG / Mask / Retouch | Inspector → Video sub-tabs | (to check inside) |
+| Auto captions → Generate | Asset → Captions → Auto captions → **Generate** | "Pro" tag on button |
+| Bilingual captions | Asset → Captions → Auto captions | Pro diamond |
+| Identify filler words | Asset → Captions → Auto captions (toggle, on by default) | Pro diamond |
+| Auto lyrics | Asset → Captions | (to check) |
+| AI avatar tools (Avatar library, Photo to avatar, Fashion model, Video translator, AI dialogue scene) | Asset → AI avatar | Pro diamond on each |
+| Pro stickers / effects / transitions | Asset tabs; purple diamond on the card corner | Pro diamond |
+
 ## Rules
 
 - **Before running anything that shows a credits icon or cost,** state the feature, clip and

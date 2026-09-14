@@ -2,42 +2,143 @@
 
 Shortcuts are the most stable way to operate CapCut: they don't care about layout, DPI or tree
 coverage. They do care about **focus**. Most editing shortcuts act on the timeline only when the
-timeline (not a text field or the inspector) has focus. Click an empty timeline area, or check
-that the focus doesn't sit in an Edit control (`cc.py tree --root focused`), before sending them.
+timeline (not a text field or the inspector) has focus. Click an empty timeline area first when in
+doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 
-**Status:** everything below is `unverified` (commonly reported defaults). Capability 0 must open
-CapCut's own shortcut list and correct this table. CapCut also lets users remap shortcuts, and
-custom mappings live in `%LOCALAPPDATA%\CapCut\User Data\Config\keymapSettings`.
+## Source
 
-| Action | Reported default | Verified | Notes |
+- **Transcribed from CapCut's own list:** Menu ▸ Help ▸ **Shortcuts** (CapCut 9.4.0.4015,
+  2026-09-14). Evidence: `evidence/2026-09-14/cap0/shortcuts/`.
+- **Status labels:**
+  - `listed`: shown in CapCut's dialog, not yet exercised
+  - `agent-verified`: exercised and confirmed (screenshot/draft diff)
+- **Keymap preset:** "Shortcut 1" (dropdown at the dialog's top right).
+- **The dialog is a named UIA window** (`Window "Shortcuts"`, id `HelpDialog`). It has tabs
+  **Timeline / Player / Basic / Other** and buttons **Reset / Save / Cancel**. **Close it with
+  Cancel (or ✕), never Save or Reset.** Those change the user's keymap.
+- **Custom mappings** are stored in `%LOCALAPPDATA%\CapCut\User Data\Config\keymapSettings`.
+  Re-check the dialog if a shortcut misbehaves.
+
+## Timeline tab
+
+| Action | Shortcut | Status | Notes |
 |---|---|---|---|
-| Play / pause | Space | | |
-| Split at playhead | Ctrl+B | | acts on selected clip(s) or the clip under the playhead (verify) |
-| Delete left of playhead (trim start) | Q | | ripple behaviour depends on main-track magnet |
-| Delete right of playhead (trim end) | W | | |
-| Delete selected | Delete / Backspace | | |
-| Undo | Ctrl+Z | | |
-| Redo | Ctrl+Shift+Z | | some builds: Ctrl+Y |
-| Copy / cut / paste | Ctrl+C / Ctrl+X / Ctrl+V | | |
-| Select all | Ctrl+A | | |
-| Import media | Ctrl+I | | opens a Windows file dialog |
-| Export | Ctrl+E | | opens the export dialog |
-| Previous / next frame | Left / Right | | |
-| Previous / next edit point | Up / Down | | |
-| Zoom timeline in / out | Ctrl+= / Ctrl+- | | |
-| Fit timeline to window | Shift+Z | | |
-| Add marker | M | | |
-| Group / ungroup | Ctrl+G / Ctrl+Shift+G | | |
-| Create compound clip | Alt+G | | |
-| Separate audio | Ctrl+Shift+S | | |
-| Freeze frame | Shift+F | | |
-| Toggle snapping | N | | |
-| Mark in / out | I / O | | |
-| Fullscreen player | Ctrl+Shift+F | | |
+| Split | Ctrl+B | listed | |
+| Split all | Ctrl+Shift+B | listed | splits every track at the playhead |
+| Select mode | A | listed | selection tool |
+| Split mode | B | listed | blade tool: clicking a clip splits it |
+| Select leftward | [ | listed | |
+| Select rightward | ] | listed | |
+| Main track magnet | P | listed | ripple behaviour on the main track |
+| Auto snapping | N | listed | |
+| Linkage switch | ~ | listed | |
+| Preview axis switch | S | listed | |
+| Zoom in | Ctrl++ | listed | |
+| Zoom out | Ctrl+- | listed | |
+| Zoom in/out | Ctrl+Scroll | listed | `cc.py scroll x y ±n --mod ctrl` |
+| Scroll up/down | Scroll | listed | |
+| Scroll left/right | Alt+Scroll | listed | |
+| Activate/Deactivate clip | V | listed | |
+| Extract/Restore audio | Ctrl+Shift+S | listed | |
+| Add marker | M | listed | |
+| Add marker with new color | Alt+M | listed | |
+| Go to next marker | Shift+M | listed | |
+| Go to previous marker | Alt+Shift+M | listed | |
+| Previous frame | ← | listed | |
+| Next frame | → | listed | |
+| Shuttle stop | K | listed | |
+| Shuttle right | L | listed | (Shuttle left presumably J; see rest of list) |
+| Delete left | Q | listed | trims the selected clip's part left of the playhead |
+| Delete right | W | listed | |
+| Show/Hide keyframe panel | Alt+K | listed | |
+| Add keyframe on keyframe panel | Shift+Click | listed | |
+| Add keyframe | Shift+Alt+K | listed | |
+| Ease in / Ease out / Easing / Linear / Adjust properties | (unassigned) | listed | no default key |
+| Step forward many frames | Shift+← | listed | **dialog labels look swapped** (forward shown with ←). Verify by timecode |
+| Step back many frames | Shift+→ | listed | see above |
+| Zoom to fit timeline | Shift+Z | listed | |
+| Freeze / Reverse / Mirror / Rotate / Crop / Trim clip | (unassigned) | listed | use the timeline toolbar icons |
+| Generate captions / Don't isolate voice / Keep vocal / Remove vocal | (unassigned) | listed | |
+| Sync video and audio / Transcript / Open file location / Link to media | (unassigned) | listed | |
+| Separate / Split scenes / Replace clip / Image to video | (unassigned) | listed | |
+| Locate to first frame | Home | listed | |
+| Locate to last frame | End | listed | |
+| Last cut point | ↑ | listed | jump the playhead to the previous edit point |
+| Next cut point | ↓ | listed | |
+| In point | I | listed | |
+| Out point | O | listed | |
+| Select by clip | Shift+X | listed | |
+| Deselect | Alt+X | listed | |
+| Group | Ctrl+G | listed | |
+| Ungroup | Ctrl+Shift+G | listed | |
+| Show speed panel | Ctrl+R | listed | |
+| Curve speed | Shift+B | listed | |
+| Create compound clip (subproject) | Alt+G | listed | |
+| Undo compound clip (subproject) | Alt+Shift+G | listed | |
+| Volume +0.1dB | Ctrl+. | listed | |
+| Volume -0.1dB | Ctrl+, | listed | |
+| In | Shift+Enter | listed | (label as shown; purpose to verify) |
+| Shuttle left | J | listed | |
+| Record screen | Ctrl+Alt+P | listed | |
+| Export selected clips / Apply as a LIVE photo / Create multi-camera clip / Save preset | (unassigned) | listed | |
+| Pre-process compound clip (subproject) / Clear beats / Voiceover | (unassigned) | listed | |
+
+This completes the Timeline tab (7 scroll pages).
+
+## Player tab
+
+| Action | Shortcut | Status |
+|---|---|---|
+| Play/Pause | Space | listed |
+| Enter/Exit full screen | Ctrl+Shift+F | listed |
+| Cancel player alignment | Long press Ctrl | listed |
+| Zoom in player | Alt+Shift++ | listed |
+| Zoom out player | Alt+Shift+- | listed |
+| Zoom to fit player | Alt+Shift+Z | listed |
+| Show/hide rulers | Ctrl+Alt+R | listed |
+| Show/hide guides | Ctrl+; | listed |
+
+## Basic tab
+
+| Action | Shortcut | Status | Notes |
+|---|---|---|---|
+| Copy | Ctrl+C | listed | |
+| Cut | Ctrl+X | listed | |
+| Paste | Ctrl+V | listed | |
+| Copy attributes | Ctrl+Shift+C | listed | copies effects/adjustments between clips |
+| Paste attributes | Ctrl+Shift+V | listed | |
+| Delete | Backspace | listed | |
+| Undo | Ctrl+Z | listed | |
+| Redo (labelled "Reset") | Ctrl+Shift+Z | listed | CapCut's label is "Reset"; it's the redo slot |
+| Import media | Ctrl+I | listed | opens the "From device" file dialog? verify |
+| Export still frames | (unassigned) | listed | |
+| Export | Ctrl+E | listed | opens the export dialog |
+| New project | Ctrl+N | listed | creates a project, a side effect |
+| Switch material panel | Tab | listed | |
+| Back to edit | Ctrl+Alt+Q | listed | |
+| Quit | Ctrl+Q | listed | **closes CapCut**. Never send it by accident |
+| Full screen | Ctrl+F | listed | |
+| Exit full screen | Esc | listed | |
+
+## Other tab
+
+| Action | Shortcut | Status |
+|---|---|---|
+| Resize the text box from the center | Alt+Drag | listed |
+
+## Shortcuts to avoid sending casually
+- **Ctrl+Q** (quit CapCut)
+- **Ctrl+N** (new project)
+- **Ctrl+Shift+B** (split *all* tracks)
+- **P** (toggles main-track magnet, which silently changes ripple behaviour for later edits)
+- **V** (deactivates a clip)
+
+Single-letter shortcuts fire whenever the timeline has focus. **Never `cc.py type` text unless a
+text field is confirmed focused.** Otherwise the letters become edit commands.
 
 ## How to verify a shortcut (during any rung)
 
-1. Take a `cc.py evidence` snapshot, or at least a screenshot, before sending the shortcut.
-2. Send `cc.py key <combo>` with the right focus.
+1. Screenshot before, with CapCut focused and the correct panel focused.
+2. Send `cc.py key <combo>` (e.g. `cc.py key ctrl+b`, `cc.py key shift+z`).
 3. Confirm the effect with a screenshot and, for edits, `draft_inspect.py diff`.
-4. Mark the row `agent-verified` with the date and CapCut version.
+4. Change the row to `agent-verified` with the date.

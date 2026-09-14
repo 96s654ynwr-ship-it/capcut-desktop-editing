@@ -37,4 +37,8 @@
    isn't, wait or return to the home screen to force a save.
 6. **Never trigger sync or cloud actions.** Space/cloud upload, sharing links, publishing to
    TikTok/YouTube and team spaces all require explicit user approval.
-7. **Export only to a folder the user named.** Never overwrite existing files without asking.
+7. **Export only to a folder the user named.** Never overwrite existing files without asking. The
+   Export dialog pre-fills **Export to** with the last-used folder, so change it deliberately.
+8. **Uncheck "Sync exported videos to space" in the Export dialog before every export.** In
+   9.4.0.4015 it is checked by default and uploads the video to CapCut cloud. Take a screenshot of
+   the dialog showing it unchecked before pressing Export.
