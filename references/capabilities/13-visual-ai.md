@@ -372,6 +372,15 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
       is auto-selected.
   - Layer order: the overlay (top) is already the cut-out, and the main-track copy is below it. So
     the main copy needs Auto removal **off** plus a blur.
+  - Both copies' `matting.path` point to the **same** `matting/1297d…/` folder (632 masks), so the
+    paste reused the cache with no reprocessing.
+  - **Untick Auto removal on the main copy:**
+    1. Click the main clip (≈540,835); the white border confirms the main row is selected
+       (`44-main-removebg-tab.png`).
+    2. **Video ▸ Remove BG** ≈(1623,128), then the checkbox ≈(1468,193).
+    - No dialog.
+    - **Agent-verified:** main material `matting.flag` **3 → 1** (not 0: flag 1 appears to mean
+      "analysed but off"; the path is kept). The overlay material stays **3**.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
