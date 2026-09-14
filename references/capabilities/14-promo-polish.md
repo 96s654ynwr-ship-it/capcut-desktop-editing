@@ -85,6 +85,48 @@ by player frames:
    read **0915-copy**; the state is identical (`03-copy-opened.png`).
 2. **Logo file baseline:** `logo-before.txt` (mtime 2026-09-13 22:26:21.494, 22 638 B, sha256
    DE5C…0597), used to prove afterwards that CapCut didn't write to the client project.
+3. **Import** (rung-3 route):
+   - `key ctrl+i`
+   - `wait-for --type Edit --id 1148 --depth 30`: present after 2 s
+   - `act set-value --type Edit --id 1148 --value <logo path>`
+   - `act invoke --id 1 --name Open`
+
+   **Agent-verified:**
+   - The dialog closes and `draft_meta_info.json` lists `logo-ink-tight`.
+   - A media card **"logo-ink-tight.png"** appears at ≈(382,411), selected. The player shows
+     **"Previewing — Image"** 00:00:05:00, so a still image defaults to 5 s (`04-logo-imported.png`).
+   - The transparent areas preview as black in the media preview only.
+   - The logo file is re-hashed and **unchanged** (brand folder still 9 files).
+4. **Put the logo on its own top overlay track:** `drag 382 411 236 662 --steps 40 --hold 0.4`,
+   from the media card into the empty area above the existing overlay row (y≈745) at the 00:00 x.
+   **Agent-verified (`layers.py 0915-copy`):**
+   - a new **track 2** (`type` video, `flag` 2 = overlay, `attribute` 0), stacked above the
+     cut-out overlay (track 1)
+   - one segment **0.000 → 5.000 s**, source 0, on a new material (`-ink-tight.png`)
+   - helper materials 3 → 4 (canvases, colors, placeholder_infos, sound_channel_mappings,
+     speeds, videos, vocal_separations); duration stays 30.0 s
+   - tracks 0 and 1 unchanged
+
+   **Observed** (`05-logo-dropped.png`):
+   - The logo clip is auto-selected on the **top row y≈745** (x≈230–438 = 0–5 s).
+   - The rows shift down: cut-out overlay **y≈812**, main track **y≈895**.
+   - The inspector shows Video ▸ Basic (Scale 100 %, Position 0/0) plus tabs Animation /
+     Tracking / Adjust / AI stylize.
+   - At 100 % the transparent PNG **fills the canvas width** (wordmark over the speaker); the
+     transparency renders correctly.
+5. **Extend the logo to the full 30 s:** `drag 436 745 1481 745 --steps 50 --hold 0.4`, from just
+   inside the clip's right edge to the 00:30 x (the end of the desk clip).
+   **Agent-verified (`logo_state.py 0915-copy --wait-dur 30`, first poll):**
+   - logo segment 0 → **30.000 s**; `type` photo, 386×212; scale 1.0; transform 0/0
+   - refs 6 → 7; project duration stays 30.0 s; tracks 0/1 unchanged
+   - The edge snapped exactly to the timeline end (`06-logo-extended.png`).
+6. **Plan for size and placement:**
+   - **Scale ≈12 %:** the image is width-fit at 100 %, so ≈230 px wide on the 1920 canvas.
+   - **Top-right corner with ≈40 px margins.** The real centre offset is ≈(+805, +437) px, so
+     typed Position ≈ **X 1610, Y 874**. The typed unit is ½ canvas px, and positive Y = up
+     (rung 10).
+   - The top-right corner shows the window/wall in the talk section and a white wall in the
+     desk section; the face stays clear.
 
 ## Wait conditions
 
