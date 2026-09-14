@@ -138,6 +138,9 @@ For each area add a table:
 | AI-powered creative suite | Carousel: Video Studio, Design Studio, AI ad maker, Long video to shorts, with a ">" arrow at its right | observed |
 | Projects section | "Projects" heading with search icon, grid/list toggle, **Trash**, **Project sync** buttons on the right; project thumbnail cards below (scroll down for more) | observed |
 | Title bar | Top-right icon row before the minimize/maximize/close controls (purpose to confirm by hover tooltips) | observed |
+| Project card | In the Projects row: thumbnail, then the **name** and "size \| duration" below it (e.g. `0914` / `18.8M \| 00:24`). The newest project comes first. **The page must be scrolled down** (wheel over the main area) to see names | observed |
+| Card "…" button | Appears in the thumbnail's **bottom-right corner on hover** | observed |
+| Card right-click menu | Right-click the thumbnail. A menu opens **inside the home window** (no new UIA window) with **Upload**, **Rename**, **Duplicate**, **Delete** (Backspace). ⚠ Delete is the row directly below Duplicate (about 40 px); Upload is a cloud side effect | observed |
 
 > **Editor window (observed 2026-09-14, blank project):**
 > - root `Window "CapCut"`, AutomationId `MainWindow`, ClassName `MainWindow_QMLTYPE_498`
@@ -430,6 +433,10 @@ Credits are likely; confirm with the user before generating.
 | Account | ⚠ **Delete account**: never hover-and-click here. It is the only item and sits directly under the pointer path to Settings. |
 
 - **Back to home page** is the clean way to leave the editor, and it forces the draft to save.
+  Executed 2026-09-14: Menu (≈140,22) → Back to home page. About 5 s later the tree root was
+  `HomeWindow` again, and the project list showed the edited project first (most recent). The
+  home page is scrollable; the Projects row sits below the fold at 1920×1030, so scroll it into
+  view before clicking cards.
 - The top bar also shows **"Auto saved: HH:MM:SS"** with a cyan check next to Menu.
 - **Esc does not reliably close the Menu.** After `key esc esc`, the UIA tree still listed a
   `MenuWindow`. Verify with `cc.py tree --depth 1` and a screenshot. Close it by clicking a neutral

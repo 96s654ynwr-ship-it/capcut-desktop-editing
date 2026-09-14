@@ -18,7 +18,13 @@
 
 1. **Never write project files.** No JSON edits, no copying files into or over a project folder,
    no deleting project folders. All changes go through CapCut's UI.
-2. **Duplicate before editing.** Use CapCut's own duplicate/copy command on the home screen
+2. **Project-card menu hazards (home screen).** Right-clicking a project card shows Upload /
+   Rename / **Duplicate** / **Delete**:
+   - Delete is the next row below Duplicate, and **Backspace deletes a selected card**.
+   - Click the vertical centre of the Duplicate row, from a fresh screenshot.
+   - Never press Backspace/Delete while the home screen has focus.
+   - Never choose Upload (cloud).
+3. **Duplicate before editing.** Use CapCut's own duplicate/copy command on the home screen
    project card. The exact route is found and recorded by Capability 1 (candidate: the "…" menu or
    right-click on the card → Duplicate/Copy).
    - Name the copy `<original> - agent practice YYYY-MM-DD`.
@@ -32,7 +38,16 @@
    - If undo can't fix it, stop and tell the user. Offer to delete the practice copy through
      CapCut's UI (needs their yes) and start a fresh duplicate.
    - Never repair the JSON.
-5. **Draft freshness.** CapCut autosaves on a timer and on leaving the editor. Before a diff,
+5. **Browsing is not zero-write** (observed 2026-09-14). While mapping, I opened the inspector's
+   Adjust ▸ HSL sub-tab on project `0914`. When the project was later saved (Back to home page),
+   the draft gained an empty `hsl` material referenced by the clip (`materials.hsl: 0 → 1`).
+   Earlier diffs had shown "No differences" only because the draft on disk hadn't been re-saved
+   yet. Therefore:
+   - Treat any project you open and click around in as modified.
+   - Browse and map only in agent-owned practice projects.
+   - **Before diffing, force a save**: Menu ▸ Back to home page. Then check that
+     `draft_content.json`'s modification time moved.
+6. **Draft freshness.** CapCut autosaves on a timer and on leaving the editor. Before a diff,
    check that `draft_content.json`'s modification time is newer than your last action. If it
    isn't, wait or return to the home screen to force a save.
 6. **Never trigger sync or cloud actions.** Space/cloud upload, sharing links, publishing to
