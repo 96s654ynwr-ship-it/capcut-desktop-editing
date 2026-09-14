@@ -104,6 +104,16 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
 ## Tree coverage notes
 
 ## User choices (2026-09-14)
+- **Features:** "Remove background (Recommended), Stabilization (Recommended)". **Camera tracking is
+  not in scope** for this demonstration.
+- **Stabilization clip:** "3 working at purple desk (Recommended)" = `E:\videos\VID_20260501_233809.mp4`
+  (38 s, portrait via −90° rotation, handheld; motion 5.12).
+- **Remove BG footage:** "Your talk footage (Recommended)" = `E:\videos\VID_20260720_190542.mp4`
+  (the talking head, speaker on a light wall). Use a short section.
+- **Project:** "New practice project (Recommended)". A fresh agent-owned project with just these
+  clips, ≈10–20 s each. The approved projects stay untouched.
+- Evidence from 2026-09-15 onward goes to `evidence/2026-09-15/cap13/` (date rollover). The
+  candidate files stay in `evidence/2026-09-14/cap13/`.
 
 ## Open questions for the user
 - Which of the three features, and which footage for each.
