@@ -237,6 +237,36 @@ by player frames:
      - **Color correction** (Pro ▾)
      - **LUT** (ticked by default, Name **None**, Intensity 100 greyed, **Protect skin tone** toggle)
    - Each row has a reset button and a keyframe diamond.
+5. **Tick Auto adjust** ≈(1468,193) with all three clips selected:
+   - **No cost, credit or upsell dialog**; the window list is unchanged.
+   - **Instant**: no progress indicator. The row expands to show **Intensity 80** (slider + box),
+     and a toolbar icon lights up (`17-autoadjust-ticked.png`).
+   - **Agent-verified** (`diff-autoadjust.txt`, 184 filtered lines):
+     - **+3 `materials.effects`**: `name` "color-adjustment", **`type` `smart_color_adjust`**,
+       **`value` 0.8** (= Intensity 80)
+     - **+3 `materials.hsl`** helper entries (`type` hsl)
+     - **`enable_smart_color_adjust` false → true** on all three segments: main talk, desk,
+       overlay talk
+     - each of those segments gains 2 `extra_material_refs`
+     - the logo segment is not in the diff; tracks, times, the transition and the blur are
+       unchanged
+6. **Frames before/after** (same ruler clicks → 13:14 and 16:14; before = `11-xfade-*`, after =
+   `18-autoadjust-after-*`; sheet `autoadjust-compare.png` via `autoadjust_compare.py`):
+
+   | Frame | Before (mean V / S) | After (mean V / S) |
+   |---|---|---|
+   | 13:14 talk, whole canvas | 156.8 / 33.7 | **173.2 / 40.4** |
+   | 16:14 desk, portrait box only | 169.4 / 87.8 | **186.8 / 98.8** |
+
+   The result is a visibly brighter picture (+≈10 % value) with a little more colour. The cut-out
+   and the blurred background brighten together, with no mismatch at the edges.
+7. **Undo/redo gate (agent-verified):**
+   - The poll counts `enable_smart_color_adjust": true` in the draft text:
+     - start 3
+     - **Ctrl+Z → 0** on the first poll. That's all three clips in **one** undo step, with the
+       Cross Fade still present and the logo guard unchanged.
+     - **Ctrl+Shift+Z → 3** on the first poll.
+   - Diff vs `draft-after-autoadjust.json`: **no differences**.
 
 ## Wait conditions
 
