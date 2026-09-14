@@ -188,6 +188,53 @@ against beat marks) and in frames.
       just right of the cut, then Delete.
    4. Gate each delete with `section_check.py`. Expected final: main 1/0, captions 18/0, title 1/0,
       PiP 0. Otherwise Ctrl+Z.
+10. **Back to fit zoom:** `key "ctrl+-"` × 4 restores the rung-11 layout (`13-fit-again.png`).
+    - The playhead is still 00:00:35:16 (x≈327), and the right piece of clip 0 is still selected.
+    - Main clips 1–6 are back at x≈740 / 921 / 945 / 1095 / 1323 / 1450 (y 891), the PiP block at
+      ≈(501,744), and the caption row at y≈827 runs to x≈1450.
+11. **Multi-select right of the cut:** with the right piece of clip 0 already selected, run
+    `click <x> 891 --mod ctrl` for x = 740, 921, 945, 1095, 1323, 1450, then `click 501 744 --mod ctrl`
+    (PiP).
+    - **Observed** (`14-multiselect-right-tracks.png`): white borders on the right piece of clip 0,
+      main clips 1–6 and the PiP block.
+    - **Unexpectedly, every caption right of the cut is outlined too** (from x≈328 to the end of
+      the caption row).
+    - Captions left of the cut, the left piece of clip 0 and the title are **not** selected.
+    - The selection was not captured after each Ctrl+click, so it's unknown which one pulled the
+      captions in. It's likely the auto captions are linked to their source clips. With only the
+      right piece of clip 0 selected (screens 09–11), no captions were outlined.
+    - The playhead is still 00:00:35:16 and the draft is unchanged.
+    - **So the planned separate caption box-select wasn't needed.** The next step deletes this
+      selection once.
+
+### E. Delete everything right of the cut (executed + agent-verified 2026-09-14)
+1. With the selection from D.11, press **`key delete`**. The draft saved on the first 0.5 s poll.
+2. **`section_check.py` → `section-after-delete.json`:**
+   - track 0 main: **1 before / 0 after** (ends 35.533)
+   - track 1 captions: **18 / 0** (last ends 35.267)
+   - track 2 title: **1 / 0**
+   - **the overlay track is gone** (3 tracks)
+   - **duration 35.533 s**; canvas still `original` 1920×1080
+3. **`diff` vs `copy-baseline.json`:**
+   - duration 450.533 → **35.533 s**, track_count 4 → 3, segment_count 248 → 20
+   - `- track 3 [video] removed`; the caption segments from 35.800 s onward are removed
+   - materials shrink to match: videos / canvases / speeds / … 8 → 1, loudnesses / realtime_denoises
+     / vocal_beautifys 7 → 1, texts / text_templates 240 → 19, effects 239 → 18,
+     material_animations 246 → 20
+4. `title_check`: 1 title, text tracks (1: 18), (2: 1).
+   - `keyframes`: **none**. The rung-7 push-in lived on master seg 4 (262.5 s+), outside the
+     section. Expected.
+5. Master `0914 (4)-copy` mtime is still **22:00:40.991**.
+6. **UI after delete** (`15-after-delete.png`):
+   - The timeline shows only ≈35 s: the title TT, caption TT and one main clip, with **no overlay
+     row**.
+   - Player "00:00:35:16 / 00:00:35:16", "Auto saved: 22:23:52".
+   - Aspect ratio still "Original".
+7. **Undo/redo gate** (no MenuWindow or dialog open first):
+   - `ctrl+z` → first poll: **duration 450.533 s**, t0 1/7, t1 18/221, t2 1/0, t3 0/1. That is
+     exactly the pre-delete state, and one undo step removed all 229 segments.
+   - `ctrl+shift+z` → first poll: **35.533 s**, t0 1/0, t1 18/0, t2 1/0.
+   - Trimmed state saved as `trim-final.json`.
 
 ## Wait conditions
 
