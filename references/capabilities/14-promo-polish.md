@@ -358,6 +358,11 @@ by player frames:
    - **Canvas** ▾ at the bottom: checkbox ≈(1468,516), **ticked by default**; ▾ ≈(1543,516)
    - ⚠ **Apply to all** ≈(1848,516) on the same row. Not clicked: it would set the canvas on every
      clip, including the overlay and logo layers.
+5. **Expand Canvas:** click ▾ ≈(1543,516), then `scroll 1680 400 -6` (`33-canvas-options.png`).
+   - The row flips to ▴ and moves up to y≈469; Apply to all is now ≈(1848,469).
+   - A full-width **dropdown reading "None"** ≈(1677,517) appears under it, which matches the
+     draft's `canvas_color` with an empty colour.
+   - No draft change from expanding.
 
 ## Wait conditions
 
