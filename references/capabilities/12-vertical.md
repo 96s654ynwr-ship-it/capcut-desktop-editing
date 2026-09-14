@@ -142,6 +142,52 @@ against beat marks) and in frames.
    `[`), both "listed" and not yet verified. Plan: close the menu with a neutral click, refocus the
    timeline without seeking, then press `]`. The expected selection is every clip on every track
    starting at or after the playhead.
+3. **Closing the menu:** a left-click on the empty Media panel area (≈380,480) closes the menu
+   without seeking. `MenuWindow` is gone, the header reads "Player-Timeline 01", the playhead is
+   still 00:00:35:16, and the draft is unchanged.
+4. **Counts before deleting** (`section_check.py "0914 (4)-copy-copy" 35.533` →
+   `section-before-delete.json`):
+
+   | Track | Before cut | Straddling | After cut |
+   |---|---|---|---|
+   | 0 main video | 1 (ends 35.533) | 0 | 7 |
+   | 1 captions | 18 (last ends 35.267) | 0 | 221 |
+   | 2 title | 1 (ends 4.0) | 0 | 0 |
+   | 3 overlay PiP | 0 | 0 | 1 |
+
+   - Nothing straddles the cut, so deleting every "after" segment leaves exactly the 35.533 s
+     section.
+   - Canvas `ratio` "original", 1920×1080; duration 450.533 s.
+5. **First `]` attempt:**
+   - Refocused by clicking the right-hand piece of clip 0 (≈450,891). That selects it without
+     seeking; the playhead stays at 35:16.
+   - `cc.py key bracketright` failed with **"Unknown key 'bracketright'"**.
+   - The selection didn't change: only the clicked piece is bordered (`10-after-bracket-tracks.png`).
+6. **Second `]` attempt:** `cc.py key "]"` (VK_OEM_6 0xDD, a supported name) returned exit 0 and
+   `{"keys": ["]"]}`.
+   - The selection **still didn't change** (`11-after-bracket2-tracks.png`), and the playhead and
+     draft are unchanged.
+   - **Result:** the listed shortcut "Select rightward `]`" had no visible effect here. Either it
+     isn't active in this context or layout, or it needs a state not yet found.
+   - Don't rely on it. Its status in `keyboard-shortcuts.md` stays "listed" plus this note.
+7. **Next route:** box-select (drag from empty timeline space) across all tracks right of the cut.
+   Zoom in first, because at fit zoom (≈2.78 px/s) the last kept caption ends 1 px left of the cut
+   and the first removed caption starts 1 px right of it.
+8. **Zoom check** (`key "ctrl+="` × 4, `12-zoomed.png`):
+   - Ruler labels 00:40 at x≈525 and 00:45 at x≈748 give **≈44.6 px/s**. The playhead stays at
+     00:00:35:16 (x≈326), and the zoom keeps the playhead in view.
+   - The last kept caption ends at x≈314 and the first removed caption («هاوثق…») starts at x≈338.
+   - At this zoom, though, the PiP (96 s, x≈3020) and most later captions are **off-screen**, so a
+     single box-select can't reach them.
+   - The selected right piece of clip 0 is shown with a white border starting at the playhead.
+9. **Revised plan:**
+   1. Back to fit zoom (`key "ctrl+-"` × 4).
+   2. **Ctrl+click** the right piece of clip 0, main clips 1–6 and the PiP block, then **Delete
+      once** (one undo step).
+   3. **Box-select the caption row only**, from empty space right of the last caption leftwards to
+      just right of the cut, then Delete.
+   4. Gate each delete with `section_check.py`. Expected final: main 1/0, captions 18/0, title 1/0,
+      PiP 0. Otherwise Ctrl+Z.
 
 ## Wait conditions
 

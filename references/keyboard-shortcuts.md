@@ -28,7 +28,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Select mode | A | listed | selection tool |
 | Split mode | B | listed | blade tool: clicking a clip splits it |
 | Select leftward | [ | listed | |
-| Select rightward | ] | listed | |
+| Select rightward | ] | listed, **no effect seen 2026-09-14** | Rung 12: with a main-track piece selected and timeline focus, `cc.py key "]"` (VK_OEM_6) changed nothing and selected no clips to the right. Don't rely on it until a working context is found. |
 | Main track magnet | P | **agent-verified 2026-09-14** | toggles the first cyan toggle in the right-hand timeline group: cyan = on, grey = off, no toast. When on, deleting on the main track ripples and dropped clips snap flush |
 | Auto snapping | N | listed | |
 | Linkage switch | ~ | listed | |
