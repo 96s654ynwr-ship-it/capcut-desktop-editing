@@ -1,7 +1,8 @@
 # Capability 12: Vertical (9:16 canvas, auto reframe, beat-synced cuts)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved (2026-09-14, "Approve, start Rung 13 (Recommended)"; accepted as
+  demonstrated, not made a house default. Beat-synced cuts remain undemonstrated by choice.)
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14 (Claude Code). A 35.5 s 9:16 short on `0914 (4)-copy-copy`:
   - opening section of the master; CapCut **Auto reframe** (9:16, defaults) keeps the face centred
