@@ -1,13 +1,15 @@
 # Capability 11: Audio Pro (vocal isolation, enhance voice, noise reduction, music + ducking)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved (2026-09-14)
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14 (Claude Code). Reduce noise, Enhance voice (Intensity 75) and
   Normalize loudness (target -23 LUFS) are on all 7 main clips. Verified in the draft, the
   processing artefacts, the undo/redo gate and the save. The sound itself is not measured
   (needs an export).
-- **Approved:** not yet
+- **Approved:** 2026-09-14. User's words: "Approve, start Rung 12 (Recommended)". Loudness: "Keep -23,
+  decide at export (Recommended)". Normalize stays on at -23 LUFS, and the final level is set at
+  rung 15. Not made a house default.
 - **Practice project:** `0914 (4)-copy`. It is the agent-owned duplicate of `0914 (4)`, 7:30.533 of
   Egyptian-Arabic talking head on 7 main-track clips of `VID_20260720_190542.mp4`. It carries the
   approved rung 4–10 edits: cuts, punch-ins, push-in, house captions, title, and the PiP B-roll
@@ -374,7 +376,9 @@ music that sits under the voice. Every change must be verified two ways:
 - **Scope:** "Whole talk, all 7 clips (Recommended)". All 7 main-track clips.
 
 ## Open questions for the user
-- **Proof by export?** A short export (e.g. 00:00:00-00:00:30) would let the agent measure
+- ~~**Loudness target**~~ answered: keep -23 LUFS now, decide the delivery level at export (rung
+  15).
+- **Proof by export?** Deferred to rung 15. A short export (e.g. 00:00:00-00:00:30) would let the agent measure
   loudness and noise floor before and after against the section D.9 source numbers. Export is
   rung 15 (not approved), so the user must say yes.
 - **Loudness target:** Normalize loudness is fixed at **-23 LUFS** (broadcast). YouTube talking
