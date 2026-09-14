@@ -401,6 +401,30 @@ by player frames:
     - The sharp portrait clip stays centred.
     - **The dark logo is now clearly readable** top-right against the light lilac blur at both
       points. Fix 2 works.
+11. **Undo/redo gate (agent-verified).** Polled with `canvas_state.py`; guards are the Auto
+    adjust count 3, Cross Fade present and Fade Out present, all unchanged throughout:
+    - Ctrl+Z → desk `canvas_color` / 0.0 on the first poll, a single undo step
+      (`39-gate-undo-canvas.png`).
+    - Ctrl+Shift+Z → `canvas_blur` / 0.75 on the first poll (`40-gate-redo-canvas.png`).
+    - Diff vs `draft-after-canvas.json`: **no differences**.
+
+### G. Whole build vs the duplicate baseline (`build_summary.py`, `build-summary.txt`)
+- Duration **30.0 → 30.0 s**; tracks **2 → 3** (+ the logo overlay track).
+- **Track 0 (main):**
+  - talk 0–15 s (source 80): matting 1 (off), Blur effect kept, **smart colour on**, refs 11
+  - desk 15–30 s (source 2): stable 2, **smart colour on**, **canvas_blur 0.75**, refs 9
+- **Track 1 (overlay, muted):** talk cut-out 0–15 s, matting 3, **smart colour on**, **Fade Out
+  14.0 s + 1.0 s**, refs 9.
+- **Track 2 (overlay):** `logo-ink-tight.png` 0–30 s, **scale 0.12, transform (0.8385, 0.8093)**,
+  smart colour off, refs 7.
+- **Materials, count before → after:**
+  - transitions 0 → **1** (Cross Fade, 2.0 s)
+  - effects 0 → **3** (`smart_color_adjust` 0.8)
+  - hsl 0 → 3
+  - material_animations 3 → 4
+  - canvases / colors / placeholder_infos / sound_channel_mappings / speeds / videos /
+    vocal_separations 3 → 4 (+ the logo clip's helpers)
+  - video_effects unchanged (the rung-13 Blur)
 
 ## Wait conditions
 
