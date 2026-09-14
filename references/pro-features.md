@@ -26,11 +26,11 @@ rungs) replaces it with the route actually observed in this install. Columns:
 | Freeze frame | — | Timeline toolbar (clip selected) → **Freeze** | none seen | no | 2 | route observed 2026-09-14 (not run) |
 | Remove filler words / pauses | Transcript editor | | | | 3 | unverified |
 | Vocal isolation | Inspector → Audio | | | | 11 | unverified |
-| Enhance voice | Inspector → Audio | | | | 11 | unverified |
-| Reduce noise | Inspector → Audio | | | | 11 | unverified |
+| Enhance voice | Inspector → Audio | Select clip(s) → Inspector **Audio ▸ Basic** → **Enhance voice** checkbox (▾ = Intensity, default 75) | Pro diamond | **none seen**: no dialog | 11 | **agent-verified 2026-09-14**: 7 clips at once. **Asynchronous**: "Applying N features…" header, "Enhancing voice… N%", clips labelled "Waiting to enhance voice…"; ≈11 min for 7:30. Draft `vocal_beautifys` (`ambient_sound_level` = Intensity) saved instantly. Results in project `Resources/audioAlg/` (upload WAV → vocal/background split → enhanced file, non-WAV/obfuscated) |
+| Reduce noise | Inspector → Audio | Select clip(s) (Ctrl+click for several) → Inspector **Audio ▸ Basic** → scroll down → **Reduce noise** checkbox (no options) | Pro diamond | **none seen**: no dialog, applied instantly, "Noise reduced" toast | 11 | **agent-verified 2026-09-14**: on 7 clips at once. Draft gains one `realtime_denoises` per segment (`denoise_v2`, unet 44k model, `denoise_rate` 0.85). Real-time filter, no processed file written |
 | AI voice effects / voice changer | Inspector → Audio / Voice changer | | | | 11 | unverified |
 | Text to speech | Text inspector | | | | — | unverified |
-| Auto ducking / loudness normalize | Inspector → Audio | | | | 11 | unverified |
+| Auto ducking / loudness normalize | Inspector → Audio | **Normalize loudness:** select clip(s), then Inspector **Audio ▸ Basic**, then the **Normalize loudness** checkbox (no options). **Auto ducking:** not located (music was out of scope in rung 11). | Pro diamond | **none seen**: no dialog, applied in <1 s | 11 | **Normalize agent-verified 2026-09-14** on 7 clips: draft `loudnesses` per segment, `target_loudness` **−23.0 LUFS (fixed)**, `loudness_param` avg/peak analysed on the Enhance-voice result when present; UI reads "Normalized loudness to -23 LUFS"; project `loudness/<hash>` text files `avg,peak`. Ducking still unverified |
 | Beat detection (auto beat marks) | Audio clip → Beat / timeline toolbar | | | | 12 | unverified |
 | Auto reframe | Inspector → Video / canvas ratio | | | | 12 | unverified |
 | Remove background (auto) | Inspector → Video → Remove BG | | | | 13 | unverified |
