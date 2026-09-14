@@ -268,6 +268,14 @@ by player frames:
      - **Ctrl+Shift+Z → 3** on the first poll.
    - Diff vs `draft-after-autoadjust.json`: **no differences**.
 
+### E. Fix 1: Fade out on the cut-out overlay (2026-09-15)
+1. **Select only the overlay clip:** `click 540 812` (`21-overlay-selected.png`).
+   - Only the overlay row gets the white border, with keyframe dots at its ends.
+   - The inspector opens on **Adjust** (the last tab used), which for a single clip adds a **Mask**
+     sub-tab plus **Save as preset** / **Apply to all** buttons.
+   - The top tab row is scrolled (‹ Audio / Speed / **Animation** ≈(1684,70) / Tracking / Adj… ›).
+2. **Baseline:** `draft-before-fadeout.json`.
+
 ## Wait conditions
 
 ## Verification
