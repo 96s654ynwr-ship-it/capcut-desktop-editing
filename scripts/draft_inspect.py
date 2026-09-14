@@ -309,6 +309,63 @@ def cmd_diff(a):
         print(f"-- {changes} difference(s)")
 
 
+def _as_dict(v):
+    if isinstance(v, str) and v.strip().startswith("{"):
+        try:
+            return json.loads(v)
+        except Exception:
+            return {}
+    return v if isinstance(v, dict) else {}
+
+
+def cmd_words(a):
+    """Word-level timings of caption/text segments (e.g. from Auto captions), on the timeline clock."""
+    folder = resolve_project(a.project)
+    d = json.loads((folder / "draft_content.json").read_text(encoding="utf-8"))
+    fps = float(d.get("fps") or 30.0)
+    index = {}
+    for cat, items in (d.get("materials") or {}).items():
+        if isinstance(items, list):
+            for it in items:
+                if isinstance(it, dict) and it.get("id"):
+                    index[it["id"]] = (cat, it)
+    rows = []
+    for t in d.get("tracks") or []:
+        if t.get("type") != "text":
+            continue
+        for s in t.get("segments") or []:
+            tr = s.get("target_timerange") or {}
+            seg_start = (tr.get("start") or 0) / 1_000_000
+            seg_end = seg_start + (tr.get("duration") or 0) / 1_000_000
+            cat, mat = index.get(s.get("material_id"), ("?", {}))
+            mats = [mat] if cat == "texts" else [
+                index[r["text_material_id"]][1] for r in (mat.get("text_info_resources") or [])
+                if r.get("text_material_id") in index]
+            for tm in mats:
+                sentence = _text_of(tm)
+                w = _as_dict(tm.get("words"))
+                starts, ends, texts = w.get("start_time") or [], w.get("end_time") or [], w.get("text") or []
+                words = []
+                for i, txt in enumerate(texts):
+                    if not str(txt).strip():
+                        continue  # CapCut stores inter-word spaces as zero-length tokens
+                    ws = seg_start + (starts[i] if i < len(starts) else 0) / 1000
+                    we = seg_start + (ends[i] if i < len(ends) else 0) / 1000
+                    words.append((ws, we, txt))
+                rows.append(dict(start=seg_start, end=seg_end, text=sentence, words=words))
+    rows.sort(key=lambda r: r["start"])
+    if a.around is not None:
+        rows = [r for r in rows if r["end"] >= a.around - a.window and r["start"] <= a.around + a.window]
+    if a.json:
+        Path(a.json).write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    if not rows:
+        print("No text/caption segments with words found.")
+    for r in rows:
+        print(f"{tc(int(r['start'] * 1e6), fps)} -> {tc(int(r['end'] * 1e6), fps)}  {r['text']}")
+        for ws, we, txt in r["words"]:
+            print(f"    {tc(int(ws * 1e6), fps)} -> {tc(int(we * 1e6), fps)}  {txt}")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -325,6 +382,12 @@ def main():
     p.add_argument("before")
     p.add_argument("after")
     p.set_defaults(fn=cmd_diff)
+    p = sp.add_parser("words", help="caption/text segments with per-word timings (timeline clock)")
+    p.add_argument("project")
+    p.add_argument("--around", type=float, help="only rows near this timeline second")
+    p.add_argument("--window", type=float, default=10.0)
+    p.add_argument("--json")
+    p.set_defaults(fn=cmd_words)
     a = ap.parse_args()
     a.fn(a)
 

@@ -33,7 +33,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Auto snapping | N | listed | |
 | Linkage switch | ~ | listed | |
 | Preview axis switch | S | listed | |
-| Zoom in | Ctrl++ | listed | |
+| Zoom in | Ctrl++ | **agent-verified 2026-09-14** | send as `cc.py key ctrl+=` (the =/+ key). ×6 took ≈1.05 → ≈67.4 px/s (about 64×), centred on the playhead |
 | Zoom out | Ctrl+- | listed | |
 | Zoom in/out | Ctrl+Scroll | listed | `cc.py scroll x y ±n --mod ctrl` |
 | Scroll up/down | Scroll | listed | |
@@ -56,7 +56,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Ease in / Ease out / Easing / Linear / Adjust properties | (unassigned) | listed | no default key |
 | Step forward many frames | Shift+← | listed | **dialog labels look swapped** (forward shown with ←). Verify by timecode |
 | Step back many frames | Shift+→ | listed | see above |
-| Zoom to fit timeline | Shift+Z | listed | |
+| Zoom to fit timeline | Shift+Z | **agent-verified 2026-09-14** | Fits the whole timeline in the track area (8:43 clip → x 230–1527). Also resets a scrolled view. Click empty timeline space first |
 | Freeze / Reverse / Mirror / Rotate / Crop / Trim clip | (unassigned) | listed | use the timeline toolbar icons |
 | Generate captions / Don't isolate voice / Keep vocal / Remove vocal | (unassigned) | listed | |
 | Sync video and audio / Transcript / Open file location / Link to media | (unassigned) | listed | |

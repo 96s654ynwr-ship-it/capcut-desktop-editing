@@ -69,7 +69,7 @@ run, so credits are unknown.
 | LUT / HSL / Curves / Color wheel / Mask | Inspector → Adjust | none seen |
 | Stabilize | Inspector → Video → Basic | Pro diamond |
 | Remove BG / Mask / Retouch | Inspector → Video sub-tabs | (to check inside) |
-| Auto captions → Generate | Asset → Captions → Auto captions → **Generate** | "Pro" tag on button |
+| Auto captions → Generate | Asset → Captions → Auto captions → **Generate** | "Pro" tag on button. **Agent-verified 2026-09-14:** no credit prompt. Loading window `id="Generating captions... N%"`. About 122 s for 8:43 of Arabic. Produces a text track whose materials carry per-word `words.start_time/end_time`, readable with `draft_inspect.py words` |
 | Bilingual captions | Asset → Captions → Auto captions | Pro diamond |
 | Identify filler words | Asset → Captions → Auto captions (toggle, on by default) | Pro diamond |
 | Auto lyrics | Asset → Captions | (to check) |

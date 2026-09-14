@@ -159,6 +159,7 @@ PY <skill>\scripts\cc.py evidence 01-split-after --project "0707 copy"
 PY <skill>\scripts\draft_inspect.py list
 PY <skill>\scripts\draft_inspect.py summary "0707 copy" [--json out.json]
 PY <skill>\scripts\draft_inspect.py diff before.json after.json
+PY <skill>\scripts\draft_inspect.py words "0914 (4)" --around 295 --window 8   # caption word timings (after Auto captions)
 ```
 
 Every command prints what it did. Input commands fail loudly if Windows blocked `SendInput`
