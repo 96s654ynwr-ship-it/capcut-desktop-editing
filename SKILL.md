@@ -174,6 +174,7 @@ Every command prints what it did. Input commands fail loudly if Windows blocked 
 | File | Read it when |
 |---|---|
 | `references/capability-ladder.md` | Every session. It's the gate and the done-criteria per rung. |
+| `references/house-style.md` | Before any real edit. It holds the user's approved defaults (e.g. Arabic-only captions with the black-box template). |
 | `references/capabilities/NN-*.md` | Reusing or extending an approved procedure. |
 | `references/accessibility-controls.md` | Locating any control. Update it whenever you touch a new one. |
 | `references/pro-features.md` | Any Pro/AI feature: route, tier badge, credits, verification status. |

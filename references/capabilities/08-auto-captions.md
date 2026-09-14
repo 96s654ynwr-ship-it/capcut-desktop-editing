@@ -1,7 +1,9 @@
 # Capability 08: Auto captions + styling
 
 ## Status
-- **Ladder status:** demonstrated, round 3 (awaiting user approval).
+- **Ladder status:** **approved** (user, 2026-09-14: "Approve, make it default"). Round 3, Arabic-only
+  captions with the "Classic: black box" template in the lower third, is the **default caption
+  style**, recorded in `references/house-style.md`.
   - **Round 3 result (2026-09-14, `0914 (4)-copy`):**
     - Arabic-only Auto captions (1 track × 239)
     - the user-chosen "Classic: black box" word-by-word template, lower third (y −0.73)
