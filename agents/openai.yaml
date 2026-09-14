@@ -1,0 +1,7 @@
+interface:
+  display_name: "CapCut Desktop Editing"
+  short_description: "Edit in the real CapCut desktop app on Windows via UI Automation + screenshots, one approved capability at a time"
+  brand_color: "#111111"
+
+policy:
+  allow_implicit_invocation: true
