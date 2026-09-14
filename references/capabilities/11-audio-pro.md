@@ -59,6 +59,35 @@ music that sits under the voice. Every change must be verified two ways:
 
 ## Procedure
 
+### A. Baseline (executed 2026-09-14, read-only)
+- **Draft:** `cap11/baseline.json`
+  - 4 tracks, 248 segments, draft 21:17:23
+  - `diff` vs rung-10 `final.json` = No differences
+- **Audio fields per main clip** (`audio_check.py "0914 (4)-copy" --track 0` → `audio-before.json`):
+  - All **7** segments have volume **1.0**, `last_nonzero_volume` 1.0, `enable_adjust` true.
+  - Refs: `sound_channel_mappings` (type `none`, mapping 0) and `vocal_separations` (`choice` 0,
+    `removed_sounds` [], `production_path` "", `final_algorithm` ""). Five segments also carry an
+    empty `material_animations`.
+  - **No** loudness, enhance or noise material exists anywhere. The project's material categories
+    are canvases, effects, material_animations, material_colors, placeholder_infos,
+    sound_channel_mappings, speeds, text_templates, texts, videos, vocal_separations.
+- **Project folder:** `folder-before.txt`, 38 files, **no `Resources` folder** and no audio files.
+- **Source audio:** `VID_20260720_190542.mp4` has AAC LC stereo, 48 kHz, 96 kb/s.
+- **Measurements** (bundled ffmpeg, clip 0's source range `-ss 46.933 -t 122.2`):
+  - EBU R128: **I −14.2 LUFS**, LRA 4.7 LU (−17.8…−13.1), **true peak −1.4 dBFS**.
+  - Per-second RMS (123 windows): p05 **−26.2**, p10 −23.7, p25 −19.5, **median −17.0**, p75
+    −15.9, p95 −14.2 dBFS. Quietest seconds −32.5, −28.8, −28.5 dBFS. These gaps between phrases
+    serve as the noise-floor proxy. Output: `rms-before-clip0.txt`.
+  - **Command pitfall:** writing ametadata to a `file=` path failed silently, because
+    PowerShell/ffmpeg path escaping lost it. Use `ametadata=mode=print:key=lavfi.astats.Overall.RMS_level`
+    and regex `RMS_level=` out of captured stderr instead.
+- **Where processed audio may land (lead, read-only):**
+  - The user's own `0914 (6)` has `Resources\audioAlg\<hash>_0_3000000.mp3` (written 20:02:47).
+    CapCut's audio algorithms appear to write per-clip results into the project's
+    `Resources\audioAlg`, which is measurable after a treatment.
+  - `Cache\recognize\*.m4a(.pcm)` holds transcription audio from captions and transcript.
+  - `0914 (6)` is the user's and is **not** touched: listing only.
+
 ## Wait conditions
 
 ## Verification
