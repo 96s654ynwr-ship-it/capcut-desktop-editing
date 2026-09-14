@@ -140,6 +140,7 @@ For each area add a table:
 | Title bar | Top-right icon row before the minimize/maximize/close controls (purpose to confirm by hover tooltips) | observed |
 | Project card | In the Projects row: thumbnail, then the **name** and "size \| duration" below it (e.g. `0914` / `18.8M \| 00:24`). The newest project comes first. **The page must be scrolled down** (wheel over the main area) to see names | observed |
 | Card "…" button | Appears in the thumbnail's **bottom-right corner on hover** | observed |
+| Project grid wrapping | With 10 projects (2026-09-14) the Projects grid shows **8 cards per row** and wraps to a second row. The newest project is always the first card; your own projects move right and down as agent practice projects are added. **Always read card names before clicking a card:** a stale card position can open, or worse delete, the user's own project | observed |
 | Card right-click menu | Right-click the thumbnail. A menu opens **inside the home window** (no new UIA window) with **Upload**, **Rename**, **Duplicate**, **Delete** (Backspace). ⚠ Delete is the row directly below Duplicate (about 40 px); Upload is a cloud side effect | observed |
 
 > **Editor window (observed 2026-09-14, blank project):**

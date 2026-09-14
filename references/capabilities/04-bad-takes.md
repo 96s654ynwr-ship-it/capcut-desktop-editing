@@ -1,7 +1,7 @@
 # Capability 04: Bad-take removal via transcript
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, start Cap 5")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Footage: `VID_20260720_190542.mp4` in practice
   project `0914 (4)`. Two earlier footage scans are recorded below: one had no retakes, the other

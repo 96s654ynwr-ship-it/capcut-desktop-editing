@@ -366,6 +366,53 @@ def cmd_words(a):
             print(f"    {tc(int(ws * 1e6), fps)} -> {tc(int(we * 1e6), fps)}  {txt}")
 
 
+def cmd_gaps(a):
+    """Silences between caption words (Auto captions) and proposed cut ranges that keep `--keep` s each side."""
+    import io, contextlib
+    folder = resolve_project(a.project)
+    d = json.loads((folder / "draft_content.json").read_text(encoding="utf-8"))
+    fps = float(d.get("fps") or 30.0)
+    buf = io.StringIO()
+    tmp = Path(folder.name + ".words.tmp.json") if not a.words_json else Path(a.words_json)
+    ns = argparse.Namespace(project=str(folder), around=None, window=0, json=str(tmp))
+    with contextlib.redirect_stdout(buf):
+        cmd_words(ns)
+    rows = json.loads(tmp.read_text(encoding="utf-8"))
+    if not a.words_json:
+        tmp.unlink(missing_ok=True)
+    words = sorted((w for r in rows for w in r["words"]), key=lambda w: w[0])
+    # Segment boundaries on non-text tracks: a "gap" that spans one is an edit join, not silence.
+    joins = sorted({(s.get("target_timerange") or {}).get("start", 0) / 1_000_000
+                    for t in d.get("tracks") or [] if t.get("type") != "text"
+                    for s in t.get("segments") or []} - {0.0})
+    frame = 1.0 / fps
+    out_rows, total = [], 0.0
+    for prev, nxt in zip(words, words[1:]):
+        gap = nxt[0] - prev[1]
+        if gap < a.min:
+            continue
+        cut_start = round((prev[1] + a.keep) / frame) * frame
+        cut_end = round((nxt[0] - a.keep) / frame) * frame
+        if cut_end - cut_start < frame:
+            continue
+        crosses = [j for j in joins if prev[1] - frame <= j <= nxt[0] + frame]
+        if not crosses:
+            total += cut_end - cut_start
+        out_rows.append(dict(after=prev[2], before=nxt[2], gap=round(gap, 3),
+                             cut_start=round(cut_start, 3), cut_end=round(cut_end, 3),
+                             remove=round(cut_end - cut_start, 3),
+                             crosses_join=[round(j, 3) for j in crosses]))
+    if a.json:
+        Path(a.json).write_text(json.dumps(out_rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    for r in out_rows:
+        flag = f"  [SPANS EDIT JOIN @ {r['crosses_join']} - not real silence, skip]" if r["crosses_join"] else ""
+        print(f"gap {r['gap']:6.3f}s  cut {tc(int(r['cut_start'] * 1e6), fps)} -> {tc(int(r['cut_end'] * 1e6), fps)}"
+              f"  (-{r['remove']:.3f}s)  after «{r['after']}» before «{r['before']}»{flag}")
+    real = sum(1 for r in out_rows if not r["crosses_join"])
+    print(f"-- {real} real gap(s) >= {a.min}s (+{len(out_rows) - real} spanning edit joins); "
+          f"removing the real ones would save {total:.3f}s (keep {a.keep}s each side)")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -388,6 +435,13 @@ def main():
     p.add_argument("--window", type=float, default=10.0)
     p.add_argument("--json")
     p.set_defaults(fn=cmd_words)
+    p = sp.add_parser("gaps", help="silences between caption words, with proposed cut ranges")
+    p.add_argument("project")
+    p.add_argument("--min", type=float, default=0.6, help="only gaps at least this long (s)")
+    p.add_argument("--keep", type=float, default=0.125, help="silence kept after/before each word (s)")
+    p.add_argument("--words-json", help="also save the word list used")
+    p.add_argument("--json")
+    p.set_defaults(fn=cmd_gaps)
     a = ap.parse_args()
     a.fn(a)
 
