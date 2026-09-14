@@ -162,6 +162,19 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
      - **desk `VID_20260501_233809`: 15.000 → 52.967 s (37.967 s), source 0**. The magnet snapped
        it flush.
    - Canvas stays **original 1920×1080** (set by the first clip); duration 52.967 s.
+   - **Observed** (`09-desk-dropped.png`):
+     - The dropped desk clip is **auto-selected**. The timeline stays at the old zoom (≈1.053 px/s),
+       so both clips fit in x≈229–285.
+     - The playhead jumped back to **00:00:00:00**; player "00:00:00:00 / 00:00:52:29".
+     - Pre-Q crop confirmed the cut was at 00:01:20:00 (`07-tc-before-Q.png`).
+5. **Zoom in for frame-exact placement:** `key "ctrl+="` × 4 (`10-zoomed*.png`). The draft is
+   unchanged.
+   - Ruler labels: 00:00 at x≈228, 00:05 at ≈555, 00:10 at ≈882, 00:15 at ≈1210, 00:20 at ≈1537.
+     That is **≈65.4 px/s** (≈2.2 px per frame).
+   - The playhead stays at 00:00:00:00 and the desk clip stays selected (border from x≈1210).
+   - Desk trim targets: timeline **17.000 s** (desk source 2 s) → ruler x ≈ 228 + 17 × 65.4 ≈
+     **1340**, then **Q**. After the ripple the desk clip starts at 15 s with source 2 s. Then
+     timeline **30.000 s** → **W**.
 
 ## Wait conditions
 
