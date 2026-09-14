@@ -175,6 +175,27 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - Desk trim targets: timeline **17.000 s** (desk source 2 s) → ruler x ≈ 228 + 17 × 65.4 ≈
      **1340**, then **Q**. After the ripple the desk clip starts at 15 s with source 2 s. Then
      timeline **30.000 s** → **W**.
+6. **Desk clip trim:**
+   - Ruler click at x≈1340 lands on **00:00:16:29** (`11-hdr-tc.png`), 1 frame short. The desk clip
+     stays selected, and the playhead handle is at x≈1340 inside it (`11-timeline.png`).
+   - `key right` → 00:00:17:00, then **Q**.
+     - **Agent-verified (first poll):** duration **50.967 s**; desk segment 15.000 → 50.967 s,
+       **source start 2.000 s** (the magnet rippled it flush).
+   - **Failed attempt (don't repeat):** 30 s is off-screen at this zoom (x≈2190), so I stepped
+     instead with `key right --repeat 390 --gap 0.04` (13 s at 30 fps), then **W**.
+     - The crop taken before W read **00:00:28:00** (`14-tc-before-W.png`). **60 of 390 key presses
+       were dropped.**
+     - The draft went to 28.000 s (desk 13.0 s).
+     - One **Ctrl+Z** brought back exactly 50.967 s / desk 15.000 → 50.967, source 2.
+   - **Working route:**
+     - Click the timeline **zoom-out** button (≈1709,596) once. That gives ≈32.7 px/s, with
+       00:30 at x≈1212, and the desk clip stays selected (`18-zoomed-out.png`).
+     - Ruler click at x≈1212 → **00:00:30:01** (`19-tc-ruler30.png`).
+     - `key left` → **00:00:30:00** (`20-tc-before-W.png`), then **W**.
+     - **Agent-verified (first poll):** duration **30.000 s**; talk 0 → 15.000 s (source 80); **desk
+       15.000 → 30.000 s (source 2.000)**. Timeline total 00:00:30:00 (`21-desk-trimmed.png`).
+   - Rule: **never trust long key-repeat stepping.** Zoom so the target is on screen, click the
+     ruler, correct by a few frames, and crop the timecode before every Q/W.
 
 ## Wait conditions
 
