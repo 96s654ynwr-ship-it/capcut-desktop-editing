@@ -339,6 +339,22 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   once more and verify. Poll a field that must *not* change (here `stable_level`), so an
   over-undo shows up.
 
+### I. Blurred-room background behind the cut-out (user request 2026-09-15, in progress)
+- **User choice:** before approving, add a background; "Blurred room (Recommended)", i.e. a blurred
+  copy of the same footage behind the speaker.
+- **Why not Canvas ▸ Blur:** canvas blur only fills the area *outside* a clip's bounds. The talk clip
+  fills the 16:9 canvas, so transparent matting pixels would still show black. To verify, not assume.
+- **Plan (native):**
+  1. Reopen `0915` from Home. Baseline = `final-after-save.json`; mtime unchanged at 01:37:01.
+  2. Put the **cut-out on an overlay track** above an identical copy: select the talk clip, playhead
+     at 00:00, **Ctrl+C / Ctrl+V**, and check where the paste lands (track, start 0, source 80, and
+     whether `matting` is kept).
+  3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
+     dragged onto that clip only, or a clip-level blur control if one exists).
+  4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
+  5. Verify: draft (2 video tracks, overlay flag, matting on the overlay only, effect ref on main),
+     frames at 3 points, undo/redo, save, scope.
+
 ## Wait conditions
 - **Trim (Q/W):** the draft duration changes on the first 0.5 s poll (`segs.py <project> --wait-change <old_dur>`).
 - **Stabilize:**
