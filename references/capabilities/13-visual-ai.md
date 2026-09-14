@@ -131,6 +131,22 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - **Agent-verified:** canvas `original` **1920×1080**, set by this first clip (source 1280×720).
      Main track, 1 segment, `VID_20260720_190542.mp4`, target 0 → **523.467 s**, source 0 → 523.467 s.
      The whole clip.
+   - **Observed** (`02-talk-dropped.png`):
+     - The clip is auto-selected (white border, x≈229–781); Video ▸ Basic inspector.
+     - Player "00:00:00:00 / 00:08:43:14". Its first frame shows the speaker's shoulder close to the
+       lens, as he sits down.
+     - Ruler at this auto zoom: 00:00 at x≈229, 05:00 at x≈545, so **≈1.053 px/s**.
+       10:00 at x≈861 confirms it.
+2. **Frame-exact playhead strategy:** `cc.py key --repeat N` loops `press_combo` with a default
+   `--gap 0.06` s, and N has no cap. Stepping 2 850 frames from Home would take ≈3+ min. So: ruler
+   click near the target (≈1 px/s at this zoom, no captions to snap to), read the zoomed timecode,
+   then correct with `left`/`right` (1 frame each at 30 fps).
+3. **Trim the talk clip to source 80–95 s** (clip still selected):
+   - Ruler click at x = 229 + 95 × 1.053 ≈ **329** lands on **00:01:35:02** (`03-hdr-tc.png`), off by
+     2 frames. The playhead handle sits at x≈329 over the selected clip (`03-timeline.png`); the draft
+     is unchanged.
+   - `key left --repeat 2` → 00:01:35:00, then **W** (delete right). Then ruler ≈80 s (x≈313), read
+     the timecode, correct, and press **Q** (delete left; the main-track magnet ripples the start to 0).
 
 ## Wait conditions
 
