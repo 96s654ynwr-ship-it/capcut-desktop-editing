@@ -371,6 +371,36 @@ against beat marks) and in frames.
    - The inspector tab row's **›** (≈1891,70) scrolls the tabs to reveal **AI stylize** after
      Adjust (`33-inspector-tabs-more.png`). The body stays on Video ▸ Basic.
    - Browsing only: the draft is unchanged.
+8. **Auto reframe ▾ expanded** (click ≈1603,172; `34-auto-reframe-expanded.png`). The checkbox
+   stays unticked, the draft is unchanged, and the panel opens inline:
+
+   | Field | Default | Dropdown ≈ (screen, at this scroll) |
+   |---|---|---|
+   | Aspect ratio | **Original** | ≈(1751,221) |
+   | Image stabilization | **Default** | ≈(1751,268) |
+   | Camera moving speed | **Default** | ≈(1751,316) |
+   | **Apply** button | greyed | ≈(1844,395) |
+
+   - The labels and values render greyed while the box is unticked.
+   - `scroll 1480 300 -2` scrolls the panel mostly out of view (`35-…`), and `+2` restores it.
+9. **Tick the Auto reframe checkbox** (≈1468,172, after `scroll 1480 300 2`; before/after
+   `36-before-tick.png`, `37-after-tick*.png`):
+   - The checkbox turns cyan. Aspect ratio / Image stabilization / Camera moving speed become
+     active (still Original / Default / Default), and **Apply** becomes enabled.
+   - A **"Auto reframe applied"** toast appears over the timeline. "Auto saved: 22:37:23".
+   - **No credit, cost or upsell dialog** (tree: MainWindow plus a tooltip).
+   - The player is **still letterboxed**: with Aspect ratio "Original" nothing visibly changes.
+     The selected clip gets a cyan outline.
+   - **Draft** (`diff` vs `trim-final.json`): canvas 9:16, caption and title track `attribute` 0 → 4
+     (the locks from step 6), and **main seg 0 `material changed`** (same file name). Clip scale and
+     transform are unchanged (1.0 / 0,0); `crop` is the full frame, `crop_ratio` "free",
+     `stable.stable_level` 0, `smart_motion` null. The deep diff vs the master's untouched material
+     identifies the changed field (next step).
+   - **Deep diff** of the copy's main video material vs the master's untouched one (read-only, both
+     drafts): the **only** change is **`check_flag` 62978047 → 63043327** (+0xFF00). The segment
+     itself (minus timeranges/refs) is identical.
+   - So **ticking only sets a feature bit**. No reframe data exists yet; the real reframe happens
+     with a target **Aspect ratio** plus **Apply**.
 
 ## Wait conditions
 
