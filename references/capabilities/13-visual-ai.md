@@ -245,6 +245,57 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
    - **Done state** (`26-stabilize-progress.png`): the header is back to "Player-Timeline 01", the
      inspector row shows no %, and the clip label becomes **"Stabilize"**. The preview is visibly
      **cropped in**, because stabilization zooms the frame to hide the moving borders.
+4. **Agent-verified draft diff** (`draft-before-stabilize.json` → `draft-after-stabilize.json`,
+   ignoring timestamps): the **only** change is `materials.videos[desk].stable.stable_level 0 → 2`.
+   No new material, no segment change, `matrix_path` stays "".
+5. **"After" frames:**
+   - Ruler click x≈721 → 00:00:15:00 (`27-tc-after-start.png`).
+   - `player_frames.py player-after 300`: 20 s, 0 re-sends, 0 unchanged. Timecode crops read
+     19:29 at frame 150 and 24:29 at frame 300, identical to the before capture.
+6. **Shake comparison** (same method, same 300 frames, 96 px wide, ±6 px):
+
+   | Metric | Before | After Stabilize (Recommended) |
+   |---|---|---|
+   | jitter (mean 2nd difference of path) | 0.067 | **0.051 (−24 %)** |
+   | mean \|dx\| px/frame | 0.288 | 0.321 |
+   | mean \|dy\| px/frame | 0.177 | 0.177 |
+   | moving pairs | 35.5 % | 37.1 % |
+   | path x / y range | −38…+3 / +1…+28 | −35…+7 / +1…+29 |
+   | residual diff | 3.19 | 2.95 |
+
+   - **Reading:**
+     - High-frequency shake (jitter) drops.
+     - The slow intentional drift/pan is **kept**: a similar path range. CapCut smooths the path
+       rather than locking the shot.
+     - Mean |dx| rising a little is consistent with the **≈1.26× crop-in**. This is a rough
+       centre-scale fit over 3 frame pairs (`stabilize_compare.py`), and it magnifies any remaining
+       motion in pixels. Normalised by the zoom, per-frame motion falls too (0.321 / 1.26 ≈ 0.25 <
+       0.288).
+   - Integer-pixel shifts at 96 px are coarse, so treat the numbers as directional.
+   - Visual: `stabilize-compare.png` shows frames 1/150/300 before and after, plus the cumulative
+     x/y paths.
+   - **Honest assessment:** the before and after paths nearly overlap. This section is mostly a
+     slow handheld pan with little high-frequency shake, so Stabilize's visible effect here is
+     the crop-in plus a modest jitter reduction. A strongly shaky clip would show a larger
+     difference.
+
+### G. Remove background on the talk segment (executed 2026-09-15)
+1. **Select the talk clip:** click it at ≈(470,835); there are no text tracks in `0915`, so nothing is
+   co-selected. Then Inspector **Video ▸ Remove BG** sub-tab ≈(1623,128) (`28-removebg-tab.png`).
+   - Rows: **Auto removal** (Pro diamond, checkbox ≈1468,193), **Custom removal ▾**, **Chroma key ▾**
+     (with a keyframe diamond).
+2. **Baseline** `draft-before-removebg.json`: talk material `matting.flag` 0, path "".
+3. **Tick Auto removal:**
+   - **No cost, upsell or confirmation dialog** (the window list is unchanged).
+   - **Agent-verified (first poll, 2.8 s):** talk material `matting`:
+     - **flag 0 → 3**
+     - `path` = `##_draftpath_placeholder_<uuid>_##/matting\<md5>` (inside the project folder)
+     - `custom_matting_id` set to a new UUID
+     - `is_clould` false; `mask_video_path` "".
+   - **Asynchronous** (`29-autoremoval-ticked.png`):
+     - The player header shows "Applying 1 feature… ▾"; the inspector shows "Processing N%".
+     - The clip label reads **"Applying Auto cutout… N%"**; the toolbar cut-out icon is highlighted.
+     - A new **Stroke ▾** row appears under Auto removal.
 
 ## Wait conditions
 
