@@ -58,6 +58,35 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
 
 ## Procedure
 
+### A. Candidate footage and a motion metric (executed 2026-09-14, read-only)
+- **Metric:** with the bundled ffmpeg, per clip:
+  `-ss 2 -t 12 -an -vf "scale=160:-2,format=gray,tblend=all_mode=difference,signalstats,metadata=mode=print:key=lavfi.signalstats.YAVG" -f null -`.
+  Parse `YAVG=` from stderr. The mean absolute frame-to-frame luma difference is a proxy for
+  camera shake plus subject motion. Output: `cap13/motion-metric.txt`.
+
+  | Clip | Content | mean diff | p90 |
+  |---|---|---|---|
+  | VID_20260626_202525 | office, 2 people (portrait) | **6.07** | 12.43 |
+  | VID_20260501_233737 | purple desk setup (portrait) | **5.33** | 9.16 |
+  | VID_20260501_233809 | working at purple desk (portrait) | **5.12** | 8.99 |
+  | VID_20260628_173114 | gym bench press (portrait) | **3.96** | 5.72 |
+  | VID_20260425_174820 | close-up talking head, grey tee | 2.58 | 6.98 |
+  | VID_20260501_111338 | empty chair + wall | 2.43 | 6.27 |
+  | VID_20260416_203431 | office, 3 people | 1.66 | 3.68 |
+  | VID_20260530_182728 | Nile view | 1.32 | 1.64 |
+  | VID_20260428_064459 | selfie, dim | 1.30 | 2.01 |
+  | VID_20260721_110250 | empty room (talk's room) | 0.62 | 1.90 |
+  | VID_20260623_150351 | gym floor | 0.47 | 0.56 |
+
+- **First read:**
+  - **Stabilize:** the high-motion handheld clips (202525, 233737 / 233809).
+  - **Remove BG:** a single person on a fairly plain background. Candidates are the talk's source
+    `VID_20260720_190542` (speaker on a light wall) or 174820 (close-up).
+  - **Camera tracking:** a clip where the subject moves, e.g. 173114 (gym) or 202525.
+  - A frame-difference score can't separate camera shake from subject motion; the user's knowledge
+    of the clips decides.
+- Sheet: `cap13/visual-ai-candidates-sheet.png`, sorted by motion, reusing the rung-10 frames.
+
 ## Wait conditions
 
 ## Verification
