@@ -64,7 +64,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Locate to first frame | Home | **agent-verified 2026-09-14** | timecode read 00:00:00:00, with the timeline focused (click empty timeline space first) |
 | Locate to last frame | End | listed | |
 | Last cut point | ↑ | listed | jump the playhead to the previous edit point |
-| Next cut point | ↓ | **agent-verified 2026-09-14** | from 00:00:00:00, jumped exactly to the next segment boundary (00:00:54:23). Useful for spot-checking cuts |
+| Next cut point | ↓ | **agent-verified 2026-09-14** | from 00:00:00:00, jumped exactly to the next segment boundary (00:00:54:23). Useful for spot-checking cuts. **Also stops at caption/text segment starts and ends** (rung 8: Home + ↓ → 00:00:00:18, the first caption's start), so with captions present expect many more stops |
 | In point | I | listed | |
 | Out point | O | listed | |
 | Select by clip | Shift+X | listed | |

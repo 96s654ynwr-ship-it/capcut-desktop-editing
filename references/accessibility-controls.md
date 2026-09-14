@@ -389,6 +389,27 @@ Which icon is which gets established by behaviour in rung 2, then recorded here.
 
 (observed)
 
+### Inspector: caption selected (agent-verified 2026-09-14, rung 8)
+- **Timeline:** after Auto captions, a **TT** caption row (lock, eye) sits above the video track
+  (y≈763 at the default layout). Zoom in (Ctrl+= ×4 ≈ 46 px/s) to see clickable orange pills
+  with text and an A☰ icon. **↓ stops at caption boundaries.**
+- **Tabs:** **Captions · Text · Animation · Tracking · Text to speech ›**. Text ▸ **Basic ·
+  Templates · Bubble · Effects**.
+- **Text ▸ Basic, from the top:**
+  - **Apply to all main captions** ✓ (default). Applies style only, never text.
+  - Text box (edit a caption's words; focus stays there until you click elsewhere)
+  - Font "System" ▾
+  - Font size slider + value box (default 7; type + Enter)
+  - Pattern B / U / I
+  - Case TT / tt / Tt
+  - **Preset style** "Aa" tile grid (⊘ none, white-black outline, black-white outline, white,
+    white on dark, yellow, red, …)
+  - Transform (Scale, keyframe)
+  - Checkbox sections Background / Glow / Shadow / Curve
+  - **Save as preset** stays pinned at the bottom.
+- **Scroll the inspector** with the pointer over its label column (x≈1480). All of these are
+  screenshot-only (not in the UIA tree).
+
 ### Inspector: other clip tabs (observed 2026-09-14, video clip selected)
 The tab row is **Video, Audio, Speed, Animation, Adjust**, then **AI stylize**, reached with ">".
 The row scrolls, so after ">" the positions shift. Take a new screenshot before clicking.
