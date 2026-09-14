@@ -1,11 +1,12 @@
 # Capability 13: Visual Pro AI (remove background, stabilization, camera tracking)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-15. Remove background (Auto removal) and Stabilize (Recommended).
   Camera tracking is out of scope by user choice.
-- **Approved:** not yet
+- **Approved:** 2026-09-15. The user asked for a background first, chose "Blurred room", then
+  answered "Approve, start Rung 14 (Recommended)".
 - **Practice project:** `0915`, a new agent-owned project: talk 80–95 s + desk 2–17 s, 30 s total.
   The approved masters `0914 (4)-copy` (horizontal) and `0914 (4)-copy-copy` (vertical) are intact.
 - **Added at the user's request before approval (2026-09-15):** a blurred-room background behind
@@ -545,8 +546,7 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   - `contact_sheet13.py`
 
 ## Open questions for the user
-- Approve rung 13 (Remove BG + Stabilize demonstrated on `0915`)?
-- Should a background go behind the cut-out, e.g. a colour, a blurred copy or an image via Canvas
-  or an overlay? It wasn't requested, so it wasn't done.
-- Try a stronger Stabilize level or a shakier clip? The Recommended level gave a modest −24 %
-  jitter on this slow-pan clip.
+- None open.
+  - Background: answered, blurred room.
+  - Approval: given 2026-09-15.
+  - Stronger Stabilize or a shakier clip: not requested.
