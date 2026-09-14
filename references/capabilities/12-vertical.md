@@ -520,6 +520,20 @@ against beat marks) and in frames.
    (`43-after-deselect-tracks.png`), and the draft is unchanged.
 5. **Test** (next): hover the chain toggle for its tooltip, then click a single caption with nothing
    selected. This separates "selection inherited from the undo" from "linkage".
+6. **Test result:**
+   - Hovering the chain toggle for 1.8 s showed **no tooltip**; the tree's tooltip window was stale,
+     over the timeline.
+   - With **nothing selected**, one click on a caption (≈307,764) **again selected everything**: all
+     18 captions, the title and the main clip (`45-single-caption-*`), with the mixed "Properties"
+     inspector. The draft is unchanged.
+   - So it is **not** a selection inherited from the undo.
+7. **New suspect: the selection-tool mode.** The toolbar's first tool (≈82,596, with ▾ ≈111) shows
+   a plain arrow in early screenshots (`06-after-split-all.png`) and a different glyph in later ones.
+   The change seems to follow the `]` presses in D.5–D.6.
+   - Hypothesis: **`[` / `]` switch the selection tool** to "select leftward/rightward" mode instead
+     of selecting clips immediately. Clicks then select everything in that direction across tracks.
+     That would also explain the captions pulled into the D.11 Ctrl+click selection.
+   - Check: icon crops (`select-tool-icon-compare.png`) and the tool's ▾ menu (`46-select-tool-menu.png`).
 
 ## Wait conditions
 
