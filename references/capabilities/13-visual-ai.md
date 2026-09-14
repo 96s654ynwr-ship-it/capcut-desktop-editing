@@ -415,6 +415,27 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
     ≈(119,746).
     - **Agent-verified:** track 1 (`flag` 2) `attribute` 0 → **1** (`50-overlay-muted.png`).
     - The main track stays 0, so its audio plays.
+  - **Frames** (ruler clicks x≈313/522/772/1063 → 00:02:00, 07:00, 13:00, 19:29;
+    `51-bg-*.png`):
+    - At 2, 7 and 13 s the **speaker is sharp over a blurred room**: the window, frame, chair and
+      shelves are recognisable but soft. The cut-out edge blends well, with no black fringe or halo.
+    - At 19:29 the desk section is unchanged: portrait, pillarboxed as before, Stabilize intact.
+  - **Draft diff, whole build** (`draft-before-bg.json` → `draft-after-mute.json`):
+    - +1 video track (`flag` 2, `attribute` 1) with one segment 0–15 s, source 80, on a new video
+      material with `matting.flag` 3 and the same mask folder
+    - main talk material `matting.flag` 3 → 1; main talk segment refs 7 → 8
+    - +1 `video_effects` "Blur" (`effects_adjust_blur` 0.5)
+    - +1 of each per-clip helper material (canvases, speeds, colors, placeholder_infos,
+      sound_channel_mappings, vocal_separations, material_animations)
+    - two `sound_channel_mappings[].type` "" → "none" normalisations
+    - desk material and segment unchanged; duration 30.0 s
+  - **Undo/redo gate** (`bg_state.py` polls overlay attribute + main refs, and guards on
+    tracks/duration/overlay matting/main matting/desk stable/effect count):
+    - Ctrl+Z → mute off (0,8); Ctrl+Z → blur gone (0,7, `video_effects` 0)
+    - Ctrl+Shift+Z → (0,8); Ctrl+Shift+Z → (1,8)
+    - Every step is a single undo step and verified on the first poll. Guards unchanged
+      throughout: overlay matting 3, main matting 1, desk stable 2, 30.0 s.
+    - After the gate, the diff vs `draft-after-mute.json` shows **no differences**.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
