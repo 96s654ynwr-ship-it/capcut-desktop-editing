@@ -389,6 +389,32 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
     3. The results panel shows **"Loading…"** for more than 3 s (`47-effects-blur-search.png`), so
        wait before screenshotting.
     - The main clip stays selected throughout.
+    4. After ≈8 s, results appear under "Video effects" (`48-effects-blur-results.png`):
+       - **Blur**, the first card ≈(233,247): **no Pro diamond**, download arrow.
+       - Pro diamonds on Halo Blur, a second "Blur" (silhouette), Chrome Blur, and further cards;
+         Dynamic Blur and Motion Blur also shown.
+       - The free **Blur** is the pick.
+  - **Apply Blur to the main copy only:** `drag 233 247 540 835 --steps 40 --hold 0.4`, from the
+    card onto the centre of the main-track talk clip.
+    - No dialog; no cost prompt.
+    - **Agent-verified** (`draft-before-blur.json` → `draft-after-blur.json`):
+      - the main talk segment's `extra_material_refs` go 7 → **8**
+      - a new `materials.video_effects` entry "Blur" with `adjust_params`
+        `effects_adjust_blur` **0.5** (default)
+      - **No effect track is created**, because dropping onto a clip attaches the effect to that
+        clip. The overlay segment and the desk clip are unchanged.
+    - **Observed** (`49-blur-dropped.png`):
+      - The preview shows the **sharp cut-out speaker over a blurred room** (the portrait-mode
+        look).
+      - The main clip enters an effect-edit state: the label "Effect: Blur - editing" and a blue
+        "Effects: Blur" band on the clip.
+      - The inspector switches to **Special effects ▸ Basic**: Name Blur, a **Blur slider/box = 50**
+        (draft 0.5), and a reset button. The Mask sub-tab is also available.
+      - Left at the default 50.
+  - **Mute the overlay track** (so the voice isn't doubled): click the overlay row's speaker icon
+    ≈(119,746).
+    - **Agent-verified:** track 1 (`flag` 2) `attribute` 0 → **1** (`50-overlay-muted.png`).
+    - The main track stays 0, so its audio plays.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
