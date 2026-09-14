@@ -346,9 +346,16 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   fills the 16:9 canvas, so transparent matting pixels would still show black. To verify, not assume.
 - **Plan (native):**
   1. Reopen `0915` from Home. Baseline = `final-after-save.json`; mtime unchanged at 01:37:01.
-  2. Put the **cut-out on an overlay track** above an identical copy: select the talk clip, playhead
-     at 00:00, **Ctrl+C / Ctrl+V**, and check where the paste lands (track, start 0, source 80, and
-     whether `matting` is kept).
+  2. Put the **cut-out on an overlay track** above an identical copy.
+     - **Ripple trap:** dragging the talk clip straight up (rung 2 Op 4) would leave a 0–15 s gap on
+       the main track, and the magnet would shift the desk clip to 0. Op 4 only avoided a ripple
+       because the moved clip was the last one.
+     - **Route:**
+       1. Select the talk clip, playhead at 00:00, **Ctrl+C / Ctrl+V**.
+       2. Verify where the paste lands (expected: inserted on the main track, giving talk, talk,
+          desk = 45 s) and whether `matting` is kept.
+       3. Drag the **0–15 s** copy up from its centre. The main track ripples back to talk 0–15 +
+          desk 15–30, and the overlay holds the other copy at 0–15.
   3. On the **main-track** copy, untick Auto removal and apply a **blur** (Effects library "Blur",
      dragged onto that clip only, or a clip-level blur control if one exists).
   4. **Audio:** mute the overlay track (attribute 1) so the voice isn't doubled.
