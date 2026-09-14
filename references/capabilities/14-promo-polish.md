@@ -141,6 +141,20 @@ by player frames:
    - This confirms the typed-unit rule again: typed X = transform.x × canvas width, typed Y =
      transform.y × canvas height.
 
+   **Observed** (`07-logo-placed.png`):
+   - The dark wordmark with blue dots sits in the **top-right corner**, readable on the light wall.
+   - The selection box spans ≈x 1268–1352, y 110–157 in the player (≈12 % of the canvas width),
+     and the speaker's face is clear.
+   - The inspector reads Scale 12 %, Position 1610 / 874.
+
+### C. Transition at the 00:15 cut (2026-09-15)
+1. **Asset tab Transitions** ≈(354,70) (`08-transitions-tab.png`):
+   - Left list: Favorites, **Transitions ▾** (Trending, Classic, Whimsical, Pixel Bead (Pro),
+     NEW, Hits, Overlay, Light, Camera, 3D…).
+   - Search box ≈(380,127), placeholder "People are searching …".
+   - Trending cards include Slight Jitter, Negati…ssolve (Pro), Dust Flurry, Shake & Flash (Pro),
+     Blur Focus, B&W Ghost, and several more Pro cards.
+
 ## Wait conditions
 
 ## Verification
