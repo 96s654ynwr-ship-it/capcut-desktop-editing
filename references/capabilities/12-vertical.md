@@ -61,6 +61,35 @@ against beat marks) and in frames.
 
 ## Procedure
 
+### A. Duplicate the master (executed 2026-09-14)
+1. **Snapshot the master first:** `draft_inspect.py summary "0914 (4)-copy" --json cap12/master-before.json`.
+   - `diff` vs `cap11/final.json` = No differences.
+   - Master mtime 22:00:40.991.
+   - All project mtimes are in `cap12/mtimes-before.txt`.
+2. **Home:** `scroll 1100 700 -5`, then a grid screenshot (`00-home-grid.png`). The first card is
+   **0914 (4)-copy**, "264.8M | 07:31", at ≈(383,703). Its size grew from 188.9M after rung 11's
+   enhanced audio.
+3. **Right-click the card** (`click 383 703 --right`), then a fresh grid screenshot
+   (`01-card-menu.png`).
+   - The menu opens next to the pointer: **Upload** ≈(423,726), **Rename** ≈(426,766), a separator,
+     **Duplicate** ≈(430,812), then **Delete ⟵Backspace** ≈(421,852).
+   - The menu is **not** in the UIA tree (only HomeWindow plus a tooltip), so the screenshot is the
+     only source for row positions.
+   - ⚠ Delete sits 40 px under Duplicate. Click the vertical centre of the Duplicate row.
+4. **Click Duplicate** (≈430,812), then poll the drafts folder for a new directory.
+   - **`0914 (4)-copy-copy`** appeared within ≈1 s. CapCut appends `-copy`, so a copy of a copy
+     is `…-copy-copy`.
+   - **Agent-verified:** the structure diff of `master-before.json` against the new copy's
+     `copy-baseline.json` is **No differences**.
+   - The copy carries the rung-11 audio materials (loudnesses, realtime_denoises, vocal_beautifys)
+     and **28 files in `Resources/`** (the Enhance-voice results and loudness analyses). No
+     reprocessing is needed.
+   - Master mtime is still **22:00:40.991**, unchanged.
+5. **Home after duplicating** (`02-after-duplicate.png`):
+   - The new card **0914 (4)-copy-copy** "264.8M | 07:31" is **first** (≈383,703), and the master
+     0914 (4)-copy moved to second (≈566,703).
+   - The rest shift one slot right, so re-read card names before every click.
+
 ## Wait conditions
 
 ## Verification
