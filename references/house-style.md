@@ -15,7 +15,7 @@ produces it. Change an entry only when the user approves a change, and log it he
 | Generation | Captions ▸ Auto captions → Spoken language **Arabic** → Bilingual **None** → Generate | Tick **Delete current captions** when replacing an existing set. Regeneration discards manual text fixes. |
 | Look | Caption template **"Classic: black box"** (`边框弹出黑色`, resource 7331662668685774086) | Word-by-word: bold white Arabic, with the current word on a black box. Long captions are paged into short chunks. Pro diamond on the tile. |
 | How to apply | Select any caption → inspector **Text ▸ Templates** → **Classic** chip → first tile | Applies to all main captions. The left Captions ▸ Templates panel only previews. |
-| Position | Lower third, `clip.transform.y` **−0.73** (−788 px) | A single-language template keeps this position. Check frames inside captions. |
+| Position | Lower third, `clip.transform.y` **−0.73** (inspector Position Y −788; the real offset is ≈394 px below centre, since transform 1.0 = half the canvas, corrected 2026-09-14 in rung 10) | A single-language template keeps this position. Check frames inside captions. |
 | Text fixes | Read captions for digits written instead of words (e.g. «1» → «واحدة»), English brand names and dialect words | Fix natively in Text ▸ Basic text box → Ctrl+A → type the full text, then poll until fully saved. |
 
 **Verify every time:**

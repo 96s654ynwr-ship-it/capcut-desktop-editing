@@ -91,6 +91,15 @@ cut. Record the exact native route, the values used and how eye-line continuity 
 - **Units:** the inspector's Position is in **canvas pixels**. The draft stores
   `pos.y = value / canvas_height` (1080 here). Presumably `pos.x = value / canvas_width`; verify
   before relying on it.
+  - **Correction (rung 10, 2026-09-14):**
+    - The storage mapping is right, for x as well: `transform.x = X / 1920`.
+    - But `transform` 1.0 = **half** the canvas, so one Position unit ≈ **½ canvas px**.
+    - This was measured with a hard-edged PiP box at two positions (`10-b-roll.md` G2/G3). Typing
+      X −775 / Y 265 moved it (−386, +136) px.
+    - The "−100 → ≈96 canvas px" reading below came from estimated eye positions on a moving
+      speaker and is probably confounded (the rule predicts ≈50 px). Re-measure before relying
+      on it.
+    - The approved Y −10 values were judged on frames, so they stand.
 - **Confirmed at a larger value:** Position Y **−100** stored `pos.y = −0.0925926 = −100 / 1080`.
   The direction (whether negative moves the picture up or down) is read from the frame
   captured at −100, because a 10 px shift is too small to judge by eye.

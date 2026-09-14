@@ -423,7 +423,8 @@ Which icon is which gets established by behaviour in rung 2, then recorded here.
     caption.
   - Its **+** and **Generate captions** (Pro) have no tooltips.
 - **Text ▸ Basic ▸ Transform** for a caption: Scale ≈(1790,271), Uniform scale, **Position X
-  ≈(1650,367) / Y ≈(1770,367)** in canvas px (`clip.transform.y = Y / 1080`), Plane rotation,
+  ≈(1650,367) / Y ≈(1770,367)** (`clip.transform.x = X / 1920`, `clip.transform.y = Y / 1080`;
+  transform 1.0 = **half** the canvas, so one typed unit ≈ ½ canvas px, verified in rung 10), Plane rotation,
   alignment row. Reach it with `scroll 1480 440 -4`, `-4`, `+2`.
 - **Scroll the inspector** with the pointer over its label column (x≈1480). All of these are
   screenshot-only (not in the UIA tree).

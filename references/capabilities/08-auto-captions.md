@@ -777,6 +777,9 @@ Style signatures are counted with the read-only `evidence/2026-09-14/cap8/captio
       - **Units:** Position is canvas px, and the draft stores `clip.transform.y = value / 1080`
         (−1292 / 1080 = −1.196), the same mapping as rung 6's video Position. Round 1's visible
         lower third was −0.73 = **−788 px**, and the Arabic template box sits at −301 px.
+        - **Correction (rung 10, 2026-09-14):** the storage mapping is right, but these are
+          *typed* units. `transform` 1.0 = half the canvas, so −0.73 is ≈394 real px below centre,
+          and −1.196 (−646 px) was below the frame edge (540 px), consistent with "off-frame".
       - **Moving the English up (executed + draft-verified 2026-09-14 17:10:34):**
         1. With an English caption selected and **Apply to all sub captions ✓**, click the
            Position Y box (1770,367).

@@ -220,7 +220,8 @@ Animation), how animations are stored in the draft, and how to verify them frame
 3. **Position Y:** click the Y box (≈1768,428), then `key ctrl+a`, `type "450"`, `key enter`.
 4. **Agent-verified** (first poll): `clip.scale` = **(0.55, 0.55)** (uniform), `clip.transform` =
    **(0, 0.41667)**.
-   - Y px / 1080, the same mapping as captions (positive = up).
+   - Typed Y / 1080, the same mapping as captions (positive = up). The typed unit is ½ canvas px
+     (`transform` 1.0 = half the canvas, verified in rung 10), so Y 800 lifts the title ≈400 px.
    - Start 1.000 s, duration 3.000 s, text unchanged.
 5. **Frame at 2:15 with scale 55%, Y 450** (`18-scaled-moved.png`, `18-player2x.png`):
    - The whole title is visible, correctly joined, with no clipping. It spans player x≈815–1235
