@@ -87,6 +87,51 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
     of the clips decides.
 - Sheet: `cap13/visual-ai-candidates-sheet.png`, sorted by motion, reusing the rung-10 frames.
 
+### B. New practice project and import (executed + agent-verified 2026-09-15)
+1. **Pre-checks:**
+   - `HomeWindow` present, no menu or dialog.
+   - All project mtimes saved to `evidence/2026-09-15/cap13/mtimes-before.txt`.
+   - numpy is **not** in the skill venv. Installing it would download a package, so the shake metric
+     uses PIL instead (`shake_metric.py`).
+2. **Create project:** `scroll 1000 500 10` (home top), then click **Create project** (≈1102,144).
+   - `MainWindow` on the first poll; `focus --maximize`.
+   - The new draft folder **`0915`** appeared (CapCut names new projects by date).
+3. **Import**, once per file (rung-3 route):
+   - `key ctrl+i`, then poll `find --type Edit --id 1148`.
+   - `act set-value --id 1148 --value <path>`, then `act invoke --id 1 --name Open`, and wait ≈5 s.
+   - Files: `E:\videos\VID_20260720_190542.mp4` (talk), then `E:\videos\VID_20260501_233809.mp4` (desk).
+   - **Agent-verified:** `draft_meta_info.json` lists both (523 454 000 µs and 37 958 000 µs).
+     The timeline is still empty.
+4. **Editor after import** (`01-new-project-imported.png`):
+   - Title **0915**. Media cards: talk ≈(382,216), desk ≈(382,313).
+   - The desk card is selected and the player shows **"Previewing — video"** (portrait, 00:00:37:29).
+   - Empty timeline drop row "Drag material here and start to create" at y≈829.
+   - Details: Aspect ratio Original, 30.00 fps.
+   - A yellow "Layers can be reordered in…" onboarding bubble sits near **Modify**.
+
+### C. Section choices and shake reference (read-only, 2026-09-15)
+- **Remove-BG section:** talk footage source **80 → 95 s** (15 s).
+  - Frames at 50/80/…/330 s (`talk-sections/talk-source-sheet.png`) show a tripod shot. The speaker
+    is seated centre, and the background is **busy**: window, frame, chair, desk, shelves.
+  - That makes a realistic Auto removal test. Any 15 s section looks alike.
+- **Stabilize section:** desk clip source **2 → 17 s** (15 s), skipping the unsteady first 2 s seen
+  in rung 10.
+- **Source shake reference** (`shake_metric.py <clip> 2 15 shake-before`: 96 px wide, 30 fps,
+  ±6 px search, 450 pairs, 12 s runtime):
+  - mean |dx| **0.24** px/frame, mean |dy| **0.14** px/frame; 32 % of pairs moved
+  - cumulative path x −32…+6 px, y +1…+25 px: a slow **pan / drift** of about ⅓ of the frame width
+  - second-difference **jitter 0.062**; residual diff 3.49
+  - At 96 px, sub-pixel shake is invisible. The before/after comparison must use the **same capture
+    method** for both: player frames stepped through CapCut before and after Stabilize, analysed
+    with `shake_metric.py --frames`.
+
+### D. Build the practice timeline (in progress)
+1. **Drop the talk clip:** `drag 382 216 700 829 --steps 30 --hold 0.35` from the media card to the
+   empty drop row. The draft saved on the first poll.
+   - **Agent-verified:** canvas `original` **1920×1080**, set by this first clip (source 1280×720).
+     Main track, 1 segment, `VID_20260720_190542.mp4`, target 0 → **523.467 s**, source 0 → 523.467 s.
+     The whole clip.
+
 ## Wait conditions
 
 ## Verification
