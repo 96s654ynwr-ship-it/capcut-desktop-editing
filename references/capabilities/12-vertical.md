@@ -572,6 +572,27 @@ against beat marks) and in frames.
       - Template still **边框弹出黑色** on all; `transform.y` still −0.73.
     - To refocus the timeline without seeking, click the selected caption block (≈307,764). Then
       `key home`, `key right --repeat 135` → 00:00:04:15. Frame: `frames-916/5-0415-font22.png`.
+    - **Observed:** «زهجت من التاجيل وخلاص» is now **readable on one line**, about half the canvas
+      width. It is still low, over the «DIESEL» logo.
+    - **Measured** (`caption-band-font22-4x.png`, bright-pixel rows/cols in the band y 325–360;
+      approximate, since the band may include the shirt's white lettering):
+      - glyph band ≈21 px ≈ **5.5 %** of canvas height (was ≈2.1 % at size 10.5)
+      - centre at ≈ **86 %** of canvas height
+    - **Too low for Shorts/Reels/TikTok,** where the bottom ≈20 % is covered by platform UI. Next:
+      raise the captions with Transform Position Y (Apply to all main captions).
+11. **Caption Text ▸ Basic, lower sections** (single caption selected; `scroll 1480 440 -4` × 3;
+    `51-caption-inspector-scroll1..3.png`). The text box and "Apply to all main captions ✓" stay
+    pinned at the top.
+    - **Scroll 1:** style **preset tiles** (⃠ none, white, outlined, shadowed, yellow, red; a second
+      row of faded styles; ▾ for more). Then **Transform ▴** with reset / keyframe and **Scale 100%**
+      (box ≈1791,497).
+    - **Scroll 2:** already past Transform → **Blend ✓** with Opacity **50 %**, **Stroke** (off),
+      **Background ✓**.
+    - **Scroll 3:** Background sub-sliders: (colour/opacity row) 100 %, **Rounded rectangle 0 %**,
+      **Height 100 %**, **Width 100 %**, **Y-offset 50 %**, X-offset.
+    - The template's black word-box is presumably drawn through these Background settings.
+    - Each `-4` scroll jumps ≈1.5 sections, so Position sits between scroll positions 1 and 2.
+    - Captions are still single-selected (`51-selection-check.png`), and the draft is unchanged.
 
 ## Wait conditions
 
