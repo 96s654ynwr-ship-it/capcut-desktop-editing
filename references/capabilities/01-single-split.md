@@ -1,7 +1,7 @@
 # Capability 01 — Duplicate project, one split at an exact time, undo test, save
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, start Capability 2")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code (Windows 10, 125% scale, CapCut maximized)
 - **Approved:** —
