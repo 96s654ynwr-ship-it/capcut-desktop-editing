@@ -275,6 +275,15 @@ by player frames:
      sub-tab plus **Save as preset** / **Apply to all** buttons.
    - The top tab row is scrolled (‹ Audio / Speed / **Animation** ≈(1684,70) / Tracking / Adj… ›).
 2. **Baseline:** `draft-before-fadeout.json`.
+3. **Animation tab** ≈(1684,70):
+   - It shows **"Loading…"** for about 3–7 s (`22-overlay-animation-tab.png`), then loads
+     (`23-animation-loaded.png`).
+   - Sub-tabs **In** ≈(1533,126) / **Out** ≈(1678,126) / **Combo** ≈(1822,126); In is selected
+     by default.
+   - Search box "People are searching …".
+   - Chips: ★, Trending, Basic, Light, Glitch, Mask…
+   - In cards: None (selected), Zoom 1, Unmelting, Rock V…ically, Magi…wave, **Fade In** (no
+     diamond), Zoom Out, Zoom In, and more. Pro diamonds appear on some cards.
 
 ## Wait conditions
 
