@@ -8,6 +8,8 @@
 - **Approved:** not yet
 - **Practice project:** `0915`, a new agent-owned project: talk 80–95 s + desk 2–17 s, 30 s total.
   The approved masters `0914 (4)-copy` (horizontal) and `0914 (4)-copy-copy` (vertical) are intact.
+- **Added at the user's request before approval (2026-09-15):** a blurred-room background behind
+  the cut-out (section I). Sheet v2: `rung13-contact-sheet-v2.png`.
 - **Evidence:** `evidence/2026-09-15/cap13/`, with candidates in `evidence/2026-09-14/cap13/`.
   Sheet: `rung13-contact-sheet.png`.
 
@@ -339,7 +341,7 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   once more and verify. Poll a field that must *not* change (here `stable_level`), so an
   over-undo shows up.
 
-### I. Blurred-room background behind the cut-out (user request 2026-09-15, in progress)
+### I. Blurred-room background behind the cut-out (user request 2026-09-15, executed + agent-verified)
 - **User choice:** before approving, add a background; "Blurred room (Recommended)", i.e. a blurred
   copy of the same footage behind the speaker.
 - **Why not Canvas ▸ Blur:** canvas blur only fills the area *outside* a clip's bounds. The talk clip
@@ -477,6 +479,17 @@ Run CapCut's visual AI tools natively on suitable footage, verifying each in the
   (`is_clould` false).
 - **Scope:** after the save, all 14 other project mtimes match `mtimes-before.txt`; `0915` is the
   only new project. The approved masters `0914 (4)-copy` and `0914 (4)-copy-copy` are untouched.
+- **After the blurred-room background** (second Back to home page: Menu checked in
+  `54-menu-open-bg.png`, HomeWindow after 3 s, draft mtime 01:55:20):
+  - `draft_diff.py final-bg-before-save.json final-bg-after-save.json`: **no differences**.
+  - **Final `0915` layers:**
+    - **track 0 (main):** talk 0–15 s (source 80), `matting.flag` 1 (off), **Blur 0.5**; desk 15–30 s
+      (source 2), `stable_level` 2
+    - **track 1 (overlay, `flag` 2, muted `attribute` 1):** talk copy 0–15 s (source 80),
+      `matting.flag` 3, the same 632-mask cache
+    - duration 30.0 s, canvas original 1920×1080
+  - Scope re-checked after this save: 14 projects unchanged, `0915` the only new one
+    (`mtimes-after-bg.txt`).
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
