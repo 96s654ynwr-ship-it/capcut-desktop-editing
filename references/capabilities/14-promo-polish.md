@@ -363,6 +363,12 @@ by player frames:
    - A full-width **dropdown reading "None"** ≈(1677,517) appears under it, which matches the
      draft's `canvas_color` with an empty colour.
    - No draft change from expanding.
+6. **Open the dropdown** ≈(1677,517) (`34-canvas-dropdown.png`).
+   - It opens as a **separate popup window** (`Qt622QWindowIcon` (1396,509)–(1920,849)), which
+     `cc.py windows` shows. It covers the right end of the timeline.
+   - Options: **✓ None** ≈(1520,561), **Blur** ≈(1516,601), Color ≈(1520,641), Pattern ≈(1526,681),
+     Brand backgrounds ≈(1564,721).
+   - No Pro diamonds are shown in the list.
 
 ## Wait conditions
 
