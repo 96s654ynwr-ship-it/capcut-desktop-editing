@@ -603,6 +603,15 @@ against beat marks) and in frames.
       is ≈701 px below centre (≈86.5 % down). That matches the measured 86 %.
     - **Target:** caption centre ≈70 % down means 384 px below centre, i.e. `transform.y` −0.40,
       i.e. type **−768**.
+13. **Raise all captions:**
+    - `scroll 1480 440 1` brings Position back. Click Y (≈1756,367), then `key ctrl+a`,
+      `type "-768"`, `key enter`.
+    - **Agent-verified (first poll):** all **18** captions `transform.y` −0.73 → **−0.4**, x 0.
+      Title y 0.7407 and duration 35.533 s are unchanged. The inspector reads **Y −768**
+      (`53-after-y-edit.png`).
+    - **Frame 00:00:04:15** (`frames-916/6-0415-y768.png`): «زهجت من التاجيل وخلاص» sits at
+      ≈70 % of canvas height (player y≈276 of 9–390), over the chest **above** the «DIESEL» logo.
+      It is clear of the bottom ≈20 % platform-UI zone and still readable.
 
 ## Wait conditions
 
