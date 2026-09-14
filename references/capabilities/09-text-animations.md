@@ -113,6 +113,102 @@ Animation), how animations are stored in the draft, and how to verify them frame
 - Candidate contact sheet: `evidence/2026-09-14/cap9/templates/title-candidates-sheet.png`, built
   with `cap9/contact_sheet.py`.
 
+### C. Preview a text template (observed 2026-09-14)
+- **Hover** a tile: a ☆ favourite icon appears left of the ⬇ download icon, at the tile's
+  bottom-right. There is no + button, and no player change.
+- **Click** the tile body (≈15 px up-left of centre, away from the icons):
+  - The tile gets a cyan border.
+  - The ⬇ icon turns into a cyan **+** (≈ tile centre + (37,39); for tile #3 ≈522,378).
+  - The player header reads **"Previewing — Text template"**, with its time display showing the
+    template's own length (#3: **00:00:03:00**).
+  - **The draft is unchanged** (mtime identical). A click previews, and only the **+** adds.
+- Downscaled full-window screenshots can make the Arabic tile thumbnails look mirrored or
+  unjoined. A 2× crop (`10-hover-tiles-zoom.png`) shows they render correctly, so zoom in before
+  judging Arabic shaping.
+- **Play the preview:** click the player ▶ (≈1024,541), then grab player-region screenshots
+  (`screenshot --region 612,90,1436,560` in a loop, one about every 0.5 s). Frames are in
+  `cap9/preview/f01–f06.png`.
+- **Template #3 animation, observed:**
+  - Two centred lines of heavy yellow Arabic, very large (about two thirds of the frame width),
+    over the paused-then-playing timeline video.
+  - **In:** the text types on letter by letter. At 0:23 line 2 reads only «حياة ع». Fully shown by
+    ≈1:13.
+  - **Hold** until 3:00, with no visible out animation in the frames at 2:01 and 2:19.
+  - At 3:00 the preview stops and resets to 0:00. It does not loop.
+  - A «بسم الله الرحمن الرحيم» strip in the lower-middle at 0:23 and 1:13 is the **house caption**
+    (0–≈2 s, current word on the black box). It also shows on the normal player at 00:00:01:00. The
+    preview **composites the real timeline** (video + captions) under the template, which makes it
+    a useful overlap check.
+- **Leave the preview, then set the start:** click empty timeline space (≈1000,690). The header
+  returns to "Player-Timeline 01", the tile loses its cyan border, and the draft is unchanged.
+  Then `key home` plus 30 × `key right` (30 fps) puts the playhead at **00:00:01:00**, verified on
+  the timecode.
+  - As previewed, centred and large, it would cover the speaker's face. It needs Position Y moved
+    up and probably a smaller scale.
+
+### D. Add the template at the playhead (executed 2026-09-14)
+1. With the playhead at 00:00:01:00, hover tile #3 (≈470,325). The hover icons show ☆ and a cyan
+   **+** at ≈(523,379), because the tile is already downloaded from the preview. The zoom crop is
+   `13-hover-tile3-icons.png`.
+2. Click **+** (≈523,379), then poll the draft mtime until it changes. It saved within about 1 s
+   (19:49:10 → 20:19:39).
+3. **Agent-verified** with `title_check.py` and `draft_inspect.py diff`:
+   - **New text track** (track 2, flag 0) with **1 segment**, above the caption track. The house
+     caption track (239) is untouched.
+   - `target_timerange`: start **1.000 s (00:00:01:00)**, duration **3.000 s**. The template's own
+     length lands at the playhead.
+   - Material `text_templates`: name **"Arabic An ordinary day, an ordinary life"**, resource
+     **7659823758919699730**. One linked `texts` material holds the placeholder
+     «يوم عادي،\nحياة عادية» (a two-line newline).
+   - `extra_material_refs` → `material_animations` with one **in** animation, start 0, **duration
+     1 000 000 µs (1 s)**, empty name (built into the template). There is no out animation, which
+     matches the preview.
+   - `clip`: scale 1.0, transform (0, 0), so it is centred.
+   - Diff vs `after-close.json`: tracks 2→3, segments 246→247, texts / text_templates /
+     material_animations +1 each. Nothing else changed.
+4. **Observed UI after adding** (`14-added.png`):
+   - Title bar: "Auto saved: 20:19:40".
+   - The new segment is selected: a short red block at the start of a new TT row (y≈731) above
+     the caption row (y≈763). Everything below shifted down one row.
+   - The player at 00:00:01:00 shows no title yet (the in animation starts from nothing). Dashed
+     vertical guides mark the title's box, x≈758–1289.
+   - **Inspector for a selected text template:**
+     - Top tabs: **Text · Tracking · Text to speech · AI avatars (Pro)**. There is **no Animation
+       tab**, because the template's animation is built in.
+     - Sub-tabs: Basic · Templates · Effects.
+     - Basic shows **"The 1 paragraph"** with a text box ≈(1655,227) and a ▾ at ≈(1878,227).
+       There is one box per template paragraph.
+     - **Transform:** Scale 100% (box ≈1800,349), Uniform scale on, Position X ≈(1645,444) /
+       Y ≈(1768,444), Plane rotation 0.00°, with keyframe ◇ at the right.
+     - Bottom: "Save as preset".
+
+### E. Replace the placeholder with the title (executed 2026-09-14)
+1. Click the "The 1 paragraph" text box (≈1655,227), then `key ctrl+a` and `type "زهقت من التأجيل"`
+   (clipboard paste). The template's two-line placeholder is fully replaced by one line.
+2. Poll `title_check.py` until `texts == ["زهقت من التأجيل"]`. It matched on the 3rd poll (≈1.5 s).
+   Title bar: "Auto saved: 20:20:44".
+3. **Agent-verified:**
+   - still 1 non-house segment
+   - start 1.000 s, duration 3.000 s
+   - template and in-animation refs unchanged
+4. **Observed:**
+   - The text box shows «زهقت من التأجيل» correctly joined right-to-left (zoom
+     `15-typed-inspector.png`).
+   - With one line the box shrinks, so the inspector rows move up ≈16 px: Transform ≈269, Scale box
+     ≈(1800,333), Position X ≈(1645,428) / Y ≈(1768,428).
+   - An alignment toolbar row appears under Plane rotation.
+   - A horizontal dashed guide sits at player y≈247.
+   - **Focus stays in the text box.** Arrow keys would move the caret, so click empty timeline space
+     (≈1000,675) before stepping the playhead.
+5. **Frame at 00:00:02:15 (hold), scale 100%, position (0,0)** (`16-hold-centred.png`):
+   - The title renders as **one very large heavy yellow line**, correctly joined.
+   - It is **wider than the frame**: «ز» is clipped at the right edge and the final letter at the
+     left edge.
+   - Its vertical centre sits **below** frame centre (player y≈375 of 99–482). The template's
+     content box is anchored low, so transform (0,0) does not mean centred text.
+   - It covers the speaker's chest and the lower-middle.
+   - **Not acceptable as-is.** It needs a smaller scale and Position Y moved up (section F).
+
 ## Wait conditions
 
 ## Verification
@@ -126,6 +222,8 @@ Animation), how animations are stored in the draft, and how to verify them frame
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| Clicking empty timeline space (≈1000,675) to deselect also **moved the playhead** to that x (≈00:04:34). The 45 × Right presses then landed at 00:04:36:03, not 2:15. | In the empty area above the tracks, a click both deselects and seeks. | Harmless: the draft was unchanged. After deselecting, press `home`, then step with Right (75 × for 00:00:02:15). Read the timecode before trusting a frame. |
+| While polling right after typing the title, `title_check.py` failed with `JSONDecodeError: Invalid control character`. The next poll had no JSON output. | CapCut autosaves mid-typing, and the read caught `draft_content.json` half-written. | `title_check.py` now parses with `strict=False` and retries up to 10 × 0.4 s. Poll for the *expected text* instead of trusting the first read. The third poll matched «زهقت من التأجيل». |
 | Between turns the editor was closed (Home showing) and the copy's draft mtime moved 19:23:11 → 19:49:10. `diff` then listed 22 caption rows as `material changed` with identical text. | The user reviewed or closed the project, and CapCut re-serialized 22 caption text materials on close. `material_probe.py` showed only the summary `sig` hash differs. Text, template (239 × 边框弹出黑色), y −0.73 and the video track are unchanged. | Not an edit, so no action. Before trusting a baseline, re-run `track_styles.py` plus `diff`. Treat `material changed` with an identical name as re-serialization only after the template/position/text checks pass. The user also created `0914 (6)` at 20:05, which the agent does not touch. |
 
 ## Tree coverage notes
@@ -136,6 +234,9 @@ Animation), how animations are stored in the draft, and how to verify them frame
 - **Build:** a **text template** from CapCut's Text ▸ Text templates, with built-in animation. Show
   the options before applying, because template choice is a taste decision.
 - **Placement:** near the start, upper part of the frame, clear of the lower-third house captions.
+- **Template (chosen from the 12-tile sheet):** **#3 "yellow bold"**. It is the search «عربي» result
+  whose preview reads «يوم عادي، حياة عادية» (row 1, column 3 of the unscrolled grid, ≈485,339
+  on screen), with no Pro diamond. User's words: "3 yellow bold (Recommended)".
 - Baseline before any rung-9 change: `evidence/2026-09-14/cap9/baseline.json` (2 tracks, 246
   segments, draft 19:23:11).
 
