@@ -1,9 +1,166 @@
 # Capability 08: Auto captions + styling
 
 ## Status
-- **Ladder status:** demonstrated, round 2 (awaiting user approval). Round 1 (Arabic captions,
-  outline preset, size 11, text fix) is below. User feedback on round 1 (2026-09-14): **"Try
-  bilingual captions, and restyle"**.
+- **Ladder status:** demonstrated, round 3 (awaiting user approval).
+  - **Round 3 result (2026-09-14, `0914 (4)-copy`):**
+    - Arabic-only Auto captions (1 track × 239)
+    - the user-chosen "Classic: black box" word-by-word template, lower third (y −0.73)
+    - «حاجة 1» → «حاجة واحدة» fixed
+    - frames checked inside a short caption, the longest caption and the fixed caption
+      (00:04:07:21 «حاجة واحدة بس هاشترك»; 00:04:08:21 «في كلود في الغالب»)
+    - undo/redo gate passed, saved
+    - original and user projects untouched
+    - Evidence: `evidence/2026-09-14/cap8c/` (sheet: `arabic-template-sheet.png`).
+  - **User feedback on round 2 (2026-09-14):** "We should have only one language Arabic, instead
+    of bilingual Arabic + English".
+  - **Round 3 plan** on `0914 (4)-copy`:
+    1. Regenerate Auto captions Arabic with **Bilingual: None** and Delete current captions ✓.
+    2. Re-apply the user-chosen black-box template.
+    3. Position it in the lower third.
+    4. Re-apply the «حاجة 1» → «حاجة واحدة» fix.
+    5. Verify, then ask again.
+  - **Round 3 pre-check (agent-verified 2026-09-14):**
+    - The copy's draft mtime was **19:03:19**, after the agent's 17:12:46 save. It was presumably
+      re-saved when the user opened the copy to review.
+    - Read-only checks showed nothing else changed:
+      - all 478 captions have identical text and timing
+      - both text tracks keep their y positions
+      - the 7 video segments match rung 7, and seg 4 still has 2 keyframes
+    - Round-3 baseline: `evidence/2026-09-14/cap8c/round3-baseline*.json`.
+  - **Round 3, step 1: back to one language (executed 2026-09-14):**
+    1. Open `0914 (4)-copy` (first home card; the title bar confirmed it), then Captions ▸ Auto
+       captions (≈57,131).
+    2. The form **remembers the last choices**: Spoken language Arabic, Bilingual captions
+       **English**.
+    3. Open the Bilingual dropdown (≈383,255). English is ticked ✓ at the bottom of the visible
+       list, and **None** is the first row (≈243,300).
+    4. Choose None, then tick Delete current captions and Generate, as in round 2.
+       - The first attempt failed (see Failure modes: a `focus` call closed the popup). On the
+         retry, with the dropdown opened and None clicked in one command, the field read
+         **None**.
+       - The draft was unchanged by the form edits.
+    5. **Generate (executed + draft-verified 2026-09-14 19:13:01):** Arabic · Bilingual None ·
+       Delete current captions ✓. The draft saved **3 s** later and the loading window was gone by
+       4 s (cached recognition). No dialogs.
+       - **Result:**
+         - **one text track, 239 captions, all `ar-SA` `sub_type` 0**, plain `texts` in the default
+           style at y **−0.73**
+         - the English track and **both templates removed**: `text_templates` and `effects` are no
+           longer in the materials; `texts` 478 → 239; tracks 3 → 2
+       - Video segments unchanged.
+       - ⚠ `regen_check.py`'s comparison printed "False (0 before)". The pre-regeneration dump
+         came from a script that doesn't resolve template materials, so every language was None.
+         That's a tooling artefact, not a mismatch. Compare against a template-aware or
+         pre-template dump.
+       - **Correct comparison (agent-verified):** the regenerated 239 Arabic captions are
+         **identical in start, duration and text** to round 2's bilingual Arabic track **and** to
+         round 1's first generation (before its text fix). CapCut reuses the same cached
+         recognition on every regeneration.
+         - So a regeneration is **deterministic but destructive**: caption 129 reads «…حاجة **1**
+           بس…» again, and every manual fix must be re-applied.
+         - Style resets to the default: `font_size` 7, white, `border_width` 0.08, system font.
+         - The video track still has 7 segments, and seg 4 keeps its 2 push-in keyframes.
+       - **Timeline:** a single **TT** caption row at y≈763 above the video. Undo/redo arrows are
+         active in the toolbar.
+    6. **Re-apply the template:**
+       1. Ruler click (240,628), then Ctrl+= ×4. The view shows 00:05 → 00:40, ≈44.6 px/s, with
+          caption pills on the y≈763 row.
+       2. Click the pill «بقالي فترة عايز اعمل» (≈300,763).
+       3. Text ▸ Templates (1623,127), then the Classic chip (1653,271). Screenshot the grid
+          **before** clicking a tile, because a tile click applies immediately.
+       - Pre-template snapshot: `cap8c/styles-before-template.json` (1 track × 239 `texts`, y −0.73).
+       - **Observed** (`templates-classic.png`):
+         - The pill got a white border. The player shows the selected caption «بقالي فترة عايز اعمل
+           براند او» with its bounding box.
+         - The checkbox reads **Apply to all main captions ✓**. With one language, every caption
+           is a main caption.
+         - The Classic grid loaded; the black-box tile is row 1 left.
+         - ⚠ The grid sat **≈8 px lower** than in round 2 (tile text y≈371, ☆ y≈392). Aim for
+           the tile body left of the ☆, ≈(1480,363), from a fresh screenshot each time.
+       4. **Applied (executed + draft-verified 2026-09-14 19:16:39):** click the black-box tile
+          (1480,363). The draft saved **2 s** later.
+          - `cc.py` printed "WARN: could not confirm CapCut is foreground". The click still landed
+            (draft changed as intended), but always confirm by draft or screenshot after that
+            warning.
+          - **Result:**
+            - 1 text track × **239 `text_templates` "边框弹出黑色"** (7331662668685774086)
+            - materials `text_templates` 0 → 239, `effects` 0 → 239, `texts` 239
+            - template-aware check: **all 239 captions have identical start, duration and text**
+          - **Position stayed at y −0.73 (−788 px, lower third) for all 239.** In round 2 the same
+            template moved bilingual tracks to −0.28 (Arabic) and −1.09…−1.20 (English). CapCut
+            re-lays out only when two languages have to be stacked. Single-language captions keep
+            their position.
+       5. **On the player** (`cap8c/midframes/`, agent-verified 2026-09-14):
+          - **Longest caption** (seg 122) at 00:03:50:06: «بشتغل بكلود بشكل كبير», with the black
+            box on «بشتغل». At 00:03:51:16: «وشايف ان هو», box on «وشايف».
+          - The text is bold white Arabic with correctly joined letters, in the **lower third**
+            over the shirt/desk line, fully inside the frame, and paged into short chunks.
+          - Frames `a`/`b` (00:00:02:12, 00:00:03:07) show **no caption, correctly**: the
+            zoomed-view ruler click at x 300 landed at ≈1.6 s, inside the silence between caption 0
+            (ends 1.567 s) and caption 1 (starts 3.800 s).
+          - At Ctrl+= ×4 the ruler reads 00:05 at x≈455, so x = 455 + (t − 5) × 44.6. Use Home + ↓
+            to land exactly on caption starts instead of ruler clicks.
+          - **Short caption** (caption 1, via Home + ↓×3, then → ×25) at 00:00:04:19: «زهجت من
+            التاجيل وخلاص», box on «التاجيل». Lower third, inside the frame, readable over the
+            shirt and desk.
+       6. **Locating caption 129** (246.133 → 249.067 s) for the text fix:
+          1. Shift+Z (fit), then ruler click (945,628). The playhead snapped to the video join
+             00:04:05:22 (245.733 s), the nearest cut.
+          2. Ctrl+= ×4 gives ≈46 px/s (04:00 at x≈700, 04:10 at x≈1160).
+          - The pill «فانا لو هاشترك في حاجة 1» spans **x≈958–1092 on the y≈763 row**, starting just
+            right of the 04:05:22 video join.
+          3. Ruler click (1030,628), then click the pill (1020,763), then Text ▸ **Basic**
+             (≈1516,127).
+          - **Observed** (`caption129-selected.png`, `caption129-basic.png`):
+            - The pill has a white border. Playhead 00:04:07:21.
+            - The player shows «حاجة **1** بس هاشترك», with the template's black box on «1». The
+              digit is visibly highlighted as a word.
+            - Sub-tabs are **Basic · Templates · Effects** (no Bubble with a template).
+            - **Apply to all main captions ✓**. Font **Staatliches-Regular**, size **11**.
+            - The **text box** is in the same place as round 1 (≈1510–1890 × 200–280), showing
+              «فانا لو هاشترك في حاجة 1 بس هاشترك في كلود في الغالب».
+          - Pre-fix dump (template-aware): `cap8c/texts-before-fix.json`.
+       7. **Text fix on a templated caption (executed + draft-verified 2026-09-14 19:21:36):**
+          1. Click in the text box (1700,240), then `key ctrl+a`.
+          2. `type "فانا لو هاشترك في حاجة واحدة بس هاشترك في كلود في الغالب"`.
+          - **Autosave ran repeatedly while typing:** polls read «فا» (0.1 s), «فانا لو هاشت»
+            (2.2 s), «…واحدة بس هاش» (6.3 s), «…كلود ف» (8.3 s), then the full text at **10.4 s**.
+            Keep polling until the text equals the full target.
+          - **Template-aware before/after:** 239 → 239 captions, **exactly 1 changed**: #129 text
+            `…حاجة 1 بس…` → `…حاجة واحدة بس…`. Start, duration, kind (template) and y (−0.73)
+            unchanged, and no other caption touched.
+          - The template stays on the edited caption. The fix doesn't drop it back to plain text.
+          - **Player** (`caption129-fixed.png`): «حاجة **واحدة** بس هاشترك», with the word
+            «واحدة» in place of the digit.
+       8. **Undo / redo / save (agent-verified 2026-09-14):**
+          - Click the ruler first so keys go to the timeline, not the text box.
+          - **Ctrl+Z (once):** only the last typed letter was removed («…الغالب» → «…الغال»). Text
+            undo is per character with a template too.
+          - **Ctrl+Shift+Z:** the template-aware dump is **identical to the verified fix**, which
+            was the gate for saving.
+          - **Menu ▸ Back to home page:** saved (19:23:11); tree root `HomeWindow`.
+          - **Final state on disk:**
+            - **1 text track, 239 captions, all `text_templates` "边框弹出黑色", all `ar-SA`, all
+              y −0.73**
+            - identical to the verified fix
+            - materials `texts` 239, `text_templates` 239, `effects` 239
+            - video 7 segments, seg 4 keeps its 2 push-in keyframes
+          - **Scope:**
+            - the original `0914 (4)` is unchanged since before the duplicate (16:25:54.656)
+            - the user's projects (0707, 0720, 0728, the Arabic-titled one) and `0914 (5)` are
+              unchanged
+       9. **Round-3 recipe (Arabic-only captions with a caption template):**
+          1. Captions ▸ Auto captions: Spoken language **Arabic**, **Bilingual None**. The form
+             remembers the last choice, so check it. Tick **Delete current captions ✓**, then
+             Generate.
+          2. Select any caption → Text ▸ **Templates** → chip → tile. It applies to all main
+             captions and keeps y −0.73 for single-language captions.
+          3. Re-apply known text fixes: select the caption → Text ▸ Basic text box → Ctrl+A → type
+             the full text. Poll until it's fully saved.
+          4. Check frames inside captions, then the undo/redo gate, then Back to home page, then the
+             template-aware dump.
+  - Round 1 (Arabic captions, outline preset, size 11, text fix) is below. User feedback on round 1
+    (2026-09-14): **"Try bilingual captions, and restyle"**.
   - **Round 2, demonstrated 2026-09-14 on `0914 (4)-copy`:**
     - Bilingual Arabic + English captions (2 × 239)
     - the user-chosen **"Classic: black box"** caption template (`边框弹出黑色`, word-by-word
@@ -729,6 +886,7 @@ Style signatures are counted with the read-only `evidence/2026-09-14/cap8/captio
 | `wait-for --contains "Generating captions"` timed out while generation was running | the progress text is in the loading window's AutomationId; `--contains` matched Name only | fixed in `cc.py` (`--contains` also matches AutomationId); poll the draft for a text track as the authoritative signal |
 | Three inspector "scrolls" showed the same page | the pointer was at x 1120, over the **player**, not the inspector (which starts at x≈1447) | scroll inside the inspector label column (x≈1480). The player view and draft were unchanged |
 | A scratchpad script "didn't exist" when run | the file wasn't where the shell looked | keep helper scripts under `evidence/<date>/capN/` |
+| Clicking "None" in the Bilingual dropdown did nothing; the field still read English | the dropdown was opened in one command and the next command began with `cc.py focus`, which closed the popup, so the click hit empty panel | open a dropdown and click its row **in the same command**, with no `focus` call between; screenshot the field afterwards |
 | Bilingual Generate: `wait-for --contains "Generating captions"` (30 s) reported "not present", yet the 1.5 s screenshot showed "Generating captions... 36%" | the second generation finished in ≈5 s (CapCut apparently reused the existing recognition), so the dialog was gone before polling started | treat the **draft save + changed caption dump** as the completion signal; screenshot immediately after Generate; only treat "never appeared" as a problem if the draft also didn't change |
 | After asking the user a question, CapCut was back in the editor (a caption selected, presets expanded, different zoom), not the home screen the agent had left | the user used CapCut while answering (confirmed: "That was me, continue") | **after every question to the user, take a fresh screenshot + `tree` before any input**; check draft mtimes; leave via Back to home page and diff before continuing |
 | Player showed no caption at the "longest caption" time | a fit-zoom ruler click at x 894 (meant as 230.5 s) landed on 00:03:48:09 = 228.3 s, before the caption starts (fit zoom is ±2 s, as in rung 5) | zoom first (Ctrl+= ×4 ≈ **46.25 px/s**; read two ruler labels), then click; confirm the timecode |
@@ -753,7 +911,9 @@ Style signatures are counted with the read-only `evidence/2026-09-14/cap8/captio
   lower, e.g. Arabic −550 / English −800, clear of the shirt logo?
 - **Translation quality:** a few English lines are wrong («وخلاص» → "and salvation"). Fix
   mistranslations caption by caption (text box), or accept machine translation?
-- **Default for future edits:** should the bilingual + black-box recipe become the default caption
-  style, or should Arabic-only captions stay the default?
+- **Resolved by round 3:** captions are **Arabic only** (user, 2026-09-14). The bilingual route
+  stays documented as an option, not the default.
+- **Default for future edits:** make Arabic-only + "Classic: black box" in the lower third the default
+  caption recipe for talking-head videos?
 - **Speaker-identified captions** aren't offered in this version's Auto captions form. Record as
   unavailable on 9.4.0.4015?
