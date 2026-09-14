@@ -375,6 +375,32 @@ by player frames:
    - ⚠ **Picking Blur alone changes nothing in the draft.** 20 polls (10 s) plus a re-check all
      show `canvas_color` on every segment, and the draft mtime stayed 02:48:56.967.
    - A **blur level thumbnail must be clicked** to apply it.
+8. **Blur strength cards:** after `scroll 1680 400 -6` the Canvas row sits at y≈352, the Blur
+   dropdown at y≈399, and **four thumbnails** at y≈472 (`36-canvas-blur-levels.png`):
+   - ≈(1500,472): lightest; the desk scene is still recognisable
+   - ≈(1597,472)
+   - ≈(1695,472)
+   - ≈(1792,472): strongest; almost a smooth purple wash
+
+   None of them has a Pro diamond or a selection border before clicking. **Chosen: the third card**
+   ≈(1695,472), strong enough to give the dark logo a smooth, even backdrop without looking flat.
+9. **Click the third card.** **Agent-verified (first poll)** (`canvas-after.txt`,
+   `diff-canvas.txt`):
+   - desk segment canvas `canvas_color` → **`canvas_blur`, `blur` 0.0 → 0.75**
+   - the filtered draft diff is **exactly 2 lines** (`materials.canvases[1].type` and `.blur`)
+   - main talk, overlay talk and logo stay `canvas_color` / 0.0, so the setting is per clip and
+     "Apply to all" was not needed
+   - the four cards map to 0.25 / 0.5 / 0.75 / 1.0 by position (only 0.75 observed)
+   - one extra small window `Qt622QWindowToolSaveBits` (1525,45)–(1829,199) appeared after the
+     click. It is only a **toast**, "Background has been added to this clip"
+     (`37-canvas-blur-applied.png`); there was no dialog or cost prompt. The third card gets a
+     cyan border.
+10. **Frames** (ruler x≈917/1063 → 16:14 and 19:29; `38-canvas-*.png`):
+    - The black pillarbox is replaced by a **soft blurred, enlarged copy of the desk shot**
+      (purple/lilac wash) on both sides.
+    - The sharp portrait clip stays centred.
+    - **The dark logo is now clearly readable** top-right against the light lilac blur at both
+      points. Fix 2 works.
 
 ## Wait conditions
 
