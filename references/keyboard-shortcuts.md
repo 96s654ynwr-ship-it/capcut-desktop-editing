@@ -61,10 +61,10 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Generate captions / Don't isolate voice / Keep vocal / Remove vocal | (unassigned) | listed | |
 | Sync video and audio / Transcript / Open file location / Link to media | (unassigned) | listed | |
 | Separate / Split scenes / Replace clip / Image to video | (unassigned) | listed | |
-| Locate to first frame | Home | listed | |
+| Locate to first frame | Home | **agent-verified 2026-09-14** | timecode read 00:00:00:00, with the timeline focused (click empty timeline space first) |
 | Locate to last frame | End | listed | |
 | Last cut point | ↑ | listed | jump the playhead to the previous edit point |
-| Next cut point | ↓ | listed | |
+| Next cut point | ↓ | **agent-verified 2026-09-14** | from 00:00:00:00, jumped exactly to the next segment boundary (00:00:54:23). Useful for spot-checking cuts |
 | In point | I | listed | |
 | Out point | O | listed | |
 | Select by clip | Shift+X | listed | |
@@ -110,7 +110,7 @@ This completes the Timeline tab (7 scroll pages).
 | Delete | Backspace | **agent-verified 2026-09-14** | deletes the selected timeline segment; with the main track magnet on it ripples. ⚠ On the home screen Backspace deletes a selected project card — check the tree root is `MainWindow` first |
 | Undo | Ctrl+Z | **agent-verified 2026-09-14** | reverted a split completely (draft diff: No differences) |
 | Redo (labelled "Reset") | Ctrl+Shift+Z | **agent-verified 2026-09-14** | CapCut's label is "Reset", but it redoes: re-applied an undone split identically |
-| Import media | Ctrl+I | listed | opens the "From device" file dialog? verify |
+| Import media | Ctrl+I | **agent-verified 2026-09-14** | in the editor it opens the native Windows file dialog ("From device") directly. Detect it with `cc.py wait-for --type Edit --id 1148 --depth 30` (about 2 s), then `act set-value --id 1148` + `act invoke --id 1 --name Open` |
 | Export still frames | (unassigned) | listed | |
 | Export | Ctrl+E | listed | opens the export dialog |
 | New project | Ctrl+N | listed | creates a project, a side effect |

@@ -83,7 +83,7 @@ run, so credits are unknown.
 | Isolate voice (Keep vocal / Remove vocal) | Clip right-click → **Isolate voice ›** | "Free" badge |
 | Extract audio | Clip right-click (Ctrl+Shift+S) | Pro diamond in context menu (toolbar icon showed none) |
 | Transcript | Clip right-click; timeline toolbar | Pro diamond |
-| **Remove filler words** (pauses / repeats / filler words) | Select a clip → timeline toolbar **Transcript** icon → "Analyzing… Identifying pauses…" (no confirmation dialog) → `RoughCutWindow` "Remove filler words" with tabs All/Pauses/Repeats/Filler words → tick items → **Delete** | Pro diamond on Delete. The analysis ran with **no credit prompt** (2026-09-14). Credit use not visible |
+| **Remove filler words** (pauses / repeats / filler words) | Select a clip → timeline toolbar **Transcript** icon → "Analyzing… Identifying pauses…" (no confirmation dialog) → `RoughCutWindow` "Remove filler words" with tabs All/Pauses/Repeats/Filler words → tick items → **Delete** | Pro diamond on Delete. **Agent-verified 2026-09-14**: pause detection and Delete both ran with **no credit prompt or confirmation**. A 22.30 s pause was removed as a split plus a source skip, and it undoes in one step. Credit use isn't visible in the UI. Three analyses were run under the user's consent (23 s clip ×2, 2:15 take ×1) |
 | Create multi-camera clip | Clip right-click | "Free" badge |
 
 ## Rules
