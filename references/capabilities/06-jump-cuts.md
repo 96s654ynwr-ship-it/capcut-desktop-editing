@@ -1,11 +1,11 @@
 # Capability 06: Jump cuts with scale/position punch-in
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve, start Cap 7")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Segments 1, 3 and 5 of `0914 (4)` punched in to 110%
   with Y −10.
-- **Approved:** not yet
+- **Approved:** 2026-09-14
 - **Practice project:** `0914 (4)`, the cleaned talking-head take of `VID_20260720_190542.mp4`.
   7:30.533, 1920×1080, 7 main-track segments. Joins at 122.200, 245.733, 251.867, 262.500, 359.467
   and 426.867 s.

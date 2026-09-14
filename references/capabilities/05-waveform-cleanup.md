@@ -5,7 +5,7 @@
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Five longest silences tightened in practice project
   `0914 (4)` (473.433 → 450.533 s).
-- **Approved:** not yet
+- **Approved:** 2026-09-14
 - **Consent:** "Approve, start Cap 5". The approved plan names **CapCut's detected pauses plus
   caption word timings** as the main gap-finding tools, because the waveform strip is too thin to
   read at the default track height.
