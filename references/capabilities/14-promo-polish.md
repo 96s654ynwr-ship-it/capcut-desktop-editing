@@ -196,6 +196,18 @@ by player frames:
      the dark ink wordmark is barely visible (only the blue dots stand out).
    - ⚠ **Overlay pop:** the cut-out overlay (track 1) ends hard at 15:00. The main-track Cross Fade
      cannot fade it, so the sharp speaker disappears abruptly at the cut.
+   - **Denser frames** (x≈846/851/859/864 → 14:23, 15:00, 15:00, 15:06; `14-xfade-near-*.png`;
+     the ruler snaps to the cut at 855):
+     - **The blend renders in the paused preview:**
+       - 14:23: the desk image is faintly mixed into the background, while the sharp cut-out
+         speaker stays fully opaque in front.
+       - 15:00: a strong mix. The cut-out overlay has already ended; the desk and the blurred
+         room are ghosted together.
+       - 15:06: desk-dominant with a faint ghost of the talk (shirt text).
+       - At 14:14 and 15:14 no mix is visible, so the visible blend is concentrated within about
+         ±0.5 s of the cut, even though `duration` is 2.0 s.
+     - **Both artifacts confirmed.** The overlay pops (opaque speaker over a half-faded background,
+       then gone at 15:00). The logo fades into the dark pillarbox from about 15:00.
 6. **Undo/redo gate (agent-verified):**
    - The poll checks for `"Cross Fade"` in the draft text (PowerShell `Select-String`, no Python
      quoting).
@@ -250,6 +262,12 @@ by player frames:
   Pro diamonds.
 - **Colour:** "Pro Auto adjust": Inspector Adjust ▸ Auto adjust (Pro). Stop if a cost or credit
   prompt appears.
+
+- **Polish fixes found during verification:** "Fix both (Recommended)".
+  1. Add a short **Fade out** Out-animation to the cut-out overlay clip (track 1, 0–15 s), so it
+     dissolves with the Cross Fade instead of popping at 00:15.
+  2. Fill the desk clip's black pillarbox with **Canvas ▸ Blur** (Video ▸ Basic ▸ Canvas), so the
+     dark logo reads in the desk section.
 
 ## Open questions for the user
 - None yet.
