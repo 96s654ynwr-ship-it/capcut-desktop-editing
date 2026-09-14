@@ -70,7 +70,8 @@ run, so credits are unknown.
 | Stabilize | Inspector → Video → Basic | Pro diamond |
 | Remove BG / Mask / Retouch | Inspector → Video sub-tabs | (to check inside) |
 | Auto captions → Generate | Asset → Captions → Auto captions → **Generate** | "Pro" tag on button. **Agent-verified 2026-09-14:** no credit prompt. Loading window `id="Generating captions... N%"`. About 122 s for 8:43 of Arabic. Produces a text track whose materials carry per-word `words.start_time/end_time`, readable with `draft_inspect.py words` |
-| Bilingual captions | Asset → Captions → Auto captions | Pro diamond |
+| Bilingual captions | Asset → Captions → Auto captions → Bilingual captions (list: None, Bengali, Burmese, Chinese, Dutch, English, …; the spoken language is excluded) | Pro diamond. **Agent-verified 2026-09-14 (Arabic → English):** no credit prompt. Regenerating with Delete current captions ✓ took ≈5 s (recognition reused). Produces 2 text tracks: translation = "sub captions" (`sub_type` 5, style size 5, placed below) and speech = "main captions". Manual text fixes are lost on regeneration |
+| Caption templates | Selected caption → inspector Text ▸ **Templates** (chips Trending / Classic / NEW …) | Most tiles carry a Pro diamond, including Classic "black box" `边框弹出黑色`. **Agent-verified 2026-09-14:** applies to all captions of the selected track only (main or sub). Segments become `text_templates` + `effects` (`text_effect`); word-by-word highlight; can move the caption (English went to Y −1292, off-frame). The left Captions ▸ Templates panel only previews, and its "Generate captions" applies a template at generation time |
 | Identify filler words | Asset → Captions → Auto captions (toggle, on by default) | Pro diamond |
 | Auto lyrics | Asset → Captions | (to check) |
 | AI avatar tools (Avatar library, Photo to avatar, Fashion model, Video translator, AI dialogue scene) | Asset → AI avatar | Pro diamond on each |

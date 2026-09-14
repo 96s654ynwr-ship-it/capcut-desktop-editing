@@ -407,6 +407,24 @@ Which icon is which gets established by behaviour in rung 2, then recorded here.
   - Transform (Scale, keyframe)
   - Checkbox sections Background / Glow / Shadow / Curve
   - **Save as preset** stays pinned at the bottom.
+- **Bilingual captions** (rung 8 round 2): two caption rows, speech ("main captions") at y≈731
+  and translation ("sub captions") at y≈763. A translation caption's checkbox reads **Apply to all
+  sub captions**. Style, template and Transform edits apply per track only.
+- **Text ▸ Templates** (inspector): Apply to all ✓, "Search for text templates", a chip row
+  **★ · Trending · Classic (≈1653,271) · NEW · H…**, then a 4-wide tile grid from ≈(1495,355),
+  ≈97 px pitch. Footer: Save as preset · **Reset**.
+  - **Clicking a tile applies it** (saved in 2–3 s).
+  - With a template applied, the Text sub-tabs become **Basic · Templates · Effects** (Bubble is
+    hidden).
+  - It may show "Loading…" until the left panel's Captions ▸ Templates has been opened once.
+- **Captions ▸ Templates** (left asset panel): categories Favorites / Trending / Classic / NEW /
+  Hits / Word / Glow / Lyrics.
+  - Clicking a tile **only previews** it ("Previewing — Templates" in the player) and deselects the
+    caption.
+  - Its **+** and **Generate captions** (Pro) have no tooltips.
+- **Text ▸ Basic ▸ Transform** for a caption: Scale ≈(1790,271), Uniform scale, **Position X
+  ≈(1650,367) / Y ≈(1770,367)** in canvas px (`clip.transform.y = Y / 1080`), Plane rotation,
+  alignment row. Reach it with `scroll 1480 440 -4`, `-4`, `+2`.
 - **Scroll the inspector** with the pointer over its label column (x≈1480). All of these are
   screenshot-only (not in the UIA tree).
 
