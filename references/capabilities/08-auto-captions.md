@@ -1,7 +1,13 @@
 # Capability 08: Auto captions + styling
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** in-progress. The first demonstration is below. User feedback (2026-09-14):
+  **"Try bilingual captions, and restyle"**, so demonstrate Bilingual captions (Pro) and a new
+  caption style, then ask for approval again.
+  - **Choices:** restyle with a **caption Template** (Text ▸ Templates); bilingual second language
+    **English**; work on a **CapCut duplicate of `0914 (4)`** so the verified state above stays
+    intact.
+  - **Evidence for this round:** `evidence/2026-09-14/cap8b/`.
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code, on `0914 (4)`.
   - Arabic Auto captions: 239 captions in ≈80 s, no credit prompt.
@@ -286,6 +292,118 @@ Style signatures are counted with the read-only `evidence/2026-09-14/cap8/captio
   frames he is mid-speech or gesturing. The timing is consistent with the audio, though the agent
   can't hear it.
 
+### G. Round 2: bilingual captions + caption template (in progress, 2026-09-14)
+- **Why:** user feedback on the first demonstration: "Try bilingual captions, and restyle".
+  - Restyle choice: a **caption Template** (Text ▸ Templates).
+  - Second language: **English**.
+  - Where: a **CapCut duplicate of `0914 (4)`**, so the verified round-1 state stays intact.
+- **Before duplicating:**
+  - The user had browsed `0914 (4)` in CapCut while answering. The agent left via Back to home page
+    and re-verified: structure diff against round-1 final "No differences", 1 style signature × 239,
+    caption texts identical.
+  - Source draft mtime recorded as 16:25:54.656 (`cap8b/source-mtime-before.txt`).
+- **Plan:**
+  1. Home → right-click the `0914 (4)` card → **Duplicate**, clicked at the row centre from a fresh
+     screenshot; Delete is the next row. Verify the new folder and that the source mtime is
+     unchanged.
+  2. Open the copy → Captions → Auto captions:
+     - Spoken language **Arabic**
+     - **Bilingual captions → English** (Pro)
+     - tick **Delete current captions**, so the copy doesn't end up with two caption sets
+     - Generate
+  3. Inspect the draft: how the translation is stored (second text line, a separate track, or
+     `translate_original_text`), caption count, timings.
+  4. Select a caption → Text ▸ **Templates**: record the categories, Pro badges and whether it
+     applies to all. Apply one template and verify in the draft (`caption_template_info`,
+     `text_templates`) and the player, on a short and a long caption, for both languages.
+  5. Undo/redo one step; save; diff; report.
+- **Duplicate (agent-verified 2026-09-14):**
+  - Right-click the `0914 (4)` thumbnail (first card, ≈383,680) to open the card menu: Upload
+    (y≈703), Rename (≈744), **Duplicate (≈430,790)**, Delete ←Backspace (≈830).
+  - Click Duplicate. Within 5 s a new folder **`0914 (4)-copy`** appeared (450.533 s), and the
+    source `draft_content.json` mtime was unchanged (16:25:54.656).
+  - The copy is the new **first** card, and the original moves to 2nd. Open it by the first card and
+    confirm the title bar reads **0914 (4)-copy** before any edit. The Details panel also shows the
+    name.
+  - Structure diff of copy vs `0914 (4)`: **No differences** (239 captions, 1 style signature).
+- **Bilingual captions dropdown** (≈383,255; purple Pro diamond on the label): a popup list with
+  **✓ None, Bengali, Burmese, Chinese, Dutch, English**, … (alphabetical, scrolls). Rows are
+  ≈40 px apart starting ≈(243,300). The spoken language (Arabic) isn't offered as a target.
+  English is at ≈(243,500).
+- **Bilingual generation (executed + agent-verified 2026-09-14):**
+  - **Form:** Spoken language Arabic · Bilingual captions **English** · **Delete current captions
+    ✓** (≈185,544). Then Generate (≈539,544). No credit or confirm dialog.
+  - **Speed:** "Generating captions... 36%" was already showing 1.5 s after the click. The draft
+    saved **≈5 s** after Generate, versus ≈80 s for the first generation, so CapCut apparently
+    reused the cached speech recognition.
+  - **Structure:** Delete current captions **removed the old caption track** and added **two new
+    text tracks with identical timings**, 239 captions each:
+
+    | Track | Language | `sub_type` | Position (`clip.transform.y`) |
+    |---|---|---|---|
+    | 1 | **English** (`en-US`) | **5** (translation) | **−0.7905**, bottom line |
+    | 2 | **Arabic** (`ar-SA`) | 0 | **−0.5702**, above the English |
+
+    Draft diff against the copy baseline: `track_count` 2 → 3, `materials.texts` 239 → 478, the old
+    track removed and two added. Video segments unchanged. On the timeline the two **TT** rows sit
+    at y≈727 and ≈763.
+  - **Regeneration discards manual fixes:** the new Arabic is a fresh recognition, so caption 129
+    reads «…حاجة **1** بس…» again. The English follows it: "If I want to subscribe, I need 1, but I
+    will subscribe to Claude mostly". Re-apply text fixes **after** generating.
+  - **Translation quality varies:**
+    - «بسم الله الرحمن الرحيم» → "In the name of Allah, the Most Gracious, the Most Merciful" (good)
+    - «زهجت من التاجيل وخلاص» → "I got bored of postponement **and salvation**" (wrong: «وخلاص»
+      means "and that's it")
+    - Read the English track for mistranslations of dialect words.
+  - **Style resets on regeneration.** Both new tracks use CapCut's default caption style (system
+    font, white, `border_width` 0.08, no stroke colour, no background, no template). The round-1
+    preset and size 11 were **not** carried over.
+    - Arabic: `font_size` 7, `content.styles.size` 7
+    - English: `font_size` 7 but **`content.styles.size` 5**, so the translation line renders
+      smaller
+    - Each track has 1 style signature.
+  - **Positions vary per caption:**
+    - English: y −0.7905 for 225 captions, −0.843 for 13, −0.798 for 1
+    - Arabic: −0.5702 for 207, −0.5806 for 32
+    - CapCut apparently shifts a pair when a line wraps, so the two languages don't overlap. Don't
+      "normalise" positions by hand without checking wrapped captions.
+  - **On screen at the default style** (`bilingual-player-3800.png`, 00:00:03:24):
+    - Arabic «زهجت من التاجيل وخلاص» sits on top.
+    - English "I got bored of postponement and salvation" is directly below it.
+    - The **English renders visually larger than the Arabic**: Latin glyphs at size 5 look bigger
+      than Arabic at 7 in the system font.
+    - Neither line has an outline, so the thin Arabic is hard to read over the shirt and desk. That
+      makes restyling part of the job, not decoration.
+- **Selecting a bilingual caption (executed 2026-09-14):**
+  - At Ctrl+= ×4 (≈44.5 px/s; 00:05 at x≈295, 00:10 at 518) the two caption rows sit at **y≈731
+    (Arabic, track 2)** and **y≈763 (English, track 1)**. Pills are stacked with identical spans.
+    English pills start with the A☰ icon; Arabic pills end with it.
+  - Clicking the Arabic pill at (280,731) selects it without moving the playhead. The inspector shows
+    Captions · Text · Animation · Tracking · Text to speech, and Text ▸ Basic shows «زهجت من التاجيل
+    وخلاص», size 7, **Apply to all main captions ✓**.
+  - The player draws the selection box around the Arabic line only.
+- **Text ▸ Templates sub-tab** (≈1623,127):
+  - Shows **Apply to all main captions ✓**, a **"Search for text templates"** field, and a
+    **Loading…** spinner. The template list is fetched online, so wait for it.
+  - The bottom bar has **Save as preset** and a **Reset** button (Basic has only Save as preset).
+  - Opening the tab didn't change the draft.
+  - ⚠ **It stayed on "Loading…" for over 32 s** (16:39:30 → 16:41:28) and never listed templates.
+    Use the Captions panel route below instead.
+- **Captions ▸ Templates (left asset panel)** (observed 2026-09-14, `captions-left-templates.png`):
+  - With the Captions asset tab open, click the left sub-item **Templates ▾** (≈85,170). It expands
+    into categories: **Favorites, Trending** (default), **Classic, NEW, Hits, Word, Glow,
+    Lyrics**. Rows are ≈40 px apart from Favorites ≈(63,211).
+  - It loaded within ≈5 s, while the inspector tab was still spinning.
+  - **Search field:** "People are searching Basic" (≈370,127), with a filter icon.
+  - **Grid:** three columns of animated preview tiles. Examples in Trending: "QUICK", yellow
+    "Rubah", "Hôm", a small "THE QUICK", "THE", a boxed "THE", a glowing yellow "CAPTION".
+    - **Nearly every tile has a purple Pro diamond** (top-left).
+    - Each tile has ☆ (favourite) and ⬇ (download) icons (bottom-right).
+  - **Footer** (greyed with a caption selected): "Delete current captions" and **"Generate
+    captions"** (Pro). The template may be applied at generation time from here; the route is still
+    to be confirmed.
+  - Browsing categories and the grid didn't change the draft.
+
 ## Wait conditions
 - **Generation:** ≈80 s for 7:30 of Arabic (≈11 s per minute of footage).
   - Poll the draft for a non-empty `text` track, the authoritative signal.
@@ -333,6 +451,8 @@ Style signatures are counted with the read-only `evidence/2026-09-14/cap8/captio
 | `wait-for --contains "Generating captions"` timed out while generation was running | the progress text is in the loading window's AutomationId; `--contains` matched Name only | fixed in `cc.py` (`--contains` also matches AutomationId); poll the draft for a text track as the authoritative signal |
 | Three inspector "scrolls" showed the same page | the pointer was at x 1120, over the **player**, not the inspector (which starts at x≈1447) | scroll inside the inspector label column (x≈1480). The player view and draft were unchanged |
 | A scratchpad script "didn't exist" when run | the file wasn't where the shell looked | keep helper scripts under `evidence/<date>/capN/` |
+| Bilingual Generate: `wait-for --contains "Generating captions"` (30 s) reported "not present", yet the 1.5 s screenshot showed "Generating captions... 36%" | the second generation finished in ≈5 s (CapCut apparently reused the existing recognition), so the dialog was gone before polling started | treat the **draft save + changed caption dump** as the completion signal; screenshot immediately after Generate; only treat "never appeared" as a problem if the draft also didn't change |
+| After asking the user a question, CapCut was back in the editor (a caption selected, presets expanded, different zoom), not the home screen the agent had left | the user used CapCut while answering (confirmed: "That was me, continue") | **after every question to the user, take a fresh screenshot + `tree` before any input**; check draft mtimes; leave via Back to home page and diff before continuing |
 | Player showed no caption at the "longest caption" time | a fit-zoom ruler click at x 894 (meant as 230.5 s) landed on 00:03:48:09 = 228.3 s, before the caption starts (fit zoom is ±2 s, as in rung 5) | zoom first (Ctrl+= ×4 ≈ **46.25 px/s**; read two ruler labels), then click; confirm the timecode |
 
 ## Tree coverage notes
