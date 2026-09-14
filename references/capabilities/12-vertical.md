@@ -612,6 +612,15 @@ against beat marks) and in frames.
     - **Frame 00:00:04:15** (`frames-916/6-0415-y768.png`): «زهجت من التاجيل وخلاص» sits at
       ≈70 % of canvas height (player y≈276 of 9–390), over the chest **above** the «DIESEL» logo.
       It is clear of the bottom ≈20 % platform-UI zone and still readable.
+14. **Title and long caption in 9:16** (deselect via the player area, click the caption block to
+    focus the timeline, `home`, then `right --repeat 75` and `+455`):
+    - **00:00:02:15** (`7-0215-title-hold.png`): the title «زهقت من التأجيل» is fully typed, bold
+      yellow, ≈17 % down, ≈60 % of canvas width. It is readable and clear of the face. **No change
+      needed.** Its transform stays scale 0.55 / y 0.7407; the typed-Y scaling puts it higher in
+      9:16.
+    - **00:00:17:20** (`8-1720-long-caption-y768.png`): the template pages the long caption into
+      short chunks («يستخدم ال بكفاءة او»). One line fits the width at size 22, at ≈70 % height.
+    - The draft is unchanged by stepping.
 
 ## Wait conditions
 
