@@ -1,7 +1,7 @@
 # Capability 05: Waveform / manual cleanup pass
 
 ## Status
-- **Ladder status:** demonstrated (awaiting user approval)
+- **Ladder status:** approved (user, 2026-09-14: "Approve + reusable script")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-14, Claude Code. Five longest silences tightened in practice project
   `0914 (4)` (473.433 → 450.533 s).
@@ -127,6 +127,31 @@ draft.
 - **Saved:** Menu ▸ Back to home page, then diff against final: **No differences** on disk.
 - **Scope:** the user's projects (0707, 0720, 0728, the Arabic-titled one) have unchanged
   mtimes.
+
+### Reusable procedure: `scripts/tighten_gaps.py` (added after approval, 2026-09-14)
+The one-off `evidence/…/cap5/cut_gaps.py` that demonstrated this rung is now a parameterised skill
+script. It runs the same verified steps.
+
+1. **Precondition:** the project is open in the editor, maximized and in the Default layout, and it
+   has **Auto captions**. Generating them is a Pro feature that may use credits, so do it only with
+   the user's consent. The captions must be the **last action**.
+2. **Plan first:** `tighten_gaps.py --project "<name>" --min 0.6 --keep 0.125 --count 5 --dry-run`.
+   This reads the draft only and prints each cut, the words either side and the expected final
+   duration. Show the plan to the user when the scope isn't agreed yet.
+3. **Run:** add `--undo-captions` (and `--all` instead of `--count N` for every qualifying gap). The
+   script:
+   - undoes the captions with one Ctrl+Z and checks that the text track is gone and the video
+     segments are unchanged
+   - confirms **this** project's draft saved, so the named project is really the one open
+   - removes gaps latest-first, using the measuring-split placement plus W, with a
+     duration/resume-source check after each cut
+   - aborts on anything unexpected
+4. **Log:** `evidence/<date>/tighten_gaps/<project>-HHMMSS.json`.
+5. **Other layouts:** override `--fit-x0 --fit-span --ruler-y --clip-y --empty` after measuring a
+   grid screenshot. The measuring loop corrects small errors, but clip-body clicks need to land
+   inside the right clip.
+6. **After it finishes:** use ↓ to spot-check the joins, then Menu ▸ Back to home page to force a
+   save, then `draft_inspect.py summary`.
 
 ### D. Spot-check (agent-verified 2026-09-14)
 - Click empty timeline space → **Home** → 00:00:00:00.
