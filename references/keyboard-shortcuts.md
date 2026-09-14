@@ -23,7 +23,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 
 | Action | Shortcut | Status | Notes |
 |---|---|---|---|
-| Split | Ctrl+B | listed | |
+| Split | Ctrl+B | **agent-verified 2026-09-14** | With the clip selected, it splits exactly at the playhead (draft: segment ends at 10.000 s, new one starts at 10.000 s) |
 | Split all | Ctrl+Shift+B | listed | splits every track at the playhead |
 | Select mode | A | listed | selection tool |
 | Split mode | B | listed | blade tool: clicking a clip splits it |
@@ -45,7 +45,7 @@ doubt. CapCut's own UI isn't in the UIA tree, so you can't query focus.
 | Go to next marker | Shift+M | listed | |
 | Go to previous marker | Alt+Shift+M | listed | |
 | Previous frame | ← | listed | |
-| Next frame | → | listed | |
+| Next frame | → | **agent-verified 2026-09-14** | one press moved 00:00:09:29 → 00:00:10:00 (timeline focused) |
 | Shuttle stop | K | listed | |
 | Shuttle right | L | listed | (Shuttle left presumably J; see rest of list) |
 | Delete left | Q | listed | trims the selected clip's part left of the playhead |
@@ -108,8 +108,8 @@ This completes the Timeline tab (7 scroll pages).
 | Copy attributes | Ctrl+Shift+C | listed | copies effects/adjustments between clips |
 | Paste attributes | Ctrl+Shift+V | listed | |
 | Delete | Backspace | listed | |
-| Undo | Ctrl+Z | listed | |
-| Redo (labelled "Reset") | Ctrl+Shift+Z | listed | CapCut's label is "Reset"; it's the redo slot |
+| Undo | Ctrl+Z | **agent-verified 2026-09-14** | reverted a split completely (draft diff: No differences) |
+| Redo (labelled "Reset") | Ctrl+Shift+Z | **agent-verified 2026-09-14** | CapCut's label is "Reset", but it redoes: re-applied an undone split identically |
 | Import media | Ctrl+I | listed | opens the "From device" file dialog? verify |
 | Export still frames | (unassigned) | listed | |
 | Export | Ctrl+E | listed | opens the export dialog |
