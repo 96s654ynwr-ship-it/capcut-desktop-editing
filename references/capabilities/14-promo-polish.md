@@ -349,6 +349,15 @@ by player frames:
 3. **Verification helper:** `canvas_state.py <project> [--want-blur-desk]` prints each video
    segment's canvas material (type / blur / color / image), resolved through
    `extra_material_refs`.
+   - **Baseline** (`canvas-before.txt`): all four video segments (main talk, desk, overlay talk,
+     logo) have **`canvas_color`, blur 0.0, color ""**. The default black fill is "canvas colour
+     with no colour set".
+4. **Video tab ≈(1480,70) ▸ Basic** opens at Transform (`31-desk-video-tab.png`).
+   `scroll 1680 400 -15` reaches the end of the list (`32-desk-basic-scrolled.png`):
+   - Auto reframe, Remove flickers, AI movement, Camera tracking, Motion blur (all Pro ▾)
+   - **Canvas** ▾ at the bottom: checkbox ≈(1468,516), **ticked by default**; ▾ ≈(1543,516)
+   - ⚠ **Apply to all** ≈(1848,516) on the same row. Not clicked: it would set the canvas on every
+     clip, including the overlay and logo layers.
 
 ## Wait conditions
 
