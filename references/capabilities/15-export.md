@@ -99,6 +99,25 @@ timeline.
 4. **Draft unchanged by opening:** the mtime is still 02:59:12.029 and the diff vs
    `draft-before-export.json` shows no differences.
 
+### C. Uncheck cloud sync and pick the export folder (2026-09-15)
+1. **Uncheck "Sync exported videos to space":** click the checkbox ≈(967,696).
+   - **Observed** (`03-sync-unchecked.png`, dialog crop): the box is **empty**. Everything else is
+     unchanged: 1080P / Recommended / H.264 / mp4 / 30fps, Audio ☐, "about 30 MB".
+2. **Folder icon** ≈(1371,273) opens a **native Windows folder picker**, and unlike the Export
+   dialog it is **fully exposed to UIA**:
+   - `cc.py windows`: `#32770` **"Select exporting path"** (518,101)–(1462,693), owned by
+     CapCut.exe.
+   - It opens in **E:\videos**, the last export folder. The address bar is
+     `ToolBar "Address: E:\videos"`, with breadcrumb SplitButtons "This PC › New Volume (E:) ›
+     videos".
+   - Toolbar buttons: **Organize**, **`Button "New folder"`** ≈(688,202), Views, Help.
+   - Left: `Tree "Tree View"` (Quick access, This PC, drives…). Right: `List "Items View"`, which
+     here shows only the Arabic-titled project's folder.
+   - **`Edit "Folder:"` id 1152** ≈(1080,622), **`Button "Select Folder"` id 1**
+     ≈(1249,660), **`Button "Cancel"` id 2** ≈(1386,660).
+   - Note: `tree --root focused` shows only the Folder: edit. Use the default roots with depth 16
+     to see the whole dialog (`04-folder-picker.png`).
+
 ## Wait conditions
 
 ## Verification
