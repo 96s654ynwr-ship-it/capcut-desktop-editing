@@ -701,6 +701,67 @@ draft and in frames, and the final file is checked with ffmpeg.
       381.567 → 1459.
     - `fix_caption.py --nav-x <fit x>` replays the same sequence before editing, so pill x values
       read from these crops stay valid.
+    - **Pill x from each crop** (crop x + 160 = screen x; 51.6 px/s; the playhead line and
+      timecode give the anchor):
+
+      | Target | Nav x | Playhead after zoom | Caption mid | Pill x | Pill seen in crop |
+      |---|---|---|---|---|---|
+      | 228.067 «وراحت لجيمراي» | 966 | 227.2 s @ x 962 | 228.57 s | **1031** | «وراحـ» ≈1008–1055 |
+      | 264.933 «الراديو ابلكيشن» | 1084 | 264.8 s @ x 1082 | 265.45 s | **1116** | «الراديو» ≈1090–1142 |
+      | 283.3 «…التاتا دي» | 1143 | 281.267 s @ x 1136 | 284.7 s | **1313** | «وعندها مقالات…» ≈1242–1385 |
+      | 338.733 «فجمة او» | 1321 | 336.967 s @ x 1316 | 339.13 s | **1428** | «فجـ» ≈1408–1447 |
+      | 381.567 «والداة والكلام ده» | 1459 | 382.967 s @ x 1464 | 382.18 s | **1424** | «والداة وال» ≈1392–1453 |
+
+      - Across all five, the playhead stayed at the ruler-click x after Ctrl+= ×4 (±5 px), which
+        confirms the zoom anchor.
+14. **Text fixes 3–7 (executed + agent-verified 2026-09-15):** one sequential run of
+    `fix_caption.py --nav-x … --x … --start … --old … --new …`, **all exit 0**.
+
+    | Fix | Caption | Gate (clipboard) | Saved after | New text |
+    |---|---|---|---|---|
+    | 3 | 228.067 | «وراحت لجيمراي» ✓ | 5.1 s | «وراحت لجيميناي» |
+    | 4 | 264.933 | «الراديو ابلكيشن» ✓ | 5.4 s | «الراج ابلكيشن» |
+    | 5 | 283.3 | «…نستخلص التاتا دي» ✓ | 12.8 s | «…نستخلص الداتا دي» |
+    | 6 | 338.733 | «فجمة او» ✓ | 4.4 s | «فيجما او» |
+    | 7 | 381.567 | «والداة والكلام ده» ✓ | 6.0 s | «والداتا والكلام ده» |
+
+    - After each fix, the cumulative changes vs `texts-before-fixes.json` grew by exactly one:
+      3, 4, 5, 6, 7.
+    - Every run reported 252 captions and a byte-identical video track.
+    - The longest caption (fix 5, 55 characters) took the longest to save (12.8 s), consistent
+      with typing time plus autosave.
+    - Frames and inspector crops: `43-fix3…7-player.png`, `43-fix3…7-textbox.png`.
+    - Final draft: `draft-17-fixes-done.json`.
+15. **Stage 5 final check (agent-verified, `stage5_check.py`, `draft-13-template.json` →
+    `draft-17-fixes-done.json`):**
+    - **252 → 252 captions**, all **"边框弹出黑色" / 7331662668685774086**, all at **y −0.73**
+    - **timing identical** for every caption
+    - **exactly 7 text changes**, the user-chosen fixes: 3.467, 17.4, 228.067, 264.933, 283.3,
+      338.733, 381.567
+    - **video track byte-identical** (56 segments, 403.300 s); tracks `video 56, text 252`;
+      **no material-count changes**
+    - **Visual:**
+      - The inspector boxes read «وراحت لجيميناي», «الراج ابلكيشن», «…نستخلص الداتا دي»,
+        «فيجما او» and «والداتا والكلام ده».
+      - The player renders «وراحت لجيميناي» and «والداتا والكلام ده» (current word on the black
+        box) in the lower third, inside the frame (`43-fix3-player.png`, `43-fix7-player.png`).
+    - Captions stay one track, so the house-style verify list applies: one text track, every
+      caption on the template, Arabic, frames inside captions checked.
+16. **Undo/redo gate on a caption text edit (agent-verified):** timeline focus came from fix 7's
+    closing ruler click.
+    - **Ctrl+Z** → caption 381.567 reads «والداتا والكلام **د**», exactly one character removed on
+      the first poll. Text undo is **per character**, as in rung 8.
+    - **Ctrl+Shift+Z** → «والداتا والكلام ده» on the first poll.
+    - Diff vs `draft-17-fixes-done.json` after the gate: **0 lines** (`draft-18-text-gate.json`).
+
+### K. Stage 6 title and stage 7 B-roll: user choices (2026-09-15)
+- **Title:** «مدقق شرعي بالذكاء الاصطناعي» ("An AI Sharia auditor"), with the approved rung-9
+  Arabic text template (#3 yellow bold, type-on in-animation), 3 s near the start.
+  - **Framing caveat:** this take is tighter than rung 9's. The speaker's head reaches close to the
+    top of the frame, so placement is decided from a frame, not copied from rung 9's Y 800.
+- **B-roll:** `E:\videos\VID_20260416_203431.mp4` (office, 3 people), muted PiP in the upper-left
+  corner, 4 s, while he says «قعدنا انا والفريق». Current captions: «قعدنا انا» 12.067–12.867,
+  «والفريق» 13.667–14.467, «كنا بنتكلم على الفكرة…» 14.7–17.1, so the window is ≈12.067 → 16.067 s.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
