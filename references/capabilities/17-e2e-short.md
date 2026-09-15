@@ -1,12 +1,12 @@
 # Capability 17: End-to-end vertical short
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-15 (export `E:\videos\exports\0915 (1)-copy.mp4`, §K)
 - **Approved:** not yet
-- **Practice project:** a CapCut **Duplicate** of the approved rung-16 project `0915 (1)` (the
-  original stays untouched)
+- **Practice project:** `0915 (1)-copy`, a CapCut **Duplicate** of the approved rung-16 project
+  `0915 (1)` (the original stays untouched)
 - **Evidence:** `evidence/2026-09-15/cap17/`
 
 ## Goal
@@ -951,24 +951,268 @@ approved rungs, and export it verified.
     x≈185–231 is wall at 15–50 % down in every frame checked) at ≈30 % down. That is clear of the
     title band (12.7–17.3 %) and the captions (70 %). Size it up for 9:16; the size comes from the
     image dimensions and is checked in a frame.
+26. **Logo geometry** (`logo_info17.py`):
+    - `logo-ink-tight.png` is **386 × 212 RGBA**, opaque bbox the full image; material `photo`
+      386 × 212
+    - **Fit rule:** at scale 1.0 an image is contained in the canvas, factor min(1080/386,
+      1920/212) = 2.798, so 1080 × 593 canvas px
+      - at the old **0.12** that's 130 × 71 canvas px ≈ **26 × 14 player px**, matching the tiny
+        logo in the frames
+      - its old tf (0.8385, 0.8093) puts it at player ≈(213.5, 45.5), which also matches
+    - **Typed units, confirmed on three edits:** typed X = `transform.x` × canvas **width**, typed Y
+      = `transform.y` × canvas **height**
+      - rung 14: 1610 / 1920 = 0.8385, 874 / 1080 = 0.8093
+      - here: title 1504 / 1920 = 0.7833, captions −768 / 1920 = −0.4
+    - **Target:**
+      - **scale 0.16** → 173 × 95 canvas px ≈ **34 × 19 player px**
+      - centre player **(209, 124)** ≈ 88 % across, 30 % down; delta from the canvas centre
+        (123.5, 200.5) = (+85.5, −76.5) player px = (+429, +383.5) canvas px
+      - so tf (0.7950, 0.3995), typed **X 859 / Y 767**
+      - right edge ≈ player 226 < canvas edge 231; left edge 192, clear of the head's right side
+        (≈180 in punched frames)
+27. **Apply** (select the logo on its row (800,777); inspector boxes as in §F: Scale (1792,257),
+    X (1666,352), Y (1787,352)): each field `ctrl+a` / type / Enter, **gated on a diff of exactly that
+    logo field**, stopping otherwise.
+    - Selecting the logo left the draft unchanged. Each field saved on the first poll:
+
+      | Field | Typed | Diff (only lines) | Snapshot |
+      |---|---|---|---|
+      | Scale | 16 | `.tracks[2].segments[0].clip.scale.x/y` 0.12 → **0.16** | `draft-25-logo-scale.json` |
+      | X | 859 | `…transform.x` 0.83854 → **0.79537** | `draft-26-logo-x.json` |
+      | Y | 767 | `…transform.y` 0.80926 → **0.39948** | `draft-27-logo-y.json` |
+
+    - Logo: start 0, duration 31.367, scale 0.16, tf (0.79537, 0.39948). No modal.
+    - The inspector reads **16 % / X 859 / Y 767** (`60-logo-inspector-after.png`); only the logo
+      row was selected (`60-logo-selected-tracks.png`).
+    - `dark_bbox17.py --region 170,85,240,175 --max-lum 70` returned the **whole region (70 × 90)** in
+      all 4 frames (2 s, 10 s, 18 s, 27 s), so dark pixels reach every edge of the region (hair,
+      shadow or beard). **The measurement is invalid**; judge the frames visually.
+28. **Logo frames** (empty click, then ruler clicks x 314 / 620 / 913 / 1255; `frames-916/logo-*`;
+    draft unchanged):
+
+    | Timecode | Clip | Logo |
+    |---|---|---|
+    | 00:00:02:04 | seg 1 punched, title on | on the wall **right of the head** ≈(210,123) player, below the title's right end and clear of it |
+    | 00:00:10:09 | seg 3 punched | same spot, a few px from the head's right edge, not touching |
+    | 00:00:18:02 | seg 5 punched | same, clear |
+    | 00:00:27:00 | seg 8 wide | same, wider gap to the head |
+
+    - The «يوسف» ink mark with its blue dots is **legible on the light wall** and never collides
+      with the title (12.7–17.3 %) or the captions (70 %).
+    - **Stage J result:** captions size 16 at y −0.4, hook title 0–3 s at scale 0.5 / Y +1504, logo
+      0.16 at X 859 / Y 767.
+29. **Undo/redo gate on the logo Y edit** (empty click (1600,960)):
+    - Ctrl+Z → tf y **0.80926** (only Y reverted; scale 0.16 and X 0.79537 kept)
+    - Ctrl+Shift+Z → **0.39948**, byte-identical to `draft-27-logo-y.json`
+    - each saved within 0.5 s; no modal
+
+### K. Export 1080×1920 30 fps H.264 (rung 15 route, 2026-09-15)
+- Export straight from the open editor, as rung 15 did: autosave has already written every edit
+  (the draft equals `draft-27`). Leaving for Home to save and scope-check comes after the export.
+- Helpers: `cap17/export_check17.py` (streams, full-decode frame count, ebur128, frames at the hook
+  title / captions / punched and wide clips / logo / end) and `cap17/contact_sheet17.py` (portrait
+  tiles).
+1. **Baseline** (`exports-before17.txt`):
+   - `E:\videos\exports` holds only `0915 (1).mp4` (498 729 701 B) and `0915-copy.mp4` (40 055 206 B)
+   - `E:\videos` has 48 top-level mp4s
+   - 18 project drafts; `0915 (1)` is still 17:11:40.757 (the rung-16 exit re-save); `0915 (1)-copy`
+     is 18:34:16.220
+2. **Ctrl+E** (after an empty click (1600,960)): the window **"Export-0915 (1)-copy"**
+   (510,101)–(1410,930) opened (`cc.py windows`). `wait-for --id ExportWindow_Container` printed no
+   match line, so check the window list. Draft unchanged.
+3. **Dialog** (`61-export-dialog-full.png`); the defaults already matched the user's choice, so no
+   input was needed:
+   - Export timeline **Timeline 01**; Name **0915 (1)-copy**; Export to
+     **`E:/videos/exports/0915 (1)-copy.mp4`** (folder remembered)
+   - Video ✓: **1080P / Recommended / H.264 / mp4 / 30fps**, Color space Rec. 709 SDR. On a 9:16
+     canvas "1080P" means 1080 × 1920; verified on the file.
+   - **Sync exported videos to space: unticked** (remembered from rungs 15–16)
+   - **Audio** (separate audio file, MP3): unticked, left off
+   - footer "Duration: 32s | Size: about 31 MB"; the cover preview is portrait with the logo on the
+     right wall
+   - Export button (1244,895)
+4. **Export** (1244,895):
+   - `export_watch16.py` saw `E:\videos\exports\0915 (1)-copy.mp4` at **39 844 812 B** on its first
+     poll (5 s after the click), unchanged for 6 polls × 10 s, so STABLE
+   - Afterwards the export window is still open as the completion screen with a different
+     rectangle, **(510,120)–(1410,911)**, so Close is located from a screenshot (the rung 16
+     lesson)
+   - `62-exporting.png`, `62-export-complete.png`
+5. **Completion screen** (`62-export-complete.png`): "Video is saved to your desktop or laptop. You
+   can share it now."
+   - TikTok / YouTube buttons, "Go to TikTok Studio…", Account Sign in, Name, Visibility Private,
+     Allow…, Check copyright
+   - a portrait preview with play bar
+   - **Open folder (585,876) · Share (1244,876) · Close (1344,876)**. Share and Close sit side by
+     side; click Close exactly.
+   - No Pro 9:16 preview column this time (the canvas is already 9:16).
+6. **File verification** (`export_check17.py` → `export-check17.txt`, bundled ffmpeg):
+   - isom, Lavf61.1.100, **Duration 00:00:31.37**, 10 161 kb/s, **39 844 812 B**
+   - **video:** h264 Main, yuv420p tv bt709 progressive, **1080 × 1920 SAR 1:1 DAR 9:16**, **30 fps**,
+     9 963 kb/s
+   - **audio:** AAC LC, 44.1 kHz, stereo, 191 kb/s
+   - **full decode: 941 frames, out_time 31.366667 s = draft 31.367 s** (frame-exact)
+   - **loudness:** I **−15.3 LUFS**, LRA 4.7 LU, true peak **+0.1 dBFS** (no Normalize; a transient
+     at or just over full scale, as in rung 16's 0.0 dBFS)
+   - 9 frames extracted to `export_frames/` (1.8, 2.2, 9.3, 13.3, 15.2, 18.0, 22.8, 27.0, 31.0 s)
+7. **Close** (1344,876): the export window is gone (`cc.py windows`); the draft is still `draft-27`
+   (exporting wrote nothing to the project).
+   - `E:\videos\exports` now holds **`0915 (1)-copy.mp4`** (39 844 812 B) plus the two earlier
+     files, unchanged.
+8. **Contact sheet:** `contact_sheet17.py` → `rung17-contact-sheet.png` (1372 × 1054, 9 portrait
+   tiles).
+
+### L. Save and scope (2026-09-15)
+- Copy the draft to `final-before-save17.json`, then Menu (140,22) (`64-menu-open.png`) ▸ **Back to
+  home page** (183,303). Diff the on-disk draft afterwards (`diff-final-save17.txt`).
+1. **Saved:** after 5 s only the main window and a tooltip remain (`cc.py windows`, Home in
+   `64-home-after-save.png`). Draft mtime **18:39:59.869**; **diff vs the pre-save copy: 0 lines**.
+2. **Contact sheet review** (`rung17-contact-sheet.png`, frames decoded from the exported file):
+
+   | t (s) | Frame |
+   |---|---|
+   | 1.800 | wide seg 0: **hook title «ليه لازم نتميز عن جيميناي؟»** yellow bold on the top band over the hair line; logo on the right wall |
+   | 2.200 | punched seg 1: title still on; caption «لازم» at ≈70 % in the black box |
+   | 9.300 | wide seg 3… (reframed): caption «بمعنى» |
+   | 13.300 | punched: long caption page «قالتله اعملي تطبيق شرعي», one line, box on «اعملي» |
+   | 15.200 | punched: page «للعقد ده اعملي تطبيق شرعي», one line |
+   | 18.000 | punched seg 5: caption «عايزين نعمله»; logo clear of the head |
+   | 22.800 | punched: «التراجت اودينس بتوعنا ما», one line |
+   | 27.000 | wide seg 8: «انت بتقدم قيمة فهو» |
+   | 31.000 | end, no caption; logo on |
+
+   - **Every frame fills the 9:16 canvas** (Auto reframe), with no bars and no borders on punched
+     clips; punched and wide read clearly different (9.3 vs 13.3).
+   - Captions never split a word; the title and logo never collide with each other, the head or
+     the captions.
+   - As noted in §J.12, the 70 % captions sit over the shirt print; the non-highlighted white words
+     are readable at export resolution.
+
+3. **Final scope** (read-only; `final-scope17.txt` vs `exports-before17.txt`):
+   - **17 of 18 project drafts unchanged**. Only `0915 (1)-copy`, this rung's practice copy, changed
+     (18:34:16.220 → 18:39:59.869, its final save).
+   - **`0915 (1)`** (approved rung 16) is still 17:11:40.757. Its content matched the pre-rung
+     snapshot apart from the housekeeping exit re-save in §B.
+   - **Logo file** SHA-256, size and mtime unchanged.
+   - **`E:\videos\exports`:** the only new file is `0915 (1)-copy.mp4`; `E:\videos` still has 48
+     top-level mp4s.
+   - Nothing uploaded: sync off, Share and TikTok untouched.
 
 ## Wait conditions
+- **Duplicate:** the new `<name>-copy` folder appears on the first 0.5 s poll.
+- **Opening a large copy** (252-caption, 56-clip enhanced source): "Interface is being loaded. Wait
+  a minute." for ≈17 s. Wait for the title bar and timeline before any input.
+- **Split all, Delete, clip or edge drags, inspector field edits:** the draft saves on the first
+  0.5 s poll.
+- **Gap runner:** 2 measuring splits per cut point (first landings often snap to caption edges,
+  then 60–126 arrow presses to correct).
+- **Auto reframe:** analysis starts on the 9:16 pick and finished within ≈1.2 s per short clip (4
+  new `smart_crop` cache files). Apply saves on the first poll. **10 clips ≈3 min** scripted.
+- **Text template:** preview/download ≈5 s; **+** saves on the first poll; the typed title text
+  saved quickly (20 s window unused).
+- **Export (31 s, 1080 × 1920):** the file was complete within 5 s; confirm stable (6 × 10 s)
+  before verifying.
+- **Back to home page:** Home within ≈5 s; confirm by screenshot (the HomeWindow `wait-for` timed
+  out in §B).
 
 ## Verification
+- **Draft snapshots after every stage** (`draft-01` … `draft-27`, `final-*-save17.json`), each with a
+  scoped diff:
+  - trim: segment ids and shifts
+  - gaps: captions and logo shift check
+  - 9:16: canvas only
+  - reframe: flags, smart_crops and refs only
+  - punch-ins: 15 clip lines
+  - captions: 17 `transform.y` lines
+  - title: 0 lines on other tracks
+  - logo: exactly one field per edit
+  - save: 0 lines
+- **Final draft:**
+  - 31.367 s; canvas 9:16 1080 × 1920; tracks **main 10 / captions 17 / logo 1 / title 1**
+  - **10 smart_crops** (every main clip); **punched [1, 3, 5, 7]**
+  - captions size 16 at y −0.4
+  - title «ليه لازم نتميز عن جيميناي؟» 0–3 s, scale 0.5, ty 0.7833
+  - logo 0.16 at (0.7954, 0.3995)
+  - denoise and enhance refs carried from rung 16 (checked after the trim)
+- **Undo/redo gates passed** on:
+  - the right delete (131 segments back in one step)
+  - the logo drag and the logo trim
+  - the punch-in Y
+  - the title Y
+  - the logo Y
+- **Exported file:** h264 **1080 × 1920 30 fps** + AAC stereo, **941 frames = 31.367 s = draft**,
+  −15.3 LUFS. Frames show the hook title, reframed clips, alternating punch-ins, one-line caption
+  pages, the logo and the end.
+- **Scope:** only the practice copy and the new export file changed.
+- **Not agent-verifiable:** how the 6 gap joins and the cut-in start sound, and overall pacing.
+  The user reviews the video.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Source | CapCut Duplicate of approved `0915 (1)` | user choice | original draft content unchanged |
+| Highlight | 215.133 → 249.367 (end moved 5 frames onto a join) | shot-specific (user picked B) | sentence boundaries in the caption dump; avoid near-boundary splits |
+| Gap pass | `--min 0.6 --keep 0.125`, 6 gaps, −2.866 s | user choice ("Tighter pacing") | dry run keeps 30–60 s |
+| Canvas | Ratio ▸ 9:16 (1080 × 1920) | universal for shorts | `canvas_config` |
+| Auto reframe | 9:16, stabilization Default, camera speed Default, per clip | universal (Pro, no cost) | a `smart_crops` ref on every main clip; frames fill the canvas |
+| Punch-ins | 110 %, typed Y **−107** (= rung 16's −60 on a 1920-high canvas); alternate on clips ≥ 2.5 s | Y shot-specific | framing change at 8 / 9 joins; no border |
+| Caption size | **16** (22 / 18 / 15 tried) | text- and template-specific | rendered pages stay one line |
+| Caption position | Y −768 (`transform.y` −0.4, ≈70 %) | rung 12 value | clear of platform UI; review the shirt-print overlap |
+| Hook title | template #3, 0–3 s, scale 0.5, Y +1504 (ty 0.7833) | shot-specific | yellow bbox centre ≈15 % down, above the eyes |
+| Logo | scale 0.16, X 859 / Y 767 (tf 0.7954 / 0.3995) | shot-specific | on the wall right of the head, legible |
+| Export | 1080P / Recommended / H.264 / mp4 / 30fps, sync off, `E:\videos\exports` | user choice | ffmpeg streams, frame count = draft |
 
 ## Undo / recovery
+- **One undo step each:** Split all, a multi-track Delete (131 segments), a clip or edge drag,
+  every inspector field (Scale, X, Y, font size), an Auto reframe tick, and Apply.
+- **Redo is Ctrl+Shift+Z.** Click empty timeline first so the undo doesn't go into an inspector
+  text box.
+- Font-size edits are **reversible by value**: typing 16 again gave a 0-line diff vs the first
+  size-16 snapshot.
+- The runners (`tighten_cap17`, `reframe_cap17`, `punch_cap17`, `title_text17`) abort before sending
+  input on any state mismatch. Re-runs skip completed work.
+- Leaving a project can re-save it with housekeeping-only changes (§B). Judge scope by content
+  diff.
 
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| Select leftward + a clip click selected only that clip | leftward mode selects from an **empty-row** click | click empty track space just left of the cut (§F.8) |
+| After deleting left of the start cut the project stayed 249.367 s | main and caption tracks ripple; **overlay (logo) tracks don't** | drag the overlay piece left past 0; verify every kept segment shifted by −cut, by id |
+| `tighten_gaps.py` aborts while captions exist; `--undo-captions` would undo an unrelated last action | the script assumes a caption-less gap pass | `tighten_cap17.py`: keep captions, check caption ripple per cut, gate on the main-track end (the logo pins the duration) |
+| Size 22 caption page split a word («…شر» / «عي») | the template wraps by character | reduce the font (16 fit); judge in rendered frames |
+| Caption boxes still reported 2-line heights at 16 | `original_size_height` measures the whole caption, not the rendered page | trust frames, not the box height |
+| A measurement frame had no title; timecode 00:00:31:11 | the playhead jumped to the end during select, type and deselect | re-seat with a ruler click and gate the timecode (tolerant diff) before measuring |
+| `dark_bbox17.py` returned the whole search region | the region overlapped hair and beard | judge visually, or pick a region on plain wall only |
+| After 9:16 the logo was tiny and crowded the hook title | a 16:9 logo transform reused on a 9:16 canvas | recompute scale and position from the image fit rule and typed-unit rule (§J.26) |
+| No clean area for the hook title | a tight reframed talking head fills 9:16 | top band ≈15 % (above the eyes, below the platform header), placed from a two-scale anchor model |
 | `key right --repeat 63` advanced only 29 frames; the editor dimmed | a modal **"Couldn't output sound — Something went wrong on the sound output device. Connect to another device." [Go to settings] [Hide]** (`Qt622QWindowIcon` (760,421)–(1160,609)) opened mid-stepping (frame stepping scrubs audio) and swallowed the remaining keys; draft unchanged | click **Hide** (1094,573), never Go to settings; re-read the timecode and step the remainder in small checked batches; check `cc.py windows` for the (760,421) window after each batch |
 | `]` then a clip click selected nothing; the tool icon stayed the plain arrow; the playhead moved 04:09:11 → 04:10:02 | `cc.py` warned "could not confirm CapCut is foreground" on the `]` press, so the key was lost and the click only re-activated the window (it also moved the playhead). No playback (tolerant timecode diff 0 px); draft unchanged | `cc.py focus` first, press `]`, **crop the tool icon (10,578)–(170,614) for the double-arrow glyph before clicking**; the playhead position doesn't matter for a rightward selection |
 
 ## Tree coverage notes
+- **Usable without screenshots:**
+  - `cc.py windows` identifies the Export window ("Export-<project>"), the sound-output modal (a
+    400 × 188 `Qt622QWindowIcon` at 760,421) and toasts (`Qt622QWindowToolSaveBits`)
+  - the project folder and draft files on disk are the ground truth
+- ⚠ In this session `wait-for --cls HomeWindow` timed out and `wait-for --id ExportWindow_Container`
+  printed no match, even though both states were present. Confirm with the window list and a
+  screenshot.
+- **Screenshot-only:**
+  - Home project cards and the card menu
+  - the timeline: selection borders, the Select / Select-leftward / Select-rightward tool glyphs,
+    lock hatching
+  - the inspector: Video ▸ Basic Transform and the Auto reframe section with its inline
+    Aspect-ratio popup; Text ▸ Basic scroll steps; the title paragraph box
+  - the player Ratio menu, the text-template grid and tile icons, the Export dialog and completion
+    screen
+- Draft JSON verified every edit. Frames judged the rendering: caption page wraps, title and logo
+  placement, reframe fill.
 
 ## Open questions for the user
-- Which highlight range (candidates pending).
+- **Review the short** `E:\videos\exports\0915 (1)-copy.mp4` (31 s, 1080 × 1920): pacing after the
+  gap pass, the reframe, the alternating punch-ins, and the hook title and logo placement.
+- **Caption height:** at 70 % the captions sit over the "MELON AUSTRALIA" shirt print. Keep, or
+  change the vertical house position?
+- **Loudness:** −15.3 LUFS with a +0.1 dBFS true peak (no Normalize). Keep, or normalize for shorts?
+- **Promotion candidates after approval:** a keep-captions ripple mode in `scripts/tighten_gaps.py`,
+  and `reframe_cap17.py` as a reusable `scripts/auto_reframe.py`.
