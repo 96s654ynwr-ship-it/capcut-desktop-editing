@@ -1,10 +1,10 @@
 # Capability 16: End-to-end talking-head YouTube edit
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-15 (export `E:\videos\exports\0915 (1).mp4`, §Q)
-- **Approved:** not yet
+- **Approved:** 2026-09-15, "Approve, start Rung 17 (Recommended)"
 - **Practice project:** new agent-owned project `0915 (1)` for raw take `VID_20260425_174820`. No
   existing project is touched.
 - **Evidence:** `evidence/2026-09-15/cap16/`
