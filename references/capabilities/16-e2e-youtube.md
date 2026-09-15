@@ -762,6 +762,25 @@ draft and in frames, and the final file is checked with ffmpeg.
 - **B-roll:** `E:\videos\VID_20260416_203431.mp4` (office, 3 people), muted PiP in the upper-left
   corner, 4 s, while he says «قعدنا انا والفريق». Current captions: «قعدنا انا» 12.067–12.867,
   «والفريق» 13.667–14.467, «كنا بنتكلم على الفكرة…» 14.7–17.1, so the window is ≈12.067 → 16.067 s.
+
+### L. Stage 6: opening title, rung 9 (2026-09-15)
+1. **Frame for placement** (`44-frame-2s.png`; click empty (1500,690), Home, `right ×60` →
+   **00:00:02:00** confirmed by `44-tc-2s.png`):
+   - The speaker's **head top is only ≈20 of 383 player px from the top** (≈5 %), head at player
+     x≈335–435. There is **no room above the head**, unlike rung 9's framing (head at ≈225–320).
+   - **Clear plain wall:** **upper-left** player x≈10–215, y≈10–175 (canvas ≈28–606 × 28–493); a
+     narrower strip right of the wall corner (player x≈540–670).
+   - The house caption «النهارده 25» sits in the lower third, as expected.
+   - **Placement decision:** the title goes in the **upper-left wall area**. Its 1–4 s window never
+     meets the B-roll PiP (upper-left, 12–16 s).
+2. **Playhead for the title start:** Home, `right ×30` → **00:00:01:00** (`44-tc-1s.png`).
+3. **Text tab** (163,70) (`45-text-tab.png`):
+   - Left list: **Add text**, Yours ▾, Text effects ▾, **Text template ▾ ≈(85,251)**, Auto
+     captions, Local captions.
+   - The main area shows a "Default text" card. The timeline view had scrolled to ≈06:00–06:30,
+     but the playhead is still at 1:00, and the + adds at the playhead.
+   - Draft unchanged. The yellow "Layers can be reordered in…" tip reappeared near Modify and is
+     harmless.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
