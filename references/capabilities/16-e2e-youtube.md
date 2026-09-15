@@ -312,6 +312,48 @@ draft and in frames, and the final file is checked with ffmpeg.
     - sum of kept source durations = **437.000 s** = the timeline duration
     - Rounding differences are ≤ 1 ms (µs float storage).
 
+### G. Stage 3c: gap tightening, rung 5 (2026-09-15)
+1. **Regenerate the captions** on the cut timeline: the Captions form still read Arabic / None
+   (`16-captions-form-before-regen.png`); click Generate ≈(539,544).
+   - Only the known loading dialog appeared (no cost prompt).
+   - A `subtitle` text track was in the draft after **61 s**.
+   - **1 text track, 251 captions** (259 before the bad-take cuts); video still **27 segments /
+     437.000 s**, with no `.tracks[0]` change in the diff (`draft-07-captions-regen.json`).
+   - A small extra window `Qt622QWindowToolSaveBits` (635,471)–(823,569) appeared afterwards
+     (`17-extra-window.png`); it is checked before any further input.
+2. **Dry run:** `tighten_gaps.py --project "0915 (1)" --all --min 0.6 --keep 0.125 --dry-run`
+   (log `tighten-dryrun-all.json`):
+   - **62 real gaps ≥ 0.6 s**; joins are excluded automatically
+   - removing all of them: **437.000 → 387.063 s (−49.937 s)**
+   - the subset of gaps ≥ 1.0 s (remove ≥ 0.75 s) is **27 gaps, ≈ −32.2 s**
+   - the longest single removals are 1.867 s (386.5, «الداتا» | «وحد») and 1.800 s (224.133,
+     «اصلا» | «الكومبتتوف»)
+   - rung 5 recorded "ask the user how aggressive to go", so the question went to the user
+3. **User choice (2026-09-15):** "Gaps ≥ 1.0 s (Recommended)", i.e. `--min 1.0 --keep 0.125`.
+4. **The extra window** from step 1 is CapCut's yellow onboarding tip **"One-click to help you cut
+   long videos apart" [OK]**, anchored over the player timecode (`17-extra-window.png`,
+   `17-after-regen.png`). It is dismissed with its **OK** ≈(795,540) before the scripted run.
+5. **Narrow-segment risk for the scripted pass.** One ≥ 1.0 s gap, at 158.3 s, lies in the
+   **5.0 s segment 156.133 → 161.1**, the same geometry that aborted the tail cut. The runner
+   `cap16/tighten_cap16.py` reuses `tighten_gaps.py` unchanged and replaces only `place_exact`:
+   - When the clamped snap-avoid ruler click would land < 1.5 s from a boundary, it **clicks the
+     ruler on the segment's start join instead**. The snap there is an exact, known time.
+   - It then steps with arrow keys by the frame delta, and the usual measuring split
+     verifies/corrects.
+   - A measuring split that doesn't save within 20 s aborts immediately, instead of after 120 s.
+   - The dry run flags narrow segments with `[narrow segment]`.
+6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
+   is unchanged** by the click (`18-tip-dismissed.png`).
+7. **Official dry run for the chosen setting:**
+   `tighten_gaps.py --project "0915 (1)" --all --min 1.0 --keep 0.125 --dry-run`
+   (`tighten-dryrun-1s.json`): **29 gaps ≥ 1.0 s**, **437.000 → 403.299 s (−33.701 s)**.
+   - This corrects the estimate given to the user (27 gaps, ≈ −32.2 s). `--min` filters on the
+     *gap* length, so two 1.0-s gaps (429.267 «تمام» | «ده» and 394.333 «عليه» | «الراج») each
+     remove only 0.733 s after keeping 0.125 s either side, and they were missed in the
+     hand count.
+   - The largest removals are 1.867 s (386.500), 1.800 s (224.133) and 1.567 s (426.633, 404.433,
+     186.667). The earliest is 5.433 → 6.400 («26» | «امبارح»).
+
 ## Wait conditions
 
 ## Verification
