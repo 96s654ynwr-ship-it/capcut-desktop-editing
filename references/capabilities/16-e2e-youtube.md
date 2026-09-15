@@ -342,6 +342,29 @@ draft and in frames, and the final file is checked with ffmpeg.
      verifies/corrects.
    - A measuring split that doesn't save within 20 s aborts immediately, instead of after 120 s.
    - The dry run flags narrow segments with `[narrow segment]`.
+8. **Scripted gap pass (executed + agent-verified 2026-09-15):**
+   `tighten_cap16.py --min 1.0 --keep 0.125`, background run, exit 0 after **959 s** (≈33 s per
+   cut, slower than the ≈15 min estimate). Captured output: task `b17tw7mlm`.
+   - Captions were undone first with one Ctrl+Z; the video segments were checked unchanged before
+     any cut.
+   - **29 of 29 removals** passed both checks (duration delta and join resume source), with **0
+     failed checks and 0 aborts**.
+   - **Anchor-and-step was used 16 times.** The ruler-click route alone would have risked the tail
+     abort on every one of them. Each removal shortens later segments, so more segments become
+     narrow as the pass proceeds.
+   - **Independent draft check** (`draft-08-gaps-tightened.json`):
+     - tracks `['video']`, **56 segments, 403.300 s**, timeline contiguous
+     - kept source sum **403.300 s** = duration; the plan's 403.299 differs only by float rounding
+     - first segment src **9.600**, last src end **476.933**, so the bad-take opening and tail
+       cuts are intact
+     - shortest segments 0.833 / 0.933 / 0.967 / 1.0 / 1.0 s
+   - **Stage 3 total:** 484.233 → **403.300 s (−80.9 s, −16.7 %)**, split as pauses −21.5 s,
+     bad takes −25.7 s and gaps −33.7 s.
+   - ⚠ **For stage 4:** with 56 segments, several under 1 s, punching every other segment would
+     flicker on the shortest ones. Choose punch-in joins by segment length rather than strict
+     alternation.
+   - **Promotion candidate:** port `place_exact_anchor` into `scripts/tighten_gaps.py` after
+     approval. It fixed a real geometry limit found in this rung.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
