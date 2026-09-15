@@ -46,7 +46,7 @@ rungs) replaces it with the route actually observed in this install. Columns:
 | Keyframes | Inspector property diamond icons | | | | 7 | unverified |
 | Pro transitions / effects / filters / text templates | Asset toolbar tabs (Pro badge on items) | | | | 9, 14 | unverified |
 | Long video to shorts | Home screen tools | | | | — | unverified |
-| Export 4K / high fps / high bitrate | Export dialog | | | | 15 | unverified |
+| Export 4K / high fps / high bitrate | Export dialog | Ctrl+E → Export dialog → Video: Resolution ▾ / Bit rate ▾ / Codec ▾ / Format ▾ / Frame rate ▾ | (4K/high-fps options not opened) | none seen for 1080p30 | 15 | **1080p 30fps H.264 agent-verified 2026-09-15**: file checked with ffmpeg (1920×1080, 30 fps, 900 frames, AAC). The 4K / 60 fps / HEVC dropdown options were not opened (user chose 1080p). **The completion screen shows a Pro "9:16 (TikTok video size)" auto-reframe preview** ("Generating… N %"); no file is written unless it is chosen and shared |
 | Cloud storage / space sync | Home screen / project menu | | | | never (side effect) | unverified |
 
 ## Pro badges observed in the UI (2026-09-14, CapCut 9.4.0.4015)
