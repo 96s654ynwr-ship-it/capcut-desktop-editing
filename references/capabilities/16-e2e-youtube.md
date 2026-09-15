@@ -491,6 +491,33 @@ draft and in frames, and the final file is checked with ffmpeg.
        false "still playing" results.
      - After typing in an inspector box, pause with the player button, or click the timeline
        before any shortcut.
+9. **Easing checkpoints (agent-verified, rung-7 method):**
+   - At fit zoom, ruler click at x 583 / 611 / 639, then reselect the clip body (611,830), which
+     doesn't move the playhead.
+   - Crops of the timecode, the inspector Scale box (1740,240)–(1860,275) and the player
+     (`easing/q1–q3-*.png`).
+   - Still paused afterwards; the draft is unchanged by the checkpoints.
+
+   | Point | Timecode | Fraction of seg 15 | Inspector Scale | Eased predicts | Linear predicts |
+   |---|---|---|---|---|---|
+   | ¼ | 00:01:49:24 | 0.265 | **101 %** | 101.2 | 102.1 |
+   | ½ | 00:01:58:14 | 0.514 | **104 %** | 104.1 | 104.1 |
+   | ¾ | 00:02:07:04 | 0.764 | **107 %** | 107.1 | 106.1 |
+
+   - The readouts match the eased curve at ¼ and ¾, where eased and linear differ.
+   - **Visual:** at ¾ (`q3-frame.png`) the speaker's head and shoulders are visibly larger and the
+     chair edge has moved outward compared with ¼ (`q1-frame.png`). No border is exposed at 108 %.
+10. **Stage 4 summary:** **15 static punch-ins** (110 %, Y −60) on the planned single-segment
+    runs, plus **1 eased push-in** (seg 15, 100 → 108 %, 34.7 s). Duration and segment count are
+    unchanged (56 / 403.300 s).
+    - **Push-in diff** `draft-09-punched.json` → `draft-10-pushin.json` (`diff-pushin.txt`,
+      29 lines):
+      - **25 lines on seg 15 only:** clip scale 1.0 → 1.08, which mirrors the last keyframe, plus
+        `common_keyframes` with 2 `FreeCurveInOut` keyframes (right handle 14 587 999 µs,
+        time_offset on the source clock, e.g. 129 800 000)
+      - **4 top-level lines:** a new `keyframe_graph_list[0]` entry `resource_name` **"Ease"**,
+        `resource_id` 7418178875479298577, i.e. CapCut registering the easing preset used
+      - No other segment or track changed.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
