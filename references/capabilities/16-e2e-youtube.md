@@ -275,6 +275,42 @@ draft and in frames, and the final file is checked with ffmpeg.
        on the selected last segment.
      - `trim_tail` now **skips** when the timeline already ends at the target, so the script can
        re-run for the other four cuts.
+9. **Tail cut by hand (executed + agent-verified 2026-09-15):**
+   - Timecode crop at the join: **00:07:34:13** (`14-tc-at-join.png`).
+   - `key right --repeat 29 --gap 0.1` → **00:07:35:12** (`14-tc-tail-target.png`). All 29 presses
+     registered at a 0.1 s gap; compare the 390-press run in rung 13 that dropped frames.
+   - The last segment was still selected (`14-tail-selection.png`), then **W**.
+   - **Draft (first poll):**
+     - duration **462.700 → 455.400 s**, still **24 segments**
+     - last segment 454.433 + **0.967 s** (src 475.967)
+     - diff (`diff-tail-trim.txt`) = only `.duration`, that segment's source/target duration
+       8.267 → 0.967, and CapCut's usual empty `material_animations` helper with its ref (as in
+       rung 10)
+10. **Re-run `cut_bad_takes.py` for the other four cuts (executed 2026-09-15, exit 0, 108 s,
+    log `cut_bad_takes-*.json`):**
+    - Tail detected as already trimmed and skipped.
+    - Each exact placement converged on the **2nd measuring split**. The first split landed
+      −19…+38 frames off.
+
+      | Cut | Duration after | Join resumes src | Checks |
+      |---|---|---|---|
+      | rephrased 198.867 → 202.100 | 455.400 → **452.167** | 214.067 (expected 214.067) | ok |
+      | stammer 61.500 → 64.600 | → **449.067** | 66.633 (expected 66.633) | ok |
+      | false start 11.567 → 14.033 | → **446.600** | 14.033 (expected 14.033) | ok |
+      | opening 0 → 9.600 (Q) | → **437.000** | first segment start 0.000, src 9.600 | ok |
+
+    - **FINAL: 27 segments, 437.000 s**, exactly as predicted. Player at 00:07:35:12 after the
+      tail cut (`15-after-tail-trim.png`).
+11. **Independent draft check** (`verify_cuts.py` on `draft-06-bad-takes-cut.json`):
+    - tracks `['video']`, **27 segments, 437.000 s**, timeline contiguous (no gaps)
+    - the first segment starts at 0.000 with **src 9.600** (opening removed); the last segment's
+      src ends at **476.933** (tail removed)
+    - **source skipped at each of the 26 joins:**
+      - the 3 chosen cuts: **2.466** (11.567 → 14.033), **3.100** (63.533 → 66.633), **3.234**
+        (210.833 → 214.067)
+      - the 23 rung-3 pauses, unchanged (0.5–1.434 s)
+    - sum of kept source durations = **437.000 s** = the timeline duration
+    - Rounding differences are ≤ 1 ms (µs float storage).
 
 ## Wait conditions
 
