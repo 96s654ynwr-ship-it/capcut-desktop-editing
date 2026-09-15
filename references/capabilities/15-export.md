@@ -66,6 +66,39 @@ timeline.
 - **No `ffprobe.exe`** beside the bundled ffmpeg, so file verification uses `ffmpeg -i` (stream
   info on stderr), `ebur128` and frame extraction.
 
+### B. Open the project and the Export dialog (2026-09-15)
+1. From Home (`scroll 1000 700 -3`, `00-home-projects.png`), click the **`0915-copy`** card
+   ≈(383,793). `MainWindow` appears after 4 s; then `focus --maximize` (`01-editor-opened.png`).
+2. **Ctrl+E.** `wait-for --id ExportWindow_Container --depth 3` matches in **0.2 s** (0.8 s wall).
+   **Tree:**
+   - `Window "Export-0915-copy"` id `ExportWindow_Container`, cls `ExportWindow_QMLTYPE_2223`,
+     rect **(510,101)–(1410,929)**, a child of MainWindow
+   - `cc.py windows` also lists it as a top-level `Qt622QWindowIcon` titled `Export-0915-copy`
+   - as in rung 0, no child controls are exposed, so the dialog is **screenshot-only**
+     (`02-export-dialog.png`)
+3. **Dialog layout and defaults** (dialog rect (510,101)–(1410,929)):
+   - **Left:** cover preview with **Edit cover**, showing the first frame with the logo.
+   - Export timeline: Timeline 01.
+   - **Name** ≈(1238,227): `0915-copy`.
+   - **Export to** ≈(1220,273): `E:/videos/0915-copy.mp4`, the last-used folder. Folder icon
+     ≈(1371,273).
+   - **Video** ✓ (≈967,342):
+     - Resolution ≈(1229,389): **1080P**
+     - Bit rate ≈(1229,437): **Recommended**
+     - Codec ≈(1229,484): **H.264**
+     - Format ≈(1229,532): **mp4**
+     - Frame rate ≈(1229,579): **30fps**
+     - Color space: Rec. 709 SDR (read-only)
+
+     **The defaults already match the user's 1080p / 30fps / H.264 choice.**
+   - ⚠ **Sync exported videos to space ✓** ≈(967,696): checked by default.
+   - **Audio** ☐ ≈(967,764), Format MP3 (greyed). This is a separate audio-only file option; the
+     mp4 carries the soundtrack regardless.
+   - **Footer:** "Duration: 30s | Size: about 30 MB" (the estimate implies ≈8 Mbps at
+     Recommended), **Export** ≈(1244,895), **Cancel** ≈(1344,895).
+4. **Draft unchanged by opening:** the mtime is still 02:59:12.029 and the diff vs
+   `draft-before-export.json` shows no differences.
+
 ## Wait conditions
 
 ## Verification
