@@ -1054,6 +1054,24 @@ draft and in frames, and the final file is checked with ffmpeg.
      those tracks (252 + 1 + 1). Nothing else changed.
    - The attribute is a bit field: mute = 1, lock = 4.
    - Evidence: `58-headers-before-lock.png`, `58-headers-after-lock.png`, `58-tracks-locked.png`.
+2. **Select all 56 main clips in one click (executed + verified by screenshot 2026-09-15):**
+   - Click empty timeline (1000,670), **Shift+Z** (fit; `59-fit-before-select.png`).
+   - Press **`]`**. The toolbar tool icon becomes the **double arrow** (Select rightward;
+     `59-tool-icon-rightward.png`).
+   - Click the first main clip at **(233,890)**.
+   - **Observed** (`59-selected-rightward.png`, `59-tracks-selected.png`):
+     - **every main-track segment has a white border**, from x≈229 to the end (x≈1530),
+       including the shortest clips
+     - the locked overlay, title and caption rows are **hatched and not selected**
+     - the lock icons are cyan and the overlay speaker slashed
+   - **Inspector** (`59-inspector-tabs.png`): the multi-selection tabs **Video / Audio / Speed /
+     Adjust**, with Basic / Retouch sub-tabs. Mixed values show as **"-"** (Scale and Position Y
+     differ between punched and unpunched clips).
+   - **The draft is unchanged** by fitting or selecting (selection isn't saved).
+   - This scales where rung 11's Ctrl+click of each clip wouldn't. The locks make "rightward on all
+     tracks" select only the main track.
+   - ⚠ Stay in this mode until the audio is applied, then press **A** at once so later clicks
+     don't become range selections (rung 12).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
