@@ -844,6 +844,25 @@ draft and in frames, and the final file is checked with ffmpeg.
      - **in-animation 0 → 1 000 000 µs**
    - **Video track and the 252-caption track are byte-identical** to `draft-18-text-gate.json`
      (`draft-19-title-added.json`).
+   - **Observed** (`50-title-added.png`):
+     - A new TT row y≈731 holds the title block (x≈279–437, 1–4 s, selected) above the caption
+       row y≈763.
+     - The inspector reads **Text / Tracking / Text to speech / AI avatars◆** ▸ Basic / Templates /
+       Effects.
+     - **"The 1 paragraph"** text box ≈(1655,227) shows the placeholder right-aligned ≈(1818,227)
+       with a ▾ ≈(1878,227).
+     - Transform: Scale **100 %** ≈(1790,349); Position **X ≈(1647,444) / Y ≈(1768,444)**; Plane
+       rotation.
+     - The player's dashed guides mark the title box (x≈758–1289), as in rung 9.
+10. **Title text (executed + agent-verified 2026-09-15)** with `title_text.py`:
+    - It checks that the title's draft text is the placeholder.
+    - Click the placeholder line (1815,222), Ctrl+A, Ctrl+C. **Gate:** the clipboard equals
+      «يوم عادي،\nحياة عادية» (matched, including the newline).
+    - Then type «مدقق شرعي بالذكاء الاصطناعي» (it replaces both placeholder lines with one).
+    - **Draft:** saved after **6.4 s**, texts == ["مدقق شرعي بالذكاء الاصطناعي"]. Start 1.0 s /
+      3.0 s, scale 1, transform (0,0), all unchanged.
+    - **Video and caption tracks byte-identical.**
+    - Frames: `51-title-text.png`, `51-title-text-inspector.png`.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
