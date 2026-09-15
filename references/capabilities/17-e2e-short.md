@@ -767,6 +767,190 @@ approved rungs, and export it verified.
     - Each page spans about half the canvas width, readable. **Keep size 16 for all captions**;
       no per-caption edits.
     - Still too low (≈86 % down). Next: Transform ▸ Position Y.
+11. **Caption Text ▸ Basic, scrolled** (`scroll 1600 450 -3` per step; `48-cap-inspector-s0..s4.png`;
+    the first caption stays selected (`48-cap-tracks.png`); draft unchanged). The text box and
+    **Apply to all main captions ✓** stay pinned at the top.
+
+    | Step | Visible |
+    |---|---|
+    | s0 | Font Staatliches-Regular, **Font size 16**, Pattern, Case |
+    | s1 (−3) | **Alignment** (6 buttons), **Preset style** tiles (⃠ selected, white/outlined/yellow/red …) |
+    | s2 (−6) | Scale 100 %, Uniform scale ✓, **Position X 0 / Y −1402** (Y box **≈(1758,367)**), Plane rotation 0.00°, alignment row |
+    | s3 (−9) | Stroke (off), **Background ✓** with 2 style tiles |
+    | s4 (−12) | Background sliders: Rounded rectangle 0 %, Height 100 %, Width 100 %, **Y-offset 50 %**, X-offset |
+
+    - **Y −1402 = −0.73 × 1920**, as rung 12 §I.12 predicted. Target **−768** (`transform.y` −0.4,
+      ≈70 % down), rung 12's approved value.
+12. **Raise the captions:** `scroll 1600 450 3` × 2 back to s2 (`49-cap-inspector-back-s2.png`
+    confirms Position Y at (1758,367)). Then click Y, `ctrl+a`, `type "-768"`, Enter.
+    - The draft saved on the first 0.5 s poll (snapshot `draft-20-caption-y.json`,
+      `diff-caption-y.txt`).
+    - **all 17 captions `clip.transform` (0, −0.4)**
+    - **diff exactly 17 lines, all `.tracks[1].segments[*].clip.transform.y`**; nothing else
+    - no modal; Apply to all main captions covered every caption in one edit
+    - The inspector reads **Y −768** (`50-cap-inspector-y768.png`).
+    - **Frames** (`frames-916/y768-*`):
+      - **00:00:09:13** «بمعنى» at ≈70 % down (player y≈272 of 390)
+      - **00:00:13:10** «قالتله اعملي تطبيق شرعي» at ≈72 %
+      - Both clear the bottom ≈20 % platform-UI zone and are readable.
+    - ⚠ **Trade-off:** at 70 % the captions sit over the shirt's **"MELON AUSTRALIA" print**
+      (≈62–82 % of the height). The template's non-highlighted words are white with a shadow, so
+      they read less crisply over the black lettering than the boxed word.
+    - No clean band exists nearby: above it the hand and mic come into frame; below it is the
+      platform UI.
+    - **Kept rung 12's approved −768**; flagged for the user's review of the export.
+13. **Frames for the hook title** (ruler clicks x 287 / 325; `frames-916/hook-*`; draft unchanged):
+    - **00:00:01:16** (seg 0, wide): the first caption is still selected (selection box and handles
+      over the shirt). Head top at player-crop y≈30 (≈8 % down), eyes ≈24 %.
+    - **00:00:02:16** (seg 1, punched): head top ≈6 %, face larger; caption «لازم» at ≈70 %.
+    - **No large clear area in 9:16:**
+      - the wall strips left and right of the head are only ≈15 % of the width
+      - the chest holds the mic, the hand and the shirt print
+    - **Candidate:** a one-line title in the **top band (≈8–15 % down)**, over the wall and hair
+      line, above the eyes. Measured after adding the template (rung 16 §L yellow-bbox method).
+    - Canvas mapping for measurement: the player canvas is screen x 916–1131, y 99–482, so
+      **5.013 canvas px per player px**.
+    - **Deselect before measuring** (selection boxes draw over frames).
+14. **Playhead to the start and open Text** (empty click (1600,960) deselects the caption, **Home**,
+    Text tab (163,70); `51-tc-home.png`, `51-text-tab.png`; draft unchanged):
+    - timecode crop (615,528)–(790,555) reads **00:00:00:00 / 00:00:31:11**. This is the
+      tolerant-diff gate reference before **+** (rung 16 §L.8: pass only when pixels > 15 == 0).
+    - left list: Add text (85,131), Yours ▾, Text effects ▾, **Text template ▾ (85,251)**, Auto
+      captions, Local captions, same as rung 16; the main area shows a "Default text" card
+    - the player shows seg 0 (wide) at 0:00 with no selection box
+15. **Text template ▾ (85,251)** (`52-text-template-open.png`):
+    - categories Trending / Whimsical / KATSEYE / Pixel Bead / Classic / NEW
+    - search box "Search for text templates" ≈(370,127)
+    - a 3-column Trending grid (Chapter End, FINAL, BAM!, CREATIVE, Get Ready…, ติดตาม, KEEP GOING,
+      Últimas noticias, NĂNG ĐỘNG), several with Pro diamonds
+16. **Search «عربي»** (click (370,127), `type "عربي"`, Enter, wait 7 s; `52-arabic-search.png`): the same
+    grid as rung 16 §L.5.
+    - Row 1: «الفرح في البساطة», "It's simple", calligraphy.
+    - Row 2: "Một ngày đơn giản", **«يوم عادي، حياة عادية» (template #3, yellow bold) ≈(357,340)
+      with ⬇ ≈(395,378)**, "A simple life".
+    - Row 3: «الحياة تستمر», «حياة صغيرة», «وبشر الصابرين».
+    - The playhead is still 00:00:00:00 (`52-tc.png`); draft unchanged.
+17. **Preview template #3** (click the tile body (342,325), wait 5 s):
+    - `53-tile3-icons.png`: cyan tile border; ⬇ became a **cyan + ≈(396,378)** with ☆ beside it
+    - `53-player-header.png`: **"Previewing — Text template ⓘ"**
+    - `53-tc.png`: the template clock **00:00:00:00 / 00:00:03:0…**
+    - the preview frame at 0:00 shows no text yet (type-on starts empty)
+    - draft unchanged; no modal
+    - As in rungs 9 and 16, a click previews and only **+** adds.
+18. **Timecode-gated add at 0.0 s** (one command):
+    - Click empty (1600,960) to leave the preview, then **Home**.
+    - **Gate:** `img_diff.py 51-tc-home.png 54-tc-gate.png` → **pixels > 15: 0 of 4725**, passed.
+      In preview mode the crop would show the template's 00:00:03 total instead of 00:00:31:11, so
+      this gate also proves the preview was left.
+    - Hover the tile (357,340), then click **+ (396,378)**. The draft saved on the first 0.5 s poll
+      (snapshot `draft-21-title-added.json`).
+    - **New track 3 `text` flag 0** with one segment:
+      - **start 0.0, duration 3.0**
+      - template **"Arabic An ordinary day, an ordinary life" / 7659823758919699730**, rung 9's
+        template
+      - scale 1.0, transform (0, 0)
+    - Tracks 0–2 are unchanged in count (10 / 17 / 1); duration 31.367 s; no modal.
+    - **Scope** (`diff-title-added.txt`, 301 lines): **0 lines on tracks 0–2**. The rest are the
+      new track's fields and segment, plus added `texts`, `text_templates` and
+      `material_animations`.
+    - **Observed** (`54-title-added.png`):
+      - A **new TT row at the top, y≈727**, holds the title block (x≈229–343, 0–3 s, selected). The
+        other rows shift down: **logo y≈777, captions y≈827, main y≈891** (use these for later
+        clicks).
+      - Inspector **Text · Tracking · Text to speech · AI avatars◆** ▸ Basic / Templates / Effects:
+        - **"The 1 paragraph"** box with the placeholder «يوم عادي، / حياة عادية» right-aligned
+          at ≈(1815,222), ▾ (1878,227)
+        - Transform: **Scale 100 % ≈(1790,349)**, **Position X ≈(1647,444) / Y ≈(1768,444)**,
+          Plane rotation
+        - the same layout as rung 16 §L.9
+      - Player: dashed title guides at player ≈(940–1108, 225–355), over the chest; no text at
+        0:00 (type-on).
+19. **Title text:** `cap17/title_text17.py`, the rung-16 clipboard gate:
+    - The draft title text must be the placeholder.
+    - Click (1815,222), Ctrl+A, Ctrl+C; the clipboard must equal the placeholder, else abort with
+      nothing typed.
+    - Type «ليه لازم نتميز عن جيميناي؟».
+    - Then verify: texts == [new]; start, duration and clip unchanged; all other tracks unchanged.
+    - **Dry run** (`title-text17-dryrun.txt`): title start 0.000, dur 3.000, texts
+      `['يوم عادي،\nحياة عادية']`, the placeholder, so the draft-side precondition holds.
+    - **Run** (exit 0, `title-text17-run.txt`, snapshot `draft-22-title-text.json`):
+      - **Gate:** the clipboard after Ctrl+A / Ctrl+C was exactly `'يوم عادي،\nحياة عادية'`
+        (newline included)
+      - **texts == ['ليه لازم نتميز عن جيميناي؟']**; start, duration and clip unchanged; **all other
+        tracks unchanged**; no unexpected window
+      - The Arabic question mark «؟» typed correctly through KEYEVENTF_UNICODE.
+    - **Inspector after the edit** (`55-title-text-inspector.png`): the paragraph box reads
+      «ليه لازم نتميز عن جيميناي؟» on one line. As in rung 16, a one-line title moves the rows up:
+      **Scale ≈(1792,333)**, **Position X ≈(1646,428) / Y ≈(1766,428)**, Plane rotation.
+20. **Default size, measured** (empty click (1600,960), ruler click (314,628) into the hold after the
+    1 s type-on; `56-title-default-player.png`; `yellow_bbox.py` on the 250 × 400 player crop; draft
+    unchanged):
+    - At **scale 100 %** the yellow bbox is **x 16–230, y 215–246 (215 × 32)**, centre (123, 230.5).
+    - The canvas in that crop spans **x 16–231, y 9–392** (215 × 383 player px for 1080 × 1920), so
+      the title **fills the full canvas width** (probably clipped) at ≈54–62 % down, over the chest.
+    - `yellow_bbox.py`'s printed "canvas" numbers use the rung-16 16:9 scale factor; ignore them
+      here.
+    - **Not usable.** Measure at a second scale to get the unclipped width and the anchor offset
+      (rung 16 §L.12 model), then place it.
+    - The 100 % frame was at **00:00:02:04** (`56-tc-title-hold.png`): the ruler snapped to the
+      caption start at 2.133, inside the hold phase.
+21. **Scale 50 % trial:** click the title block (286,727), then Scale box (1792,333): `ctrl+a`,
+    type `50`, Enter.
+    - The draft saved on the first 0.5 s poll (snapshot `draft-23-title-scale50.json`).
+    - **diff exactly 2 lines: `.tracks[3].segments[0].clip.scale.x/y` 1.0 → 0.5**; transform
+      (0,0), start 0, duration 3 unchanged
+    - ⚠ The measurement after an empty click (1600,960) found **no yellow pixels**, so the frame
+      is checked before re-measuring.
+    - **Cause:** the playhead was at **00:00:31:11**, the timeline end (`57-tc-scale50.png`), and
+      the frame shows no title (`57-title-scale50-player.png`). It moved during the select, type,
+      deselect sequence (not seen with the same empty click earlier), so the frame was outside
+      the title's 0–3 s.
+    - **Rule:** after any inspector edit, re-seat the playhead with a ruler click and check the
+      timecode crop before capturing a measurement frame.
+22. **Scale 50 % measured** (empty click, then ruler (314,628); timecode crop vs `56-tc-title-hold.png`
+    **0 px > 15**, so the same 00:00:02:04; `58-title-scale50-player.png`):
+    - yellow bbox **x 32–214, y 208–225 (183 × 18)**, centre **(123.0, 216.5)**; not clipped
+23. **Anchor model and placement** (player crop px; canvas x 16–231 / y 9–392, centre (123.5, 200.5),
+    **5.013 canvas px per player px** vertically):
+
+    | Scale | Width | Height | Centre y | Offset below canvas centre |
+    |---|---|---|---|---|
+    | 100 % | 215 (clipped; unclipped ≈ 366) | 32 | 230.5 | +30 |
+    | 50 % | **183** | **18** | 216.5 | **+16** |
+
+    - The offset is proportional to scale (≈ 31 px × scale), as in rung 16 §L.12. Horizontally the
+      title is centred.
+    - **Chosen size: 50 %**, ≈85 % of the canvas width, ≈4.7 % of the height (one line).
+    - **Target band:** centre **≈15 % down** (player y 66.5). That's below the platform header
+      (≈ top 8–12 %) and over the hair and forehead, above the eyes (≈24 %), in both the wide seg 0
+      and the punched seg 1.
+    - **Delta:** 66.5 − 216.5 = **−150 player px = 752 canvas px up**.
+    - Typed Position = 2 × canvas px, positive = up (typed Y scales with canvas height), so **X 0,
+      Y +1504**, i.e. `transform.y` ≈ **0.7833**.
+24. **Position Y applied:** click the title block (286,727), then Position Y box (1766,428):
+    `ctrl+a`, type `1504`, Enter.
+    - The draft saved on the first 0.5 s poll (snapshot `draft-24-title-y.json`).
+    - **diff exactly 1 line: `.tracks[3].segments[0].clip.transform.y` 0.0 → 0.78333**; scale 0.5,
+      start 0, duration 3 unchanged
+    - **Measured** (empty click, ruler (314,628); timecode vs `56-tc-title-hold.png` 0 px > 15; and
+      a second ruler click (296,628)):
+      - yellow bbox **x 32–214, y 58–75 (183 × 18)**, centre **(123.0, 66.5)** in both frames
+      - **exactly the predicted centre (123.5, 66.5)**
+    - The anchor model and the typed-Y rule hold on a 9:16 canvas too.
+    - **Frames** (`59-title-placed-2s.png` at 00:00:02:04, punched seg 1; `59-title-placed-1s7.png`
+      at 00:00:01:23, wide seg 0):
+      - «ليه لازم نتميز عن جيميناي؟» is **readable yellow bold on one line at ≈15 % down**, over
+        the top of the head and the hair line, **above the eyes**
+      - clear of the 70 % caption («لازم» visible at 2:04); correctly joined right-to-left Arabic
+    - **Undo/redo gate:** Ctrl+Z → ty **0.0** (only Y reverted); Ctrl+Shift+Z → **0.78333**,
+      byte-identical to `draft-24`. No modal.
+    - ⚠ **Logo clash found:** the logo still has its 16:9 values (scale 0.12, tf 0.8385 / 0.8093).
+      On the 9:16 canvas it renders **tiny at the top-right (≈9 % down), just above the title's
+      right end**, which crowds the title for the first 3 s and is barely legible.
+25. **Logo re-place plan:** move it to the **plain wall strip right of the head** (player crop
+    x≈185–231 is wall at 15–50 % down in every frame checked) at ≈30 % down. That is clear of the
+    title band (12.7–17.3 %) and the captions (70 %). Size it up for 9:16; the size comes from the
+    image dimensions and is checked in a frame.
 
 ## Wait conditions
 
