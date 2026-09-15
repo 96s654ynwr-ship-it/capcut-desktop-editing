@@ -792,6 +792,21 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **Template #3** (yellow bold, rung 9) is **row 2, middle ≈(357,340)**. It shows a **⬇**
      ≈(395,378), not yet downloaded in this session.
    - The playhead is still **00:00:01:00** (`46-tc.png`); draft unchanged.
+6. **Preview/download template #3:** click the tile body up-left of centre (342,325), away from
+   the icons, and wait 5 s. Draft unchanged (`47-tile3-preview.png`).
+   - The tile gets a **cyan border**. Its ⬇ becomes a **cyan +** at crop (106,98) → **screen
+     ≈(396,378)**, with ☆ beside it (`47-tile3-icons.png`).
+   - The player header reads **"Previewing — Text template ⓘ"** (`47-player-header.png`). The
+     timecode shows the template's own clock, **00:00:00:00 / 00:00:03:00** (`47-tc.png`).
+   - As in rung 9, a click previews and only **+** adds.
+7. **Add at 1.0 s with a timecode gate:**
+   - Click empty timeline (1500,690) to leave the preview (this moves the playhead), then Home and
+     `right ×30`.
+   - **Gate:** the timecode crop (615,528)–(790,555) must be byte-identical to the earlier
+     00:00:01:00 crop `44-tc-1s.png` before **+** is clicked. The region excludes the animating
+     audio meter, so an identical hash means the same timecode display.
+   - Then hover the tile (357,340) and click + (396,378). `title_state.py` prints the new title
+     segment's template, start, duration, texts, scale, transform and animations.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
