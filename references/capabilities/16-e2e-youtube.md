@@ -863,6 +863,53 @@ draft and in frames, and the final file is checked with ffmpeg.
       3.0 s, scale 1, transform (0,0), all unchanged.
     - **Video and caption tracks byte-identical.**
     - Frames: `51-title-text.png`, `51-title-text-inspector.png`.
+    - With one line, the inspector rows move up ≈16 px, as in rung 9: Transform ≈269, **Scale box
+      ≈(1790,333)**, **Position X ≈(1647,428) / Y ≈(1768,428)**, plus an alignment row.
+11. **Default frame** (click empty timeline (1000,690), Home, `right ×75` → **00:00:02:15**,
+    after the 1 s type-on; `52-title-hold-default.png`, `52-tc-hold.png`):
+    - At **scale 100 %, position (0,0)** the title is one huge heavy yellow line, **far wider
+      than the frame** (clipped at both edges, only «…رعي بالذكاء الا…» visible).
+    - Its band sits at player y≈235–340, across the speaker's chest and over the caption
+      «النهارده 25».
+    - **Not acceptable.** It needs a much smaller scale and a move into the upper-left wall area
+      (§L.1). The scale is measured from a frame, not guessed.
+12. **Scale 30 % trial (executed + agent-verified 2026-09-15):**
+    - Click the title block (356,731); the playhead stays put, and the timecode crop is identical
+      before and after (0 pixels > 15).
+    - Scale box (1790,333): `ctrl+a`, type `30`, Enter. The draft saved on the first poll:
+      **scale 0.3**, transform (0,0), text, start, duration and in-animation unchanged; video and
+      captions byte-identical.
+    - **Measured** with `yellow_bbox.py` (pixels R > 200, G > 160, B < 90) on the 2:15 frame
+      `53-title-scale30.png`:
+      - yellow bbox **player x 133–547, y 201–239 (415 × 39 px)**, centre **(340.0, 220.0)**
+      - it no longer touches the frame edges, but is still **61 % of the frame width**
+      - it still crosses the chest line
+    - **Anchor model** (checked against two scales):
+      - The template's text centre sits below frame centre (191.5) by an offset proportional to
+        scale: ≈ +96 px at 100 %, ≈ +28.5 px at 30 %.
+      - Horizontally it is centred (340 ≈ 340.5).
+13. **Placement computation** for the upper-left wall (player x≈10–320 left of the head at
+    x≈335; wall y≈10–175):
+    - **Scale 22 %:** width ≈ 415 × 22/30 ≈ **304 px**, height ≈ **29 px** (≈7.5 % of the
+      frame height, legible).
+    - Default centre at 22 %: (340.5, 191.5 + 96 × 0.22 ≈ 212.6).
+    - **Target centre** player **(170, 60)**: text x≈18–322 (clear of the head at 335), band
+      y≈45–75.
+    - Delta: (−170.5, −152.6) player px × 2.819 = **(−481, −430) canvas px**.
+    - Typed Position = 2 × canvas px, positive Y = up (rung 10), giving **X −961, Y +860**,
+      i.e. transform (−0.5005, 0.7963).
+14. **Scale and placement applied (executed + agent-verified 2026-09-15):** three inspector
+    boxes, each `ctrl+a` / type / Enter, **gated on the draft after each field** (`title_clip.py`):
+    - Scale (1790,333) `22` → **0.22 0.0 0.0**
+    - Position X (1647,428) `-961` → **0.22 −0.50052 0.0**
+    - Position Y (1768,428) `860` → **0.22 −0.50052 0.7963**
+    - start 1.0 / duration 3.0 unchanged at every step; the playhead didn't move (timecode crop
+      0 pixels > 15 vs `52-tc-hold.png`)
+    - **Measured** on `54-title-placed.png`: yellow bbox **x 18–322, y 46–73 (305 × 28 px)**,
+      centre **(170.0, 59.5)**, vs predicted x 18–322 / centre (170, 60). The anchor model and
+      the half-canvas Position rule hold for text templates too.
+    - Video and 252-caption tracks byte-identical to `draft-19-title-added.json`
+      (`draft-20-title-placed.json`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
