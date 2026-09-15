@@ -1,7 +1,7 @@
 # Capability 14: Promo polish (transitions, filters/adjust/color, logo/brand overlay, templates)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-15 by Claude Code. Delivered: logo overlay, Cross Fade transition, Pro
   Auto adjust, plus the two fixes the user requested: overlay Fade Out and desk Canvas blur.
