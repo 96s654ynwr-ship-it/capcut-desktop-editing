@@ -365,6 +365,33 @@ draft and in frames, and the final file is checked with ffmpeg.
      alternation.
    - **Promotion candidate:** port `place_exact_anchor` into `scripts/tighten_gaps.py` after
      approval. It fixed a real geometry limit found in this rung.
+
+### H. Stage 4: jump-cut punch-ins, rung 6 (2026-09-15)
+1. **State after the gap pass** (`19-after-gaps.png`): 1 video track, 56 segments, 00:06:43:09, no
+   popups; at fit zoom ≈3.22 px/s.
+2. **Why not strict alternation** (`punch_plan.py`):
+   - Alternating at every join where both neighbours are ≥ 2.5 s punches **34** segments,
+     including 12 clips under 2.5 s. These are 3–8 px wide at fit zoom, unreliable to click, and
+     a framing change on a 1 s clip reads as flicker.
+3. **Chosen pattern** (`punch_plan2.py`, `punch_plan2.json`):
+   - Group segments into **runs** separated by joins whose neighbours are both ≥ 2.5 s (34 runs).
+   - Alternate wide ↔ punched over the runs, but **only single-segment runs may be punched**. A
+     multi-segment run always holds a short clip, so it stays wide and the next run gets the
+     punch.
+   - **Result:** **15 punched segments** (indices 2, 4, 6, 8, 12, 14, 21, 23, 25, 30, 32, 34, 36,
+     38, 47), every one ≥ 3.2 s (≥ 10 px at fit zoom), giving **30 framing changes** over 55
+     joins, with no short clip ever edited.
+   - The longest stretch without a framing change is ≈ 41 s; stage 4b push-ins (rung 7) can cover
+     one long unpunched segment (e.g. seg 15, 100.6 + 34.8 s, or seg 42, 336.967 + 26.9 s).
+4. **Eye line** (`20-eye-frame-0513.png`, player crop 681 × 383 = 0.3547 px per canvas px):
+   - eyes at crop y≈80 vs centre 191.5 → **≈314 canvas px above centre**; speaker ≈ centred
+     horizontally
+   - a 110 % punch-in raises the eyes by 314 × 0.10 ≈ **31 canvas px**
+   - correction ≈ 31 px down → typed **Position Y −60** (typed unit = ½ canvas px, negative =
+     down; rung 10); X 0
+   - 110 % overflows 54 px top/bottom, so a 30 px shift still exposes no border
+   - **Values:** Scale **110 %**, Position **X 0 / Y −60** (shot-specific, re-derived from this
+     frame; rung 6's approved −10 was for a different shot)
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
