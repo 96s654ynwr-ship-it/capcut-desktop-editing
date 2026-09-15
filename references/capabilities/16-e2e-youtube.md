@@ -518,6 +518,31 @@ draft and in frames, and the final file is checked with ffmpeg.
       - **4 top-level lines:** a new `keyframe_graph_list[0]` entry `resource_name` **"Ease"**,
         `resource_id` 7418178875479298577, i.e. CapCut registering the easing preset used
       - No other segment or track changed.
+
+### J. Stage 5: house-style captions, rungs 8–9 (2026-09-15)
+1. **Final Auto captions** on the finished cut (403.300 s):
+   - No text track before; the form crop confirmed **Arabic / Bilingual None**, Delete current
+     captions unticked (`31-captions-form-final.png`).
+   - **Generate** (539,544). Only the known loading dialog appeared (no cost, credit or upsell
+     prompt).
+   - A `subtitle` track was in the draft after **64 s**.
+   - **Agent-verified** (`draft-11-captions-final.json`): **1 text track, 252 captions**. Video is
+     still 56 segments / 403.300 s, and the diff has **no `.tracks[0]` lines**, so cuts, punch-ins
+     and the push-in are untouched.
+   - The caption row sits at y≈763 above the video (`31-captions-final.png`).
+   - First caption «بسم الله» 0.200 s; last «السلام عليكم» ends 403.133 s
+     (`words-final.txt`/`.json`).
+2. **Text review (read-only).** Captions needing a decision, per house style "digits instead of
+   words, English brand names, dialect words":
+   - **Digits:** «النهارده 25» (1.967), «4 2,000 26» (3.467, a garbled spoken date), «او الافكار
+     ال2» (17.4), «ده التحديث بتاع 25» (322.967), «عشان مطلوب مننا يوم 27» (332.8).
+   - **Likely misrecognitions:**
+     - «وراحت لجيمراي» (228.067), probably «لجيميناي»
+     - «اعملي تطبيق شرعي… تطبيق شرعي» (229.167), probably «تدقيق»
+     - «الراديو ابلكيشن» (264.933), probably «الراج»
+     - «نستخلص التاتا دي» (283.3), probably «الداتا»
+     - «والداة والكلام ده» (381.567), probably «والداتا»
+     - «فجمة او» (338.733), probably «فيجما»
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
