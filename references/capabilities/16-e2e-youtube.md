@@ -116,6 +116,23 @@ draft and in frames, and the final file is checked with ffmpeg.
      `original` **1920×1080** (set by this first clip), one set of helper materials. Baseline saved
      as `draft-00-dropped.json`.
 
+### D. Stage 3, rung 3: Transcript analysis (executed 2026-09-15)
+1. The clip is auto-selected after the drop (`04-take-dropped.png`). At this layout the timeline
+   toolbar's **Transcript** icon is at ≈(590,596); hovering shows "Transcript ◆"
+   (`05-transcript-icon-hover.png`).
+2. **Click it** (standing consent: credits OK for Transcript).
+   - The loading window (`Qt622QWindowIcon` (840,386)–(1080,645)) appears within 3 s, with no
+     dialog.
+   - `wait-for --cls RoughCutWindow --timeout 420` matched after **58.6 s** (63 s including the
+     click) for 8:04, ≈7.8 s per minute.
+   - The draft is **unchanged** by the analysis (`diff-analysis.txt` is empty).
+3. **"Remove filler words" window** (`06-roughcut-open.png`):
+   - It opens on the **All** tab with the full Arabic transcript. Rows start at 00:00:09:29 «بسم
+     الله», 00:00:10:19, 00:00:16:07, …
+   - Footer **Total duration: 00:07:42:21**, i.e. the preview with the pre-ticked detections
+     removed: 484.233 → 462.7 s, **≈21.5 s pre-ticked**.
+   - The mini-timeline is empty; Create compound clip is unticked; **Delete** (Pro) and Cancel.
+
 ## Wait conditions
 
 ## Verification
