@@ -436,6 +436,26 @@ draft and in frames, and the final file is checked with ffmpeg.
        untouched
      - **Ctrl+Shift+Z** → **−0.05556** again; all 15 match the plan
      - Each field edit is its own undo step, as in rung 6.
+
+### I. Stage 4b: eased push-in, rung 7 (2026-09-15)
+1. **Segment:** **seg 15**, 100.600 → 135.367 s (34.767 s). It's the longest unpunched clip,
+   between punched segs 14 and 16, so the push-in runs inside a wide-framed stretch. Values are
+   the rung-7 approved **100 % → 108 %**, **Easing** (ease in-out).
+2. **Playhead to the first frame:** click empty (1500,760), Home, `down ×15` → **00:01:40:18**
+   (`22-tc-seg15-start.png`). Then click the clip body (611,830), which doesn't move the playhead
+   (the timecode stays 00:01:40:18, `22-tc-after-select.png`). The inspector reads Scale 100 %,
+   X 0 / Y 0 (`22-seg15-selected.png`).
+3. **Start keyframe:** click the Scale ◇ (1872,257). The draft saved on the first poll.
+   - `draft_inspect.py keyframes`: seg 15 has **KFTypeScaleX @ 100.600 s = [1.0] Line**.
+   - The ◇ is now filled cyan. **No first-use tip** appeared this time (rung 7's tip was one-off),
+     and no new window (`23-kf-start.png`).
+4. **End keyframe:**
+   - Click empty (1500,760), Home, `down ×16` (→ join 135.367), then `left` for the last frame
+     (`24-tc-seg15-end.png`).
+   - Reselect the clip body (611,830). In the Scale box (1792,257): `ctrl+a`, type `108`, Enter.
+     Changing the value auto-adds the keyframe (rung 7).
+   - **Draft (first poll):** seg 15 has 2 keyframes: **+0.000 s @ 100.600 = [1.0] Line** and
+     **+34.733 s @ 135.333 (00:02:15:10) = [1.08] Line** (`24-kf-end.png`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
