@@ -187,6 +187,19 @@ draft and in frames, and the final file is checked with ffmpeg.
      `--undo-captions`.
 - Captions are generated again at stage 5 for the final house style, after all timing edits.
 
+### F. Auto captions for word timings (executed + agent-verified 2026-09-15)
+1. Asset tab **Captions** ≈(424,73) opens Auto captions with the form **remembering Arabic /
+   Bilingual None** from rung 8 (`09-captions-form.png`). There are no captions yet, so Delete
+   current captions is irrelevant.
+2. **Generate** ≈(539,544):
+   - The only new window is the known "Generating captions… N%" loading dialog (760,400)–(1160,630)
+     (`10-generating.png`). **No cost, credit or upsell dialog.**
+   - Polled the draft text every 3 s for a `text` track containing `subtitle`: present after
+     **≈70 s** for 7:42 of timeline (≈9 s per minute).
+3. **Agent-verified** (`draft-03-captions.json`): **1 text track, 259 captions**; video still
+   **24 segments / 462.700 s**, so generation didn't touch the cuts. The loading dialog is gone
+   (`11-captions-done.png`).
+
 ## Wait conditions
 
 ## Verification
