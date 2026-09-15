@@ -781,6 +781,17 @@ draft and in frames, and the final file is checked with ffmpeg.
      but the playhead is still at 1:00, and the + adds at the playhead.
    - Draft unchanged. The yellow "Layers can be reordered in…" tip reappeared near Modify and is
      harmless.
+4. **Text template ▾** (85,251) (`46-text-template-open.png`): the categories expand (Trending,
+   Whimsical, KATSEYE, Pixel Bead, Classic, NEW), with a 3-column Trending grid (Chapter End, The
+   Story Begins, FINAL, BAM!, CLOUD, LOCATION, KEEP GOING, CREATIVE, NĂNG ĐỘNG).
+5. **Search «عربي»:** click the search box (370,127), `type "عربي"`, Enter, wait ≈7 s
+   (`46-arabic-search.png`, grid crop `46-arabic-grid.png`).
+   - The categories are hidden while the search is active.
+   - Grid rows: «الفرح في البساطة», "It's simple", calligraphy / "Một ngày đơn giản", **«يوم عادي،
+     حياة عادية»**, "A simple life" / «الحياة تستمر», «حياة صغيرة», «بسم الله…».
+   - **Template #3** (yellow bold, rung 9) is **row 2, middle ≈(357,340)**. It shows a **⬇**
+     ≈(395,378), not yet downloaded in this session.
+   - The playhead is still **00:00:01:00** (`46-tc.png`); draft unchanged.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
