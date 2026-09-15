@@ -543,6 +543,24 @@ draft and in frames, and the final file is checked with ffmpeg.
      - «نستخلص التاتا دي» (283.3), probably «الداتا»
      - «والداة والكلام ده» (381.567), probably «والداتا»
      - «فجمة او» (338.733), probably «فيجما»
+   - A text-only digit scan (`digit_scan.py` on `words-final.json`) confirmed **exactly 5** digit
+     captions. The first PowerShell filter matched every row because the timecodes contain
+     digits, so always filter the text field.
+3. **User choices (2026-09-15):**
+   - **Digits:** "Write dates as numbers (Recommended)":
+     - «النهارده 25» (1.967) → **kept**
+     - «4 2,000 26» (3.467) → **«25/4/2026»**
+     - «ده التحديث بتاع 25» and «عشان مطلوب مننا يوم 27» → **kept** (day numbers)
+     - «وايه ممكن نضيف عليها او الافكار ال2» (17.4) → **«…او الافكار التانية»**
+   - **Words:** "Brand/tech terms (Recommended)":
+     - «وراحت لجيمراي» → «وراحت لجيميناي»
+     - «الراديو ابلكيشن» → «الراج ابلكيشن»
+     - «…نستخلص التاتا دي» → «…نستخلص الداتا دي»
+     - «والداة والكلام ده» → «والداتا والكلام ده»
+     - «فجمة او» → «فيجما او»
+     - «تطبيق شرعي» (229.167) is **not** chosen, so it stays as generated.
+   - Order, per the house-style recipe: apply the **Classic: black box** template to all main
+     captions first, then make the 7 text fixes, then verify frames.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
