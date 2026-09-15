@@ -941,6 +941,27 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **Agent-verified:** `draft_meta_info.json` lists `203431`, and `draft_content.json` diff vs
      `draft-22-before-import.json` = **0 lines** (importing never touches the timeline, as in
      rung 10). No extra windows (`55-broll-imported.png`).
+   - **Observed:** a media card "VID_20260416_203431.mp4" at **≈(382,313)**, selected. The player
+     shows **"Previewing — video" 00:04:21:21**, and the office scene is **upright**, so CapCut
+     applied the −180° rotation.
+3. **Choosing the source window** (read-only frames at 0–17 s, `broll/early/early-sheet.png`):
+   - 0–6 s: a man walks through the foreground and bends at the desk (distracting).
+   - **8–17 s:** all four seated around the desks in discussion, one gesturing (good). Later
+     frames (20–240 s) look alike.
+   - **Route constraint:** on an overlay track, Q keeps the remaining part in place (rung 10 F).
+     So "drop at playhead P (source 0), then Q at the caption start" gives source = caption start
+     − P. **Dropping at P = 0 and pressing Q at 12.067** makes the source window **12.067 →
+     16.067 s**, inside the good range, with no horizontal dragging of a placed clip.
+   - **Plan:**
+     1. Home, then drag the card to the empty area above the title row at 00:00, which snaps to
+        the playhead.
+     2. Verify the draft: new overlay (flag 2), start 0, source 0.
+     3. Ruler click at the «قعدنا انا» caption start (x≈853 at 51.6 px/s snaps to 12.067),
+        verify the timecode, then **Q**.
+     4. `right ×120` → 16.067, verify the timecode, then **W**.
+     5. PiP at Scale 40 %, upper-left, and mute the track.
+   - ⚠ The title (1–4 s) is also upper-left, but it ends before the PiP starts at 12.067, so they
+     never overlap.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
