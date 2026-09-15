@@ -820,6 +820,30 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **Fix:** gate on a **tolerant pixel difference** (`img_diff.py`, mean absolute difference and
      count of pixels > 15) calibrated against a real 1:00 vs 2:00 difference. The failure is safe
      either way: a strict gate can only block, never mis-add.
+   - **Calibration** (`img_diff.py`, timecode crop 175 × 27):
+
+     | Pair | mean abs | max | pixels > 15 |
+     |---|---|---|---|
+     | 1:00 vs 1:00 (two captures) | 0.001 | 1 | **0** |
+     | 1:00 vs 1:00 (`46-tc` vs `44-tc-1s`) | 0.001 | 1 | **0** |
+     | 1:00 vs 2:00 | 2.584 | 96 | **203** |
+
+     **Gate rule:** pass only when **pixels > 15 == 0**.
+9. **Gated add (executed + agent-verified 2026-09-15):**
+   - The gate passed against `44-tc-1s.png` (0 pixels > 15) (`50-tc-gate.png`).
+   - Hover the tile (357,340) (`50-tile3-hover.png`), then click **+** (396,378). The draft saved
+     on the first poll.
+   - **`title_state.py`:**
+     - tracks are now `video 56 / text(flag 1) 252 / text(flag 0) 1`, a **new text track** for the
+       title
+     - segment **start 1.000 s, duration 3.000 s**
+     - template **"Arabic An ordinary day, an ordinary life" / 7659823758919699730**, the rung-9
+       template
+     - placeholder text «يوم عادي،\nحياة عادية»
+     - scale 1.0, transform (0, 0)
+     - **in-animation 0 → 1 000 000 µs**
+   - **Video track and the 252-caption track are byte-identical** to `draft-18-text-gate.json`
+     (`draft-19-title-added.json`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
