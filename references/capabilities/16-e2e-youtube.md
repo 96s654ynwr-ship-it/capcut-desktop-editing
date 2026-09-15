@@ -677,6 +677,30 @@ draft and in frames, and the final file is checked with ffmpeg.
     - It also refuses to start if the draft's caption at `--start` doesn't read `--old`.
     - After typing: exactly one caption changed, 252 captions, and the video track byte-identical.
     - ⚠ It overwrites the Windows clipboard.
+12. **Text fix 2, the garbled date (executed + agent-verified 2026-09-15):**
+    `fix_caption.py --x 455 --start 3.467 --old "4 2,000 26" --new "25/4/2026"`, exit 0.
+    - Pill x 455 in the 00:00–00:30 view is 4.36 s, inside the caption (3.467–5.3 s).
+    - **Gate:** the clipboard after Ctrl+A / Ctrl+C read exactly `'4 2,000 26'`, so the copy
+      check works in CapCut's QML text field and confirms both focus and the right caption.
+    - Saved after **4.5 s**.
+    - **Cumulative changes vs `texts-before-fixes.json`: exactly 2**, fix 1 (17.4 s) and fix 2
+      (3.467 s → «25/4/2026»). Still 252 captions, video track byte-identical
+      (`draft-16-fix2.json`).
+    - Frames: `42-fix2-player.png`, `42-fix2-inspector.png`, `42-fix2-tc.png`.
+    - **Rendering (agent-verified):** at 00:00:04:11 (inside the caption) the player shows
+      **«25/4/2026» left-to-right**, bold white on the template's black box, with no bidi reversal.
+      A digits-only caption is laid out as a left-to-right run. The inspector box reads
+      `25/4/2026`.
+13. **Locating the remaining five pills** (no draft change):
+    - Per target: click empty timeline (1500,690) (not y 760, which is now the caption row),
+      **Shift+Z**, ruler click at fit x = 232 + t × 3.216, **Ctrl+= ×4**. The zoom keeps the
+      playhead's screen x, which the fix-1 observation confirmed.
+    - Then crop the ruler + TT row (160,615)–(1910,780) and the timecode (`locate/t*-row.png`,
+      `t*-tc.png`).
+    - Targets and fit x: 228.067 → 966, 264.933 → 1084, 283.3 → 1143, 338.733 → 1321,
+      381.567 → 1459.
+    - `fix_caption.py --nav-x <fit x>` replays the same sequence before editing, so pill x values
+      read from these crops stay valid.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
