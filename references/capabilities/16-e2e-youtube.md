@@ -199,6 +199,52 @@ draft and in frames, and the final file is checked with ffmpeg.
 3. **Agent-verified** (`draft-03-captions.json`): **1 text track, 259 captions**; video still
    **24 segments / 462.700 s**, so generation didn't touch the cuts. The loading dialog is gone
    (`11-captions-done.png`).
+4. **Read the transcript** (read-only): `draft_inspect.py words "0915 (1)" --json words-all.json`
+   (259 caption rows + word lines, `words-all.txt`) and `gaps --min 0.6 --keep 0.125`
+   (`gaps-0.6.txt`: **68 real gaps ≥ 0.6 s**, 54.5 s removable, +5 flagged as spanning edit joins).
+   - **Topic:** a hackathon progress update (the 25th) about a Sharia-compliance audit AI
+     assistant for small companies, an MCP-server idea, a RAG app on AAOIFI data, and the Next.js
+     + FastAPI stack.
+   - **Candidates found by reading** (timeline clock after the pause removal):
+
+     | # | Where | What | Recommendation |
+     |---|---|---|---|
+     | 1 | 0 → 9.733 | empty chair before «بسم الله» | cut |
+     | 2 | 455.267 → 462.700 | tail after «السلام عليكم» | cut |
+     | 3 | 11.567 → 14.167 | false start «النهارده 25», restarted as «النهارده 25 4» | cut |
+     | 4 | 62.600 → 63.400 | stammer «او او او» | cut |
+     | 5 | 199.200 → 201.500 | «زي اللي مستخدم ال مثلا بتاع اي حاجة», re-said at 202.700 as «زي لما بتستخدم ال بتاع اي حاجة» | cut the first |
+     | 6 | 142.867 → 144.367 | repeated «من الشباب» + unclear «المعاين الفري» before «في الفريق» | optional |
+     | 7 | 424.533 → 425.967 | «واليعني هو بايسون», repeating «يعني بايسون» | optional |
+     | 8 | 446.733 → 447.533 | extra «تمام» after «بس تمام» | optional |
+
+   - Kept as natural speech: the enumerations «المعاملات…», the rephrase «مدقق شرعي», and the
+     self-correction «الكومبتتوف ايدج / او الكومبتتوف».
+   - The agent can't hear the audio, so the user chooses the cuts.
+   - **User choice (2026-09-15):** "Opening + ending dead air (Recommended), False start +
+     stammer (Recommended), Rephrased line at 3:19 (Recommended)". So candidates **1–5** are cut,
+     and the optional 6–8 are kept.
+5. **Captions undone before cutting** (rung 4 rule):
+   - Click empty timeline (1500,690), then **Ctrl+Z**. The `subtitle` text is gone on the first
+     poll.
+   - Diff vs `draft-02-pauses-removed.json` shows **no differences**: tracks `['video']`, 24
+     segments, 462.700 s (`draft-04-captions-undone.json`).
+   - The word timings stay usable from `words-all.json`, since it was the same timeline clock.
+6. **Exact cut ranges from word timings**, snapped to 30 fps frames. Each keeps 0.125 s of silence
+   next to the kept words, or takes the silence midpoint. Order: latest first, so earlier
+   timecodes never shift.
+
+   | Order | Cut | Range (s) | Removes | Word evidence |
+   |---|---|---|---|---|
+   | 1 | tail | 455.400 → 462.700 (end) | 7.300 | «عليكم» ends 455.267 |
+   | 2 | rephrased line | 198.867 → 202.100 | 3.233 | «تدفع» ends 198.533; «زي…حاجة» 199.200–201.480; kept «زي لما…» starts 202.700 (both cuts at silence midpoints) |
+   | 3 | stammer | 61.500 → 64.600 | 3.100 | «استشارات» ends 61.380; «او او او» 62.600–63.400; «هتشترك» starts 64.733 |
+   | 4 | false start | 11.567 → 14.033 | 2.467 | «تمام» ends 11.567 = first «النهارده» start (no silence); «25» ends 13.007; second «النهارده» starts 14.167 |
+   | 5 | opening | 0.000 → 9.600 | 9.600 | «بسم» starts 9.733 |
+
+   - **Expected:** 462.700 → 455.400 → 452.167 → 449.067 → 446.600 → **437.000 s**.
+   - The nearest existing joins (38.6, 51.867, 67.1, 184.8, 238.4, 454.433) are all at least
+     0.9 s from the cut points. Cut 1 lies inside the last segment (454.433 → end).
 
 ## Wait conditions
 
