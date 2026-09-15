@@ -1008,6 +1008,52 @@ draft and in frames, and the final file is checked with ffmpeg.
      (`draft-25-broll-pip.json`); tracks 3 → 4; duration 403.3 → 403.3.
    - The 120 key presses at 0.1 s landed exactly (W produced exactly 4.000 s), unlike the
      390-press run at 0.04 s in rung 13.
+   - The timecode crop before W read **00:00:16:02**.
+   - **Observed after mute** (`57-broll-pip-done.png`):
+     - The extra window `Qt622QWindowToolSaveBits` (885,576)–(1033,730) is the **"Track muted"**
+       toast above the overlay row, harmless.
+     - The overlay row's speaker icon turns **cyan with a slash**.
+     - The trimmed B-roll block sits at x≈850–1058 on the top row, still selected.
+     - The inspector reads **Scale 40 %, Position X −1032 / Y 528**.
+     - The player at 16:02 shows no PiP; the segment end is exclusive, as in rung 10.
+8. **Undo/redo gate on the overlay mute (agent-verified):**
+   - **Ctrl+Z** → track attribute **1 → 0**; start, duration, source, scale and transform
+     unchanged.
+   - **Ctrl+Shift+Z** → **attribute 1**.
+   - Diff vs `draft-25-broll-pip.json`: **0 lines** (`draft-26-pip-gate.json`).
+   - The draft was unchanged by the PiP frame navigation before the gate.
+9. **PiP frames** (deselected via empty click (1000,670); ruler snap (853,628) to 12:02, then
+   `left` / `right ×1/58/61/1`; timecodes confirmed by crop; `pip_frames/`):
+
+   | Timecode | Observed |
+   |---|---|
+   | 00:00:12:01 | **no PiP**, speaker only |
+   | 00:00:12:02 | **PiP upper-left** (player ≈x 20–294, y 20–174): office B-roll, four people seated; caption «قعدنا انا» |
+   | 00:00:14:00 | PiP present; caption «والفريق» |
+   | 00:00:16:01 | PiP present (last frame); caption «بتاعتنا والكلام ده» |
+   | 00:00:16:02 | **PiP gone** |
+
+   - The box ≈274 × 154 player px ≈ **772 × 434 canvas px** at canvas ≈(56–829, 56–491), matching
+     the predicted 768 × 432 at (60–828, 60–492).
+   - It stays clear of the speaker's face and the lower-third captions. It overlaps nothing else
+     (the title ended at 4 s).
+
+### N. Stage 8: audio (Reduce noise + Enhance voice), rung 11 (2026-09-15)
+1. **Lock the non-main tracks** so only main clips can be selected (rung 2 Op 6, rung 12). Click
+   each row's lock icon at x≈59, gated on the draft (`track_attrs.py`):
+
+   | Row (y) | Track | attribute |
+   |---|---|---|
+   | overlay 745 | 3 video f2 | **1 → 5** (mute 1 + lock 4) |
+   | title 794 | 2 text | **0 → 4** |
+   | captions 826 | 1 text f1 | **0 → 4** |
+   | main 890 | 0 video | 0 (unlocked) |
+
+   - **Diff** `draft-27-before-locks.json` → `draft-28-locks.json`: **257 lines**, all
+     attributes. That's 3 track `attribute` lines plus a `track_attribute` on every segment of
+     those tracks (252 + 1 + 1). Nothing else changed.
+   - The attribute is a bit field: mute = 1, lock = 4.
+   - Evidence: `58-headers-before-lock.png`, `58-headers-after-lock.png`, `58-tracks-locked.png`.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
