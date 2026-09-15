@@ -1,7 +1,7 @@
 # Capability 15: Export (resolution, fps, bitrate, codec; verify the output file)
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved (2026-09-15, "Approve, start Rung 16 (Recommended)")
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-15 by Claude Code. `E:\videos\exports\0915-copy.mp4`: h264 Main
   1920×1080 30 fps (900 frames), AAC stereo 44.1 kHz, 30.00 s, 40 055 206 B. Cloud sync off; the
