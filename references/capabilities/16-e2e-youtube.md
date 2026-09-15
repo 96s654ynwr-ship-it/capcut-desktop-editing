@@ -1241,6 +1241,14 @@ draft and in frames, and the final file is checked with ffmpeg.
      leaving it after the rung-15 export (§B, housekeeping-only diff), not an edit in this rung.
    - **Logo file** mtime, size and SHA-256 unchanged (the client project is never written).
 
+### O2. Enhance voice completion (agent-verified 2026-09-15)
+- `enhance_watch.py` exited 0: **DONE after 2018 s (≈33.6 min)**. All **56/56** result files are
+  non-empty and size-stable; `audioAlg` holds **224 files** (4 per clip); the results total
+  **71.3 MB**.
+- Average ≈ 36 s per clip. Clips were processed one at a time while the title, B-roll, logo and
+  unlock work went on in the timeline, and none of it interrupted the job.
+- Draft after completion: denoise 56 / enhance 56 (level 75) / loudnesses 0, 56 main segments.
+
 ### P. Stage 10 plan: save and export, rung 15 (waits for Enhance voice to finish)
 1. **Gate:** `enhance_watch.py` reports **DONE** (all 56 `vocal_beautifys` result files non-empty and
    size-stable for ≥ 30 s). The player header must no longer read "Applying N features…".
