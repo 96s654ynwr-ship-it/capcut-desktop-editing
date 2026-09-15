@@ -1249,6 +1249,16 @@ draft and in frames, and the final file is checked with ffmpeg.
   unlock work went on in the timeline, and none of it interrupted the job.
 - Draft after completion: denoise 56 / enhance 56 (level 75) / loudnesses 0, 56 main segments.
 
+### O3. Save (executed + agent-verified 2026-09-15)
+- **Gate passed** (`66-after-enhance-done.png`): the player header reads "Player-Timeline 01", with
+  no "Applying N features…"; the clip labels no longer show "Waiting to enhance voice…".
+- `final-before-save.json` copied. Menu ≈(140,22) checked by screenshot (`67-menu-open.png`: File,
+  Edit, Layout, More, Help, Account, Settings, **Back to home page**, Quit). Then **Back to home
+  page** ≈(183,303).
+- **HomeWindow after 4 s**; draft mtime 13:56:02.372.
+- **Diff** `final-before-save.json` → `final-after-save.json`: **0 lines**. Audio counts on disk:
+  denoise 56 / enhance 56 (75) / loudnesses 0.
+
 ### P. Stage 10 plan: save and export, rung 15 (waits for Enhance voice to finish)
 1. **Gate:** `enhance_watch.py` reports **DONE** (all 56 `vocal_beautifys` result files non-empty and
    size-stable for ≥ 30 s). The player header must no longer read "Applying N features…".
