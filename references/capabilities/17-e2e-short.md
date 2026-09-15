@@ -447,6 +447,326 @@ approved rungs, and export it verified.
      **9:16**, then **Apply** (rung 12 §G.7–H). Verify `smart_crops`.
 - ⚠ There are now **10 main clips** (rung 12 had one). Do the first by hand to measure this
   layout, then decide how to cover the rest.
+1. **Ratio menu** (empty click (1600,960), then Ratio (1371,541); `33-ratio-menu.png`; draft
+   unchanged):
+   - It drops down from ≈(1372,545) over the timeline's right side.
+   - Rows: **Original ✓** (1438,563), Custom (1438,598), 16:9 (1427,634), 4:3, 2.35:1, 2:1, 1.85:1,
+     **9:16 (1427,810)**, 3:4, 5.8-inch, 1:1 (1422,915).
+   - Identical to rung 12 §F.1.
+2. **Click 9:16** (1427,810). The draft saved on the first 0.5 s poll (snapshot `draft-08-916.json`,
+   `diff-916.txt` vs `draft-07`):
+   - `canvas_config` **original 1920×1080 → 9:16 1080×1920**
+   - plus `config.subtitle_keywords_config`: `is_change_font_size` False → True and its sample
+     style size 10.5 → 16. That's CapCut's keyword-highlight preset rescaling for the new ratio;
+     the caption segments and texts are unchanged.
+   - Duration 31.367 s, 3 tracks, 28 segments unchanged; clip transforms unchanged (the ratio change
+     doesn't reframe). No modal.
+   - **Observed** (`34-after-916.png`):
+     - the player shows a **portrait canvas** x≈916–1131, y≈99–482, with the 16:9 video
+       **letterboxed** in the middle (y≈235–368) and black bars above and below
+     - the logo's normalised transform now puts it tiny at the canvas top-right (player
+       ≈1110,133), outside the video band
+     - the Ratio button reads **9:16** (≈1373,541); Details ▸ Aspect ratio **9:16**
+     - the **TikTok icon** with a cyan dot appears at ≈(1227,541) (rung 12); not clicked
+     - track headers unchanged: logo lock ≈(59,744), captions lock ≈(59,794), main ≈(59,859)
+3. **Lock the caption and logo tracks** (rung 12 §G.6 lesson: with auto captions, a clip click can
+   pull in captions): click the lock icons at (59,794) and (59,744), gated on the draft after each.
+   - Each click saved on the first 0.5 s poll: **caption track `attribute` 0 → 4**, then **logo
+     track 0 → 4**. The main track stays 0.
+   - Diff `draft-08-916.json` → `draft-09-locked.json` without the per-segment `track_attribute`
+     lines: **only `.tracks[1].attribute` and `.tracks[2].attribute`** (`diff-locks-nonattr.txt`).
+   - No modal. Unlock both before the caption, title and logo work.
+   - **Observed** (`35-headers-locked.png`): the logo and caption rows show **cyan lock icons and
+     diagonal hatching**; the main row's lock stays white.
+4. **Select one main clip:** click **seg 4** (11.667 → 16.000, unpunched) at **(756,860)**.
+   - `36-tracks-seg4.png`: **only that clip** has a white border (screen x≈670–838); the locked
+     captions and logo are not selected.
+   - `36-inspector-seg4.png`: the single-clip **Video · Audio · Speed · Animation · Adjust · A…›**
+     inspector, Basic ▸ Scale 100 %, X 0 / Y 0, Blend ✓.
+   - The draft is unchanged.
+5. **Video ▸ Basic scrolled** (`scroll 1480 450 -4` × 3; `36-inspector-seg4-scroll3.png`):
+   - top row **Auto reframe ◆ ▾**, checkbox **≈(1468,173)**, ▾ **≈(1603,173)**, the same spot as
+     rung 12 §G.7
+   - below it Remove flickers ◆, AI movement ◆, Camera tracking ◆, Motion blur ⓘ ◆, and **Canvas ✓
+     ▾ [Apply to all]** at the bottom
+   - **Auto reframe has no "Apply to all"**
+6. **Expand ▾ (1603,173), then tick (1468,173)** (Pro; standing rule "run; stop if a cost
+   appears"):
+   - Expanding changed nothing in the draft (`37-reframe-expanded.png`).
+   - The tick saved on the first 0.5 s poll. Diff `draft-09-locked` → `draft-10-reframe-ticked`
+     (`diff-reframe-tick.txt`) is exactly **`.materials.videos[4].check_flag` 62978047 → 63043327**:
+     the same +0xFF00 feature bit as rung 12 §G.9, and only on seg 4's material.
+   - **Windows after the tick:** MainWindow, the known player overlay (621,99), a tooltip, and a new
+     `Qt622QWindowToolSaveBits` **(860,576)–(1058,730)** (toast; see the screenshot). **No cost,
+     credit or upsell dialog.**
+   - **Observed** (`37-reframe-ticked.png`, `37-full-after-tick.png`):
+     - The new window is the **"Auto reframe applied"** toast over the timeline (≈958,689). The
+       player header also reads **"✓ Auto reframe applied ▾"**.
+     - The expanded fields went from greyed to active: **Aspect ratio Original ▾ ≈(1751,221)**,
+       **Image stabilization Default ▾ ≈(1751,268)**, **Camera moving speed Default ▾
+       ≈(1751,316)**, **Apply ≈(1844,395)** now enabled.
+     - The player is still letterboxed: Original ratio means no reframe yet, as in rung 12.
+     - Seg 4 stays selected; the locked rows stay hatched; "Auto saved: 17:48:50".
+7. **Aspect ratio dropdown** (click (1751,221); `38-aspect-dropdown.png`; draft unchanged):
+   - An inline popup under the field with rows **Original ✓** (1653,261), 16:9 (1667,300), 4:3,
+     2.35:1, 2:1, 1.85:1 (1672,437), **9:16 (1667,474)**, 3:4 (1664,509), 5.8-inch, 1:1 (1662,578).
+   - Separators after Original and after 1.85:1. Same set as rung 12 §G.10.
+   - Pick in the next command without a `cc.py focus` call in between (rung 12 pitfall).
+8. **Pick 9:16** (1667,474), then capture at +1.2 s and +8 s (`39-aspect-916-1s.png`,
+   `39-aspect-916-8s.png`, `39-full-8s.png`):
+   - **Draft unchanged** (still `draft-10`): the analysis doesn't write the draft until Apply,
+     as in rung 12.
+   - **Analysis cache** in the project's `smart_crop/2EE2762D-…/`:
+     - `0/2_1/vid_timerange` (56 B) was written at **17:48:50**, the tick
+     - `1/2_1/{config, totalCache 1 056 B, vid_timerange, e29bed…_272566666_10333333}` was written
+       at **17:50:33**, the 9:16 pick
+     - The analysed source range **272.567 s + 10.333 s** covers seg 4 (source ≈275.6 → 279.9)
+       with ≈3 s padding either side, as in rung 12 §H.5.
+   - Windows at +8 s: MainWindow, the player overlay and a tooltip only. **No cost, credit or
+     upsell dialog**; the tick toast has gone.
+   - **Panel** at +1.2 s and +8 s: Aspect ratio **9:16**, Image stabilization Default, Camera moving
+     speed Default, **Apply enabled**. No "Processing N%" was visible even at +1.2 s; analysing
+     4.3 s of clip is near-instant.
+   - **Player** (`39-full-8s.png`): a **cyan 9:16 preview box** (player x≈997–1065, y≈231–350)
+     centred on the speaker inside the still-letterboxed frame.
+   - The **playhead moved to 00:00:15:29**, inside seg 4, with no input sent. It is the preview
+     scrub rung 12 §G.12 also saw.
+9. **Apply** (1844,395). The draft saved on the first 0.5 s poll (snapshot
+   `draft-11-reframe-seg4.json`, `diff-reframe-apply.txt` vs `draft-10`):
+   - **new `materials.smart_crops[0]`** = `{type: smart_crop, crop_ratio: "9:16", stability: 2,
+     track_speed: 1, cache_path: "##_draftpath_placeholder_…_##/smart_crop/2EE2762D-…/1/2_1",
+     apply_source: 1}`
+   - **seg 4 `extra_material_refs`** gains its id, inserted at index 7 (the later refs shift by one)
+   - nothing else changed: no other segment, and no clip scale or transform
+   - windows: MainWindow, player overlay, tooltip. **No cost, credit or upsell dialog.**
+   - This matches rung 12 §H.3 exactly. **Auto reframe is per clip; 9 main clips remain.**
+   - **Observed after Apply** (`40-after-apply.png`, `40-panel-after-apply.png`, playhead 00:00:15:29
+     inside seg 4):
+     - **The player fills the whole 9:16 canvas with the reframed shot**: the speaker is centred,
+       head in the upper third, the mic and "MELON AUSTRALIA" shirt visible, no black bars
+     - the logo shows tiny at the canvas top-right (≈1112,135); it's re-placed later
+     - the panel stays expanded: Auto reframe ✓, 9:16 / Default / Default, **Apply greyed**
+       (committed)
+     - seg 4 stays selected; "Auto saved: 17:51:39"
+10. **Second clip probe:** click **seg 5** (16.000 → 20.167) at **(917,860)** (`41-seg5-*.png`; draft
+    unchanged):
+    - only seg 5 is selected (x≈835–996); the locked captions and logo are not
+    - **the inspector keeps its scroll position and the expanded Auto reframe section**, now for
+      seg 5: **unticked**, fields greyed at Original / Default / Default, Apply greyed
+    - the player still shows seg 4's reframed frame (the playhead 00:00:15:29 is in seg 4)
+    - **So every remaining clip uses the same coordinates:** tick (1468,173) → dropdown (1751,221) →
+      9:16 (1667,474) → wait → Apply (1844,395).
+11. **Runner `cap17/reframe_cap17.py`** loops over the clips without a `smart_crops` ref, gating
+    each step on the draft:
+    - **selecting** changes nothing
+    - the **tick** changes only that clip's video material `check_flag` (from the unticked
+      62978047)
+    - the **9:16 pick** leaves tracks and materials unchanged; it waits ≤ 15 s for new files under
+      `smart_crop/`
+    - **Apply** adds exactly one `smart_crops` with crop_ratio 9:16, referenced by that clip only,
+      and changes nothing else in tracks or materials
+    - Preconditions checked: canvas 9:16, non-main tracks locked (attribute 4).
+    - It aborts on a missing save, the sound modal or any window other than the main window, player
+      overlay, tooltips and the bottom toast row.
+    - Click x = 230 + centre × 37.967 (the current 34.233 s fit view: 00:00 x≈230, 00:30 x≈1369).
+12. **Runner dry run** (`reframe-cap17-dryrun.txt`):
+    - 10 main clips; **seg 4 REFRAMED** (flag 63043327); **9 to do**, all with the unticked flag
+      62978047
+    - locks: track 1 text 4, track 2 video 4
+    - click x: seg 0 267, 1 391, 2 522, 3 620, 5 917 (the same point as the manual probe), 6 1035,
+      7 1140, 8 1286, 9 1394
+    - First real run: `--max 1` (seg 0, the narrowest at ≈73 px).
+13. **`reframe_cap17.py --max 1`** (exit 0, `reframe-cap17-run1.txt`): **seg 0** at x 267 passed
+    every gate:
+    - tick: check_flag 62978047 → 63043327 on this clip only
+    - 9:16 pick: 4 new cache files, draft unchanged
+    - Apply: +1 smart_crop 9:16 (stability 2, track_speed 1) referenced by seg 0 only
+    - **2/10 reframed.** No unexpected window.
+14. **`reframe_cap17.py`** for the rest (exit 0, `reframe-cap17-run2.txt`): segs **1, 2, 3, 5, 6, 7,
+    8, 9** in order, every one passing all three gates:
+    - tick: only its own `check_flag`
+    - 9:16 pick: 4 new cache files each, draft unchanged
+    - Apply: exactly one new 9:16 smart_crop referenced by it alone
+    - **FINAL: 10/10 main clips reframed**, smart_crops total 10. No modal, no cost, credit or upsell
+      window.
+    - Auto reframe on 10 clips took about 3 minutes of scripted input.
+15. **Scope of the whole reframe** (snapshot `draft-12-reframed.json`; `diff-reframe-all.txt` vs
+    `draft-09-locked.json`):
+    - **110 diff lines, 0 outside `check_flag` / `smart_crops` / `extra_material_refs`**
+    - duration 31.367 s, canvas 9:16 1080×1920, 3 tracks, 28 segments; captions and logo still
+      locked (attribute 4)
+    - No timing, transform, caption or logo change.
+16. **Player frames after the reframe** (ruler clicks x 391 / 620 / 1140; `frames-916/`; no modal):
+
+    | Timecode | Clip | Observed |
+    |---|---|---|
+    | 00:00:04:10 | seg 1, punched 110 % / Y −60 | **fills the 9:16 canvas**; speaker slightly larger, head in the upper third, no border; no caption at that instant (gap) |
+    | 00:00:10:09 | seg 3, wide | fills the canvas, speaker centred; caption **tiny** at the bottom |
+    | 00:00:23:29 | seg 7, punched | fills the canvas, visibly tighter than seg 3; caption tiny |
+
+    - **Auto reframe: good on every clip checked**, and a punch-in on top of the reframe exposes no
+      border.
+    - **Still to fix:** captions are unreadably small in 9:16 (rung 12 §H.6); the logo is tiny at
+      the top-right.
+
+### I. Punch-ins for the short (rung 6 rules, 2026-09-15)
+1. **Pattern after the gap pass.** Clip lengths (s): 1.933, 4.600, 2.333, 2.800, 4.333, 4.167,
+   2.067, 3.467, 4.233, 1.433.
+   - Current framing is P at 1, 2, 7, 8, 9 (carried from rung 16 and split by the gap cuts), W
+     elsewhere. **5 of 9 joins have no framing change** (6.533, 11.667, 16.000, 25.700, 29.933).
+   - **Target:** alternate, punching only clips ≥ 2.5 s (rung 6/16). Punch **1, 3, 5, 7**; wide
+     **0, 2, 4, 6, 8, 9** (seg 9 is 1.433 s, too short to punch). That gives **8 of 9 joins with a
+     framing change**; only 29.933 (seg 8 W | seg 9 W) has none.
+   - **Edits:** seg 2 P→W, **seg 3 W→P**, **seg 5 W→P**, seg 8 P→W, seg 9 P→W. Values are rung 16's
+     110 % / Y −60 (frames above show that it keeps the head in the upper third after the
+     reframe).
+2. **Inspector back to the top** (`scroll 1480 300 5` × 4; `42-inspector-top.png`; draft
+   unchanged):
+   - Video ▸ Basic ▸ Transform: **Scale box ≈(1792,257)**, **Position Y ≈(1788,352)**, the same
+     places as rung 16
+   - the selected clip was seg 9 (punched), and it reads **Scale 110 % / X 0 / Y −107**
+3. ⚠ **Typed Y in 9:16:** the stored `transform.y` −0.05556 (typed −60 on the 1080-high canvas in
+   rung 16) displays as **−107 = −0.05556 × 1920**.
+   - Typed Y always scales with the current canvas height (rung 12 §I.12), so the same punch is
+     typed **110 / −107** here.
+   - −107 stores −0.05573, 0.3 canvas px from the carried-over punches, within tolerance.
+4. **Runner `cap17/punch_cap17.py`** (imports `reframe_cap17` for draft I/O, the window guard and
+   foreground):
+   - Per clip whose framing differs from the plan: click the body, then Scale box → Ctrl+A, type,
+     Enter.
+   - After each field it checks that **only that clip's** values changed, to the target (P = 1.1 ±
+     0.001 / −0.05556 ± 0.0004; W = 1.0 / 0).
+   - Preconditions: 9:16 canvas, locks. It uses the current fit view without Shift+Z.
+5. **Probe:** click seg 1 (391,860) (`43-seg1-*.png`; draft unchanged).
+   - Only seg 1 is selected (x≈300–478).
+   - The inspector stays at the top and reads **110 % / X 0 / Y −107**, so the box positions hold
+     across selections.
+6. **Runner dry run** (`punch-cap17-dryrun.txt`):
+   - **EDIT** seg 2 (P→W, x 522), **3** (W→P, x 620), **5** (W→P, x 917), 8 (P→W, x 1286), 9 (P→W,
+     x 1394)
+   - **ok** 0, 1, 4, 6, 7
+   - 5 clips, 10 field edits.
+7. **`punch_cap17.py`** (exit 0, `punch-cap17-run.txt`); every field edit changed **only** its
+   clip:
+
+   | Seg | Scale | Position Y | Result |
+   |---|---|---|---|
+   | 2 | 100 → 1.0 (ty still −0.05556) | 0 → ty 0 | wide |
+   | 3 | 110 → 1.1 | −107 → **ty −0.05573** | punched |
+   | 5 | 110 → 1.1 | −107 → ty −0.05573 | punched |
+   | 8 | 100 → 1.0 | 0 → ty 0 | wide |
+   | 9 | 100 → 1.0 | 0 → ty 0 | wide |
+
+   - **FINAL punched [1, 3, 5, 7] = plan** (1 and 7 keep −0.05556 from rung 16; 3 and 5 at
+     −0.05573, a 0.3 px difference).
+   - Framing now alternates W P W P W P W P W W over the 10 clips. No modal.
+8. **Scope and gate** (snapshot `draft-13-punched.json`):
+   - diff vs `draft-12-reframed.json` (`diff-punch17.txt`) is **15 lines, all `.clip.scale.x/y` and
+     `.clip.transform.y` on segs 2, 3, 5, 8, 9**; nothing else changed
+   - **undo/redo gate** on the last field (seg 9 Position Y), after an empty timeline click
+     (1600,960):
+     - Ctrl+Z → seg 9 ty **−0.05556** (only the Y edit reverted; scale stays 1.0)
+     - Ctrl+Shift+Z → **0.0**, byte-identical to `draft-13`
+     - each saved within 0.5 s
+   - Frames of the new seg 3 punch and the new seg 8 wide: `frames-916/seg3-now-punched-*`,
+     `seg8-now-wide-*`.
+   - **00:00:10:09 (seg 3, now punched):** visibly tighter than the wide frame at the same
+     timecode in §H.16. The head stays in the upper third and no border is exposed.
+   - **00:00:27:27 (seg 8, now wide):** the wider framing, speaker centred.
+   - The alternation reads as deliberate jump cuts on top of the reframe.
+
+### J. Captions, hook title and logo for 9:16 (2026-09-15)
+1. **Unlock the caption and logo tracks** (click (59,794), then (59,744)):
+   - each saved on the first 0.5 s poll: **track 1 and track 2 `attribute` 4 → 0**
+   - non-attribute diff vs `draft-13` (`diff-unlock-nonattr.txt`): only those two lines
+   - snapshot `draft-14-unlocked.json`; no modal
+   - `44-headers-unlocked.png`: white lock icons, no hatching on the logo and caption rows.
+2. **Select one caption:** click the first caption block «الحتة…» at **(262,794)** with the Select
+   tool (plain arrow, `45-tool-icon.png`). Draft unchanged.
+   - `45-caption-tracks.png`: **only that caption** has a white border; no clips or other captions
+     are selected. (Rung 12's select-everything came from Select rightward mode, not linkage.)
+   - `45-caption-inspector.png`: tabs **Captions · Text · Animation · Tracking · Text to sp…›**;
+     Text ▸ **Basic** / Templates / Effects.
+     - **Apply to all main captions ✓** ≈(1470,167)
+     - text box «الحتة اللي احنا هنافس بيها»
+     - Font **Staatliches-Regular**; **Font size 11** box **≈(1838,395)** (the stored 10.5 shows as
+       11, rung 12)
+     - Pattern B/U/I; Case TT/tt/Tt; Save as preset
+3. **Hook title route to reuse** (rung 16 §L): Text tab (163,70) ▸ Text template ▾ (85,251) ▸ search
+   «عربي» (370,127) ▸ template #3 «يوم عادي، حياة عادية» row 2 middle (357,340); click the tile body
+   to preview, then **+** (396,378) at a timecode-gated playhead. Replace the placeholder text via
+   the clipboard gate, then measure scale and position from frames.
+4. **Caption font size 22** (rung 12 §I.10), with Apply to all main captions ✓:
+   - Font size box (1838,395), then `ctrl+a`, `type "22"`, Enter. The draft saved on the first
+     0.5 s poll (snapshot `draft-15-font22.json`, `diff-font22.txt` vs `draft-14`).
+   - **font_size 22.0 on all 17** text materials. Diff 68 lines:
+     - 34 on `texts[*].font_size` / `content` (the style size), 17 × 2
+     - 34 on **`text_templates[*]…attach_info.original_size_width/height`**, 17 × 2: the
+       template's measured text box, re-laid-out for the bigger font (e.g. 452 × 163 → 787 × 342)
+   - Transforms, timings, template ids and the video and logo tracks are unchanged.
+   - **Scope confirmed:** 0 diff lines outside those two groups.
+   - The inspector reads **22** (`46-caption-font22-inspector.png`).
+   - Template box heights after re-layout: **342 ×8, 312 ×2, 435 ×6, 529 ×1**. The taller boxes
+     suggest multi-line wraps at size 22; checked in frames before moving the captions.
+5. **Frames at size 22** (ruler clicks x 777 / 587; `frames-916/cap-*`; draft unchanged):
+
+   | Timecode | Caption | Observed |
+   |---|---|---|
+   | 00:00:14:13 | long, «…قالتله اعملي تطبيق شرعي للعقد ده اعملي تطبيق شرعي» (the template shows a chunk) | ⚠ **wraps to 2 lines and splits a word**: «للعقد ده اعملي تطبيق شر» / «عي». Box ≈82 % down, nearly full canvas width |
+   | 00:00:09:13 | short «بمعنى» | one line, readable, ≈86 % down |
+
+   - The template **wraps by character, not by word**, so any caption wider than its max box
+     (≈787 px) breaks mid-word. The 7 tall boxes (435 / 529) are the wrapped captions.
+   - Both frames sit **too low** for Shorts/Reels/TikTok (bottom ≈20 % is platform UI).
+   - **Fix:** a font size small enough that no box wraps (every height back to one line), then
+     raise with Position Y. Trying **18**.
+6. **Size 18** (same box, snapshot `draft-16-font18.json`; diff 68 lines, 0 outside the text sizes
+   and template box sizes):
+   - template heights **280 ×10, 255 ×2** (one line) and **356 ×5** (two lines, the same 1.27×
+     ratio as 342 → 435 at size 22)
+   - max width 754
+   - **5 captions still wrap.** Trying **16** (≈4 % of frame height, still in the usual range for
+     vertical captions).
+7. **Size 16** (snapshot `draft-17-font16.json`; diff 68 lines, 0 outside the text sizes and
+   template box sizes):
+   - heights **249 ×13, 227 ×2** (one line), **317 ×2** (two lines)
+   - widths 214 … 736
+   - **2 captions still wrap.** Trying **15**, with `caption_boxes17.py` to name the wrapped
+     captions.
+8. **Size 15** (snapshot `draft-18-font15.json`; diff 68 lines, 0 outside the text sizes and
+   template box sizes):
+   - heights **233 ×13, 212 ×2, 297 ×2**: the **same 2 captions still wrap**
+   - Shrinking further gives little and costs legibility.
+   - **Decision:** go back to **16** (≈4 % of frame height) and fix the 2 long captions
+     individually, so their wrap falls at a word boundary.
+9. **Back to 16:** typed `16` in the same box. Saved on the first poll (snapshot
+   `draft-19-font16-again.json`).
+   - **diff vs `draft-17-font16.json`: 0 lines**, so the size edits are fully reversible by value.
+   - heights 249 ×13, 227 ×2, 317 ×2
+   - `caption_boxes17.py` (`caption-boxes-16.txt`) flags the 2 wrapped captions as the two longest:
+     - **12.900 s** (735 × 317): «قالتله اعملي تطبيق شرعي للعقد ده اعملي تطبيق شرعي»
+     - **22.333 s** (736 × 317): «التراجت اودينس بتوعنا ما يقدروش يلاقوها غير عندنا»
+   - Text matched from the transcript; the helper's text lookup came back empty for templated
+     captions.
+   - The size-22 frame showed the template **pages** a long caption into chunks over time, so the
+     box height may overstate what renders. Rendered frames inside both captions decide whether
+     a fix is needed.
+10. **Rendered at size 16** (ruler clicks x 735 / 807 / 1096 / 1175; `frames-916/size16-*`; draft
+    unchanged):
+
+    | Timecode | Caption | Page on screen |
+    |---|---|---|
+    | 00:00:13:10 | 12.900 | «قالتله اعملي تطبيق شرعي», **one line**, word highlight on «اعملي» |
+    | 00:00:15:06 | 12.900 | «للعقد ده اعملي تطبيق شرعي», one line |
+    | 00:00:22:24 | 22.333 | «التراجت اودينس بتوعنا ما», one line, highlight on «التراجت» |
+    | 00:00:24:27 | 22.333 | «يقدروش يلاقوها غير عندنا», one line |
+
+    - **No page wraps or splits a word at size 16.** The two-line `original_size_height` measures
+      the whole caption text, not the rendered page, so it over-reports.
+    - **Rule:** judge caption wrapping from rendered frames. The box height is only a hint.
+    - Each page spans about half the canvas width, readable. **Keep size 16 for all captions**;
+      no per-caption edits.
+    - Still too low (≈86 % down). Next: Transform ▸ Position Y.
 
 ## Wait conditions
 
