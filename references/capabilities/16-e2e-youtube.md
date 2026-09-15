@@ -421,6 +421,21 @@ draft and in frames, and the final file is checked with ffmpeg.
      deliberate jump cut. No black border is exposed.
    - The white vertical lines in the "after/before punched" crops are the selected clip's
      selection box, not picture edges.
+8. **Scripted punch-ins (executed + agent-verified 2026-09-15):** `punch_cap16.py`, exit 0 in
+   **67 s**.
+   - 14 segments punched (seg 14 skipped as already done), each field verified to change **only**
+     its target segment.
+   - **FINAL** non-default segments **[2, 4, 6, 8, 12, 14, 21, 23, 25, 30, 32, 34, 36, 38, 47]**
+     equal the plan.
+   - **Draft diff** `draft-08-gaps-tightened.json` → `draft-09-punched.json` (`diff-punch.txt`):
+     **45 lines, all `.clip.`** (15 segments × scale x / scale y / transform.y), nothing else.
+     Still 56 segments, 403.300 s.
+   - **Undo/redo gate** on the last field edit (seg 47 Position Y), with timeline focus via an
+     empty click (1500,760):
+     - **Ctrl+Z** → seg 47 transform.y **−0.05556 → 0.0**, scale stays 1.1; the other 14 are
+       untouched
+     - **Ctrl+Shift+Z** → **−0.05556** again; all 15 match the plan
+     - Each field edit is its own undo step, as in rung 6.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
