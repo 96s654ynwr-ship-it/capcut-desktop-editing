@@ -626,6 +626,28 @@ draft and in frames, and the final file is checked with ffmpeg.
      moved the playhead to 00:00:24:19.
    - **Next:** click on the text line itself (≈1800,220), confirm a caret by crop, confirm the Ctrl+A
      highlight by crop, and only then type.
+8. **Diagnosis: stale inspector plus a playhead outside the caption** (no draft change in any
+   step):
+   - Clicking on the text line (1800,220) with the playhead **outside** the caption (00:24:19)
+     changed nothing: the crops before and after were identical (`38-textbox-*.png`).
+   - **Put the playhead inside the caption, then reselect:**
+     - Ruler click at **x 1185** = 18.5 s (≈51.6 px/s, 00:00 at x≈230), 57 px from either
+       caption edge so no snap. Timecode **00:00:18:16** (`39-tc-inside-caption.png`).
+     - Click the pill (1185,763). The pre-click pill map (`39-ruler-and-pills.png`) shows it
+       spanning x≈1127–1245.
+   - **Result:**
+     - The **player shows the caption** «وايه ممكن نضيف عليها» in the black-box style, with its
+       selection box and handles (`39-player-inside-caption.png`).
+     - The inspector's sub-tabs changed to **Basic / Templates / Effects, with Bubble gone**
+       (`39-inspector-reselected.png`), the templated-caption layout rung 8 recorded.
+     - Before reselecting, the panel still showed **Bubble**: it was a **stale pre-template
+       inspector**, the likely reason typing never reached a live text field.
+   - **Rule for text fixes after applying a template:** ruler-click inside the target caption,
+     re-click its pill, confirm the caption shows in the player and the sub-tabs read Basic /
+     Templates / Effects, then edit.
+   - No caret was visible in two crops 600 ms apart (it may blink off in both). Focus is
+     therefore confirmed by the **Ctrl+A selection highlight** before typing
+     (`40-box-*-ctrla.png`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
