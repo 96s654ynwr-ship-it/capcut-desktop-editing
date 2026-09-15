@@ -107,6 +107,14 @@ draft and in frames, and the final file is checked with ffmpeg.
      `act invoke --id 1 --name Open`.
    - **Agent-verified:** `draft_meta_info.json` of `0915 (1)` lists `174820`, and no extra windows
      remain (`03-imported.png`).
+   - **Observed:** the media card "VID_20260425_174820.mp4" is at ≈(382,216), selected. The player
+     shows "Previewing — video" at **00:08:04:07**; its first frame is an empty chair before the
+     speaker sits down. The timeline is empty ("Drag material here and start to create",
+     y≈829). A yellow "Layers can be reordered in…" onboarding tip sits near Modify.
+3. **Drop on the main track:** `drag 382 216 700 829 --steps 40 --hold 0.4`.
+   - **Agent-verified (first poll):** 1 main-track segment, **0 → 484.233 s**, source 0, canvas
+     `original` **1920×1080** (set by this first clip), one set of helper materials. Baseline saved
+     as `draft-00-dropped.json`.
 
 ## Wait conditions
 
