@@ -910,6 +910,37 @@ draft and in frames, and the final file is checked with ffmpeg.
       the half-canvas Position rule hold for text templates too.
     - Video and 252-caption tracks byte-identical to `draft-19-title-added.json`
       (`draft-20-title-placed.json`).
+15. **Frames across the title's life** (deselected via empty timeline click (1000,690), so no
+    selection box; Home + `right ×N`; timecodes confirmed by crop; `title_life/`):
+
+    | Timecode | Yellow bbox (player px) | Observed |
+    |---|---|---|
+    | 00:00:01:10 | x 200–322, y 46–73 (123 × 28) | type-on in progress: «مدقق شرعي» shown, the rest not yet typed; caption «تمام» below |
+    | 00:00:02:15 | x 18–322, y 46–73 (305 × 28) | full title, hold |
+    | 00:00:03:29 | x 18–322, y 46–73 (305 × 28) | full title on the last frame; caption «25/4/2026» below |
+    | 00:00:04:00 | none | title gone (segment end is exclusive, as in rungs 9–10) |
+
+    - The Arabic is correctly joined and right-to-left. It types on from the right (the first
+      words appear at the right end, x 200–322) and sits on the plain wall.
+    - It **never touches the head** (head x≈335–435) or the lower-third caption.
+    - The draft was unchanged by the frame checks.
+16. **Undo/redo gate on the title Y edit (agent-verified):** start `0.22 −0.50052 0.7963`.
+    - **Ctrl+Z** → `… 0.0` (only Y reverted; each field is its own undo step).
+    - **Ctrl+Shift+Z** → `… 0.7963`.
+    - Diff vs `draft-20-title-placed.json`: **0 lines** (`draft-21-title-gate.json`).
+
+### M. Stage 7: B-roll picture-in-picture, rung 10 (2026-09-15)
+1. **B-roll clip info** (read-only `ffmpeg -i`): `VID_20260416_203431.mp4`, **4:21.88**,
+   1280×720 h264, 29.89 fps, **displaymatrix rotation −180°** (recorded upside down; CapCut
+   should apply the rotation on import, to be checked on the player).
+   - Frames at 5/20/40/60/90/120/150/180/210/240 s: `broll/b*.jpg`, sheet `broll/broll-sheet.png`.
+2. **Import** (rung 3 route):
+   - Click empty timeline (1000,690), `key ctrl+i`, `wait-for --id 1148` (2.0 s),
+     `act set-value --id 1148 --value "E:\videos\VID_20260416_203431.mp4"`,
+     `act invoke --id 1 --name Open`, wait 6 s.
+   - **Agent-verified:** `draft_meta_info.json` lists `203431`, and `draft_content.json` diff vs
+     `draft-22-before-import.json` = **0 lines** (importing never touches the timeline, as in
+     rung 10). No extra windows (`55-broll-imported.png`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
