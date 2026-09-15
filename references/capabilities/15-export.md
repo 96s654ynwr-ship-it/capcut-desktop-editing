@@ -117,6 +117,19 @@ timeline.
      ≈(1249,660), **`Button "Cancel"` id 2** ≈(1386,660).
    - Note: `tree --root focused` shows only the Folder: edit. Use the default roots with depth 16
      to see the whole dialog (`04-folder-picker.png`).
+3. **Create the folder inside the picker:** `act invoke --type Button --name "New folder" --depth 20`.
+   - A "New folder" item appears in rename mode (`05-new-folder-rename.png`); then
+     `type "exports"` and `key enter`.
+   - **Agent-verified:** `E:\videos\exports` exists and is **empty**, with **no stray
+     `E:\videos\New folder`**. The picker lists the **exports** folder selected and Folder: reads
+     `exports` (`06-folder-created.png`).
+4. **Select it:** `act set-value --type Edit --id 1152 --value "E:\videos\exports"`, then
+   `act invoke --type Button --id 1 --name "Select Folder"`.
+   - The picker (`#32770`) is gone on the first 0.5 s poll.
+   - **Observed** (`07-export-to-set.png`): **Export to `E:/videos/exports/0915-copy.mp4`** (the
+     Name is kept, and CapCut writes forward slashes).
+   - **Sync still ☐**; 1080P / Recommended / H.264 / mp4 / 30fps; "Duration: 30s | Size: about
+     30 MB". These are the final settings checked before clicking Export.
 
 ## Wait conditions
 
