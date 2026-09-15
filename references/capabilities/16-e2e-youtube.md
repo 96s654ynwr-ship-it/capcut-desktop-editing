@@ -170,6 +170,23 @@ draft and in frames, and the final file is checked with ffmpeg.
      444.1, 452.9 and 454.433 s.
    - As in rung 3, this is one undo step, and no compound clip is created.
 
+### E. Stage 3b/3c plan: bad takes, opening trim, gap tightening (rungs 4–5)
+- Rung 4 showed that the **Repeats tab misses Arabic retakes**, and Transcript text can only be
+  read on screen. So use **Auto captions word timings**, which are readable from the draft, as the
+  finder:
+  1. Captions ▸ Auto captions, Arabic, Bilingual None → Generate. Standing consent: credits OK.
+  2. `draft_inspect.py words "0915 (1)" --json` reads every caption and word timing. From it, find:
+     - the opening dead air (empty chair before «بسم الله», ≈0–9.9 s source)
+     - the tail after the sign-off
+     - repeated lines or false starts
+  3. Undo the captions with one Ctrl+Z (rung 4) so the cuts aren't entangled with a caption track.
+  4. Cut the bad takes latest-first with exact splits + Backspace/W (rungs 1, 2, 4, 5), verifying
+     each in the draft.
+  5. Regenerate the captions (the recognition is cached and deterministic), then run
+     `tighten_gaps.py --project "0915 (1)" --dry-run`, show the plan, and run it with
+     `--undo-captions`.
+- Captions are generated again at stage 5 for the final house style, after all timing edits.
+
 ## Wait conditions
 
 ## Verification
