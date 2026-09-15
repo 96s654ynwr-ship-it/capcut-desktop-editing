@@ -59,6 +59,28 @@ draft and in frames, and the final file is checked with ffmpeg.
 
 ## Procedure
 
+### A. Unused take candidates (read-only, 2026-09-15)
+- **Durations:** `ffmpeg -i` over all 48 `E:\videos` mp4s.
+- **Already used** in earlier projects (excluded): 223643, 190542, 233809, 152043, 152759, 140555,
+  plus the B-roll clips.
+- **Frames** at 20/40/60/80 % for 8 unused long clips, 320 px wide
+  (`cap16/candidates/`, sheet `cap16/take-candidates.png`):
+
+  | # | Clip | Duration | Content |
+  |---|---|---|---|
+  | 1 | VID_20260425_174820 | 8:04 | solo talking head, grey "MELON" tee, mic, chest-up on a plain wall |
+  | 2 | VID_20260721_110250 | 10:42 | wide office shot, speaker far away, walks to camera: **not a talking head** |
+  | 3 | VID_20260425_180557 | 15:00 | same setup as #1, holding a pen |
+  | 4 | VID_20260416_202252 | 7:28 | 3–4 people in an office: **not solo** |
+  | 5 | VID_20260312_163740 | 9:53 | dark / covered lens: **unusable** |
+  | 6 | VID_20260415_132742 | 4:15 | solo talking head, Diesel tee, tight framing, warm wall |
+  | 7 | VID_20260415_135101 | 4:06 | solo talking head, Diesel tee, light wall |
+  | 8 | VID_20260415_143819 | 22:12 | wide desk shot with headphones and laptop, small in frame |
+
+- Suitable solo talking heads: #1, #3, #6, #7.
+- **User choice:** "#1 174820, grey tee (Recommended)" → **`E:\videos\VID_20260425_174820.mp4`**
+  (8:04, 1280×720, 236 MB).
+
 ## Wait conditions
 
 ## Verification
