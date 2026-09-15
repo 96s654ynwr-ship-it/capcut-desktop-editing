@@ -142,6 +142,33 @@ draft and in frames, and the final file is checked with ffmpeg.
      nothing, as in rungs 3–4.
    - Not detected as a pause: the **opening ≈10 s of empty chair** before «بسم الله» @00:00:09:29.
      Stage 3b (bad takes / opening trim) has to remove it.
+5. **Full pause list:** paged with `scroll 1440 450 -5` until two identical crops, giving 6 pages
+   (`pauses/p001–p006.png`). There are **23 pauses, all pre-ticked**, totalling **21.51 s**, which
+   matches the footer preview (484.233 − 462.7):
+
+   | Start | s | Start | s | Start | s |
+   |---|---|---|---|---|---|
+   | 00:38:18 | 0.87 | 03:00:04 | 1.00 | 05:33:03 | 0.60 |
+   | 00:52:22 | 1.17 | 03:06:03 | 0.90 | 05:57:23 | 0.77 |
+   | 01:09:04 | 1.30 | 03:08:00 | 0.73 | 06:31:27 | 0.53 |
+   | 01:16:06 | 1.33 | 03:16:08 | 0.50 | 07:06:27 | 1.03 |
+   | 01:20:28 | 1.23 | 04:10:11 | 1.13 | 07:42:17 | 0.80 |
+   | 01:23:00 | 1.30 | 04:58:09 | 0.77 | 07:52:05 | 0.83 |
+   | 01:27:00 | 0.90 | 05:05:18 | 0.73 | 07:54:16 | 1.43 |
+   | 02:44:17 | 0.73 | 05:28:29 | 0.93 | | |
+
+   All are short breath and thinking pauses (0.50–1.43 s) with nothing else detected, so the
+   approved rung-3 action is to keep all pre-ticked and press **Delete**.
+6. **Delete** ≈(1516,969): the RoughCutWindow closed after **2.4 s**.
+   - **Agent-verified (first poll)** (`after-pause-delete.txt`, `draft-02-pauses-removed.json`):
+     duration **484.233 → 462.700 s**; **1 → 24 segments**.
+   - Each of the 23 joins skips exactly one detected pause in the source: 0.867, 1.167, 1.3,
+     1.333, 1.233, 1.3, 0.9, 0.733, 1.0, 0.9, 0.733, 0.5, 1.133, 0.767, 0.733, 0.933, 0.6, 0.767,
+     0.533, 1.033, 0.8, 0.833 and 1.433 s. **Sum 21.531 s.**
+   - Joins on the timeline: 38.6, 51.867, 67.1, 72.867, 76.267, 77.1, 79.8, 156.467, 171.3,
+     176.267, 177.267, 184.8, 238.4, 285.2, 291.733, 314.367, 317.567, 341.633, 375.0, 409.467,
+     444.1, 452.9 and 454.433 s.
+   - As in rung 3, this is one undo step, and no compound clip is created.
 
 ## Wait conditions
 
