@@ -354,6 +354,25 @@ draft and in frames, and the final file is checked with ffmpeg.
    - The largest removals are 1.867 s (386.500), 1.800 s (224.133) and 1.567 s (426.633, 404.433,
      186.667). The earliest is 5.433 → 6.400 («26» | «امبارح»).
 
+### Plan note: selecting all main clips for the audio stage (stage 7, rung 11)
+- After the gap pass the main track will hold ≈56 segments, many only a few px wide at fit zoom.
+  Rung 11's Ctrl+click of each clip (7 clips) doesn't scale.
+- **Planned route, from approved and verified behaviour:**
+  1. **Lock** every non-main track (captions, title, B-roll overlay, logo) with each row's lock
+     icon (≈x 59). Locked tracks can't be selected (rung 2 Op 6); verify `attribute` 4 in the
+     draft.
+  2. Press **`]`** (Select rightward tool mode, verified in rung 12). Click the **first** main clip
+     body: everything from the click point rightward on the unlocked track gets selected.
+  3. **Gate:** the inspector shows the multi-selection tabs (Video / Audio / Speed / Adjust) and
+     every main segment has a white border. The draft doesn't change on selection.
+  4. Audio ▸ Basic: **Reduce noise** ✓ and **Enhance voice** ✓ (Intensity 75); no Normalize (user
+     choice). Verify `realtime_denoises` and `vocal_beautifys` counts = main segment count.
+  5. Press **A** at once, back to the Select tool, so later clicks don't become range selections
+     (rung 12 failure mode). Unlock the tracks.
+- **Risk:** Enhance voice processes clip by clip (rung 11: ≈11 min for 7 clips). With ≈56 short
+  clips, allow ≥ 30 min, poll the result files, and don't export before every `<hash>_…wav` is
+  non-empty and size-stable.
+
 ## Wait conditions
 
 ## Verification
