@@ -561,6 +561,23 @@ draft and in frames, and the final file is checked with ffmpeg.
      - «تطبيق شرعي» (229.167) is **not** chosen, so it stays as generated.
    - Order, per the house-style recipe: apply the **Classic: black box** template to all main
      captions first, then make the 7 text fixes, then verify frames.
+4. **Select a caption and open the template grid** (draft unchanged throughout;
+   `draft-12-before-template.json` taken first):
+   - At the Ctrl+= ×4 zoom (≈51.6 px/s, 00:15 at x≈166, 00:20 at x≈424; `32-caption-zoom.png`),
+     caption pills with **A☰** icons sit on the TT row y≈763.
+   - **Click the pill** «وايه ممكن نضيف عليها او الافكار ال2» (345,763). It gets a white border
+     (`33-pill-selected.png`). The inspector becomes **Captions / Text / Animation / Tracking /
+     Text to sp…**, on Text ▸ **Basic** with Apply to all main captions ✓, the caption's text,
+     Font System, size 7, Pattern B/U/I and Case TT/tt/Tt.
+   - **Text ▸ Templates** (1623,127), then the **Classic** chip (1653,271) (`33-templates-classic.png`):
+     - Apply to all main captions ✓ stays ticked.
+     - Search "Search for text templates"; chips ★ / Trending / **Classic** / NEW / H…
+     - The Classic grid is **4 columns × 2 rows**, tiles ≈98 px apart: row 1 y≈370, row 2 y≈468,
+       columns x≈1500 / 1597 / 1695 / 1792. Each tile has ☆ and ⬇ at its bottom-right, and
+       several carry a Pro diamond.
+     - Footer buttons: Save as preset / **Reset**.
+   - The thumbnails are too small to identify "black box" by eye at this size, so a full-size crop
+     is checked before clicking (`34-classic-grid-crop.png`).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
