@@ -392,6 +392,35 @@ draft and in frames, and the final file is checked with ffmpeg.
    - 110 % overflows 54 px top/bottom, so a 30 px shift still exposes no border
    - **Values:** Scale **110 %**, Position **X 0 / Y −60** (shot-specific, re-derived from this
      frame; rung 6's approved −10 was for a different shot)
+5. **Trial on seg 14** (75.400 + 25.200 s, the widest punched clip, 81 px at fit zoom), executed +
+   agent-verified:
+   - click empty timeline (1500,760), then **Shift+Z**, then click the clip body (513,830).
+     Selection alone didn't change the draft (`seg_state.py`: no non-default clips).
+   - Scale box (1792,257): `ctrl+a`, type `110`, Enter. Draft: **only seg 14**, scale **1.1**.
+   - Position Y box (1787,352): `ctrl+a`, type `-60`, Enter. Draft: **only seg 14**,
+     transform.y **−0.05556** (= −60/1080), x 0.
+   - The inspector reads **110 %** and **X 0 / Y −60**, with seg 14 bordered
+     (`21-seg14-punched.png`). Duration and segment count are unchanged (56, 403.3 s).
+6. **Driver** `cap16/punch_cap16.py` does the same three steps per planned segment:
+   - it verifies after each field that **only** the target segment changed, and aborts otherwise
+   - it skips segments already at 1.1 / −60, so it is safe to re-run
+   - it re-checks each planned start time against the draft before sending input
+   - the final check is that the non-default segments equal the plan
+   - **Dry run:** 56 segments / 403.300 s, 15 to punch, all planned starts unchanged; click x
+     268.5 (seg 2) … 1455.7 (seg 47).
+7. **Eye-line check at seg 14's joins** (`joins14/`; click empty, Home, `down ×14` → join at
+   75.400, capture, `left`, capture; then `right`, `down` → 100.600, capture, `left`, capture):
+
+   | Join | Frame before | Frame after | Eyes (crop y) before → after |
+   |---|---|---|---|
+   | 75.400 wide → punched | 00:01:15:11 | 00:01:15:12 | ≈88 → ≈90 |
+   | 100.600 punched → wide | 00:01:40:17 | 00:01:40:18 | ≈92 → ≈90 |
+
+   - The eye line stays within ≈2 px across both cuts, so Y −60 compensates the 110 % lift.
+   - The framing change is clearly visible (shoulders and chair wider when punched), reading as a
+     deliberate jump cut. No black border is exposed.
+   - The white vertical lines in the "after/before punched" crops are the selected clip's
+     selection box, not picture edges.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
