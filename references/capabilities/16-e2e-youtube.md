@@ -456,6 +456,41 @@ draft and in frames, and the final file is checked with ffmpeg.
      Changing the value auto-adds the keyframe (rung 7).
    - **Draft (first poll):** seg 15 has 2 keyframes: **+0.000 s @ 100.600 = [1.0] Line** and
      **+34.733 s @ 135.333 (00:02:15:10) = [1.08] Line** (`24-kf-end.png`).
+   - **Scope check:** `common_keyframes` exist on **seg 15 only**. The clip list shows seg 15 at
+     scale 1.08 (it mirrors the last-edited keyframe, per rung 7). The 15 punched segments are
+     unchanged at 1.1 / −60.
+5. **Keyframe markers on the selected clip strip** (`25-strip-markers.png`, crop of
+   (530,780)–(690,880)): small diamonds just inside the clip edges at **≈(556,828)** (start) and
+   **≈(662,828)** (end).
+6. **Right-click the start marker** (556,828). A full-screen menu window opens
+   (`Qt622QWindowIcon` (0,0)–(1920,1031)); the draft is unchanged (`26-kf-menu.png`).
+   - Items: **Ease in** (621,756), **Ease out** (628,791), **Easing** (621,826), **✓ Linear**
+     (620,861), Show all presets (652,896), Show variable speed animation Alt+K (699,931), Copy
+     Ctrl+C (617,972), Delete ⌫ (621,1007).
+   - This is the same menu as rung 7. Here it opened upward-right from the marker, because the
+     marker sits low on the screen.
+7. **Click "Easing"** (621,826). The draft saved on the first poll, and **both** keyframes changed:
+   - **+0.000 s @ 100.600 = [1.0] `FreeCurveInOut` L(0,0) R(1.46e+07,0)**
+   - **+34.733 s @ 135.333 = [1.08] `FreeCurveInOut` L(−1.46e+07,0) R(0,0)**
+   - 14.6 s / 34.733 s = **0.42 / 0.58**, the same `cubic-bezier(0.42, 0, 0.58, 1)` ease in-out
+     as rung 7. Handles scale with segment length.
+   - ⚠ **Playback started again, as in rung 7.** Two timecode crops 1.2 s apart differed
+     (`27-tc-a.png` 00:01:42:20 → `27-tc-b.png` 00:01:44:13, audio meter active).
+8. **Stopping the auto-playback:**
+   - **Space did NOT pause it.** After `key space` the timecode kept running: 00:02:16:28 →
+     00:02:18:20 (`28-tc-c/d.png`), and timecode-only crops (615–790 px, excluding the animating
+     audio meter) still differed (`29-tc-e/f.png`).
+     - **Cause:** keyboard focus was still in the inspector **Scale value box** from typing
+       `108`, so Space never reached the player.
+     - The draft was unchanged by the stray Space; the keyframes were re-checked intact.
+   - **Fix:** click the player's own **▶/⏸ button (1024,541)**. It works regardless of focus.
+     Two timecode-only crops 1.2 s apart were then **identical** (`30-tc-g/h.png`), and the draft
+     was unchanged (`30-after-pause.png`).
+   - **Rules:**
+     - Hash **timecode-only** crops. The audio meter keeps animating after a pause and gives
+       false "still playing" results.
+     - After typing in an inspector box, pause with the player button, or click the timeline
+       before any shortcut.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
