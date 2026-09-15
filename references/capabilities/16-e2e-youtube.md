@@ -1,11 +1,11 @@
 # Capability 16: End-to-end talking-head YouTube edit
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-15 (export `E:\videos\exports\0915 (1).mp4`, §Q)
 - **Approved:** not yet
-- **Practice project:** a new agent-owned project for the chosen raw take (to be created). No
+- **Practice project:** new agent-owned project `0915 (1)` for raw take `VID_20260425_174820`. No
   existing project is touched.
 - **Evidence:** `evidence/2026-09-15/cap16/`
 
@@ -1313,21 +1313,149 @@ draft and in frames, and the final file is checked with ffmpeg.
   clips, allow ≥ 30 min, poll the result files, and don't export before every `<hash>_…wav` is
   non-empty and size-stable.
 
+### Q. Stage 10: export and verify, rung 15 (executed + agent-verified 2026-09-15)
+1. **Reopen** `0915 (1)` from Home (card ≈383,793; `MainWindow` after 4 s; `focus --maximize`).
+   Opening changed nothing in the draft.
+2. **Ctrl+E**: `wait-for` matched `ExportWindow_Container` "Export-0915 (1)" (510,101)–(1410,929)
+   after 1.6 s. Dialog crop `71-export-dialog.png`:
+   - Name `0915 (1)`; **Export to `E:/videos/exports/0915 (1).mp4`**, the folder remembered from
+     rung 15
+   - **1080P / Recommended / H.264 / mp4 / 30fps**; Optical flow (Pro) off; Color space Rec. 709
+     SDR
+   - **"Sync exported videos to space" already unticked.** CapCut remembered the rung-15 untick.
+     Check it by crop on every export anyway; it was pre-ticked the first time.
+   - Footer estimate: "Duration: 6m 44s | Size: about 401 MB"
+   - Nothing needed changing, so no dialog input before Export.
+3. **Export** (1244,895). The completion screen was up within **5 s** (`72-exporting.png`), and the
+   file was already at full size.
+   - It reads "Video is saved to your desktop or laptop. You can share it now." It has TikTok and
+     YouTube buttons, a share form (Sign in, Name, Visibility Private, Allow…, Check copyright) and
+     **Open folder / Share / Close**.
+   - The left column shows an **Original** preview (auto-playing) and a **9:16 (TikTok video size)
+     Pro** preview that CapCut started generating by itself ("Generating… 0 %"). It was left
+     untouched, with no cost dialog.
+   - `export_watch16.py`: size **498 729 701 B**, unchanged for 6 polls × 10 s; file mtime
+     14:01:24.778.
+   - ⚠ **Close is at (1344,935) here**, not rung 15's (1344,876). The completion layout is taller,
+     so find Close by screenshot every time. Clicked **Close**; the dialog was gone and the editor
+     back (`73-after-close.png`).
+4. **File verification** (`export_check16.py`, bundled ffmpeg):
+   - container isom (Lavf61.1.100), **Duration 00:06:43.31**, 9 892 kb/s
+   - **video:** h264 Main, yuv420p tv bt709 progressive, **1920×1080** SAR 1:1, **30 fps**,
+     9 696 kb/s
+   - **audio:** AAC LC, 44.1 kHz, stereo, 191 kb/s
+   - **full decode: 12 099 frames, out_time 403.300 s = draft duration 403.300 s** (frame-exact)
+   - **loudness (ebur128):** I **−16.9 LUFS**, LRA 5.6 LU, true peak **0.0 dBFS**. This is quieter
+     than the ≈ −14 predicted from the source. Denoise and Enhance voice lower the level, and no
+     Normalize was applied (user choice). The 0.0 dBFS peak means at least one transient reaches
+     full scale, which is an open question below.
+5. **Frames decoded from the file** (`export_frames/`, sheet `rung16-contact-sheet.png`):
+
+   | t (s) | What the frame shows |
+   |---|---|
+   | 2.500 | title «مدقق شرعي بالذكاء الاصطناعي» upper-left (yellow); logo top-right; caption «النهارده 25» |
+   | 3.967 | title still on; caption **«25/4/2026»** left-to-right in the black box |
+   | 14.000 | **B-roll PiP** (team office) upper-left; caption «والفريق»; logo clear of the PiP |
+   | 18.500 | caption «وايه ممكن نضيف عليها». The fixed word «التانية» comes later in this caption, so it isn't on screen at this instant (checked in-editor, §J.10) |
+   | 115.000 | push-in segment (seg 15, ≈40 % in): speaker visibly larger than the wide segments |
+   | 228.600 | fixed caption **«وراحت لجيميناي»** |
+   | 339.100 | fixed caption **«فيجما او»** |
+   | 382.200 | fixed caption **«والداتا والكلام ده»** |
+   | 401.800 | ending caption «الله المستعان»; logo still on |
+
+   - The logo is present in every frame; captions are in the lower-third black box; no black
+     borders on punched or pushed segments.
+6. **Final scope check** (`final_scope16.py`, read-only):
+   - **15 of 17** project drafts unchanged vs `mtimes-before.txt`. `0915 (1)` is NEW (this rung).
+     `0915-copy` shows only the known benign re-save from §B.
+   - The **`0915 (1)` draft is SHA-256 identical to `final-after-save.json`**, so reopening and
+     exporting wrote nothing.
+   - Logo file size, mtime and SHA-256 unchanged.
+   - `E:\videos\exports` holds only `0915-copy.mp4` (rung 15) and the new `0915 (1).mp4`;
+     `E:\videos` still has 48 top-level mp4s. Nothing uploaded (sync off, Share untouched).
+   - The baseline `.txt` files were written by PowerShell with a UTF-8 BOM. Read them with
+     `utf-8-sig`, or the first project name gets a BOM and shows as NEW + MISSING.
+
 ## Wait conditions
+- **Transcript analysis:** ≈58.6 s for 8:04 of footage (`wait-for --cls RoughCutWindow`).
+- **Auto captions:** 61–70 s for 7:17–7:42 of timeline (poll the draft for a `subtitle` track).
+- **Remove filler words ▸ Delete:** window closes in ≈2.4 s; draft saved on the first poll.
+- **Scripted cuts:** ≈33 s per exact gap removal (29 cuts in 959 s); ≈22 s per bad-take cut.
+- **Punch-in driver:** ≈4.5 s per segment (3 field edits, each gated on the draft).
+- **Caption text fix:** saved 4.5–7.2 s after typing; re-poll to confirm it's stable.
+- **Enhance voice (56 clips):** **2018 s**, one clip at a time (≈36 s each), 4 files per clip in
+  `Resources/audioAlg`. Don't export before every result file is non-empty and size-stable, and
+  the player header no longer reads "Applying N features…".
+- **Export (403 s, 1080p30):** completion screen within 5 s; still confirm the file size is
+  stable (6 polls × 10 s) before verifying.
 
 ## Verification
+- **Draft (read-only) after every stage:** segment count, duration, per-segment transforms,
+  keyframes, caption count, template id, text, audio material counts, track attributes. Every
+  multi-step edit ended with a diff whose changed lines were all expected.
+- **Final cut:** 484.233 s raw → **403.300 s**, 56 main segments, contiguous; 15 punch-ins; 1
+  eased push-in; 252 captions with the Classic black box at y −0.73 and 7 text fixes; title 1–4 s;
+  muted B-roll PiP 12.067–16.067 s; denoise + Enhance voice (75) on 56 clips; logo 0–403.3 s.
+- **Undo/redo gates** passed on punch-in, caption text, title, B-roll, and logo edits (Ctrl+Z
+  reverts only the last field; Ctrl+Shift+Z restores; diff 0 lines).
+- **Save:** Back to home page, 0-line diff vs the pre-save copy.
+- **Exported file:** h264 1920×1080 30 fps + AAC, 12 099 frames = 403.300 s = draft; frames show
+  title, date caption, B-roll, fixed captions, push-in, logo, ending.
+- **Scope:** no other project, the logo source, or `E:\videos` changed; only the new export file.
+- **Not agent-verifiable:** how the audio sounds (Enhance voice quality, cut smoothness at the 57
+  joins). The user reviews the exported video.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Transcript pauses | all 23 pre-ticked (0.50–1.43 s) | universal default | read the Pauses list; untick only real content |
+| Bad takes | 5 user-chosen ranges, 0.125 s kept or silence midpoint | shot-specific | caption word timings; the user decides (agent can't hear) |
+| Gap tightening | `--min 1.0 --keep 0.125` | user choice (rung 5 asks) | `--dry-run` total vs natural pacing |
+| Punch-in | 110 %, X 0 / Y −60, single-segment runs ≥ 2.5 s only | scale universal; **Y shot-specific** (eye line) | eye line within ≈2 px across a wide→punched join |
+| Push-in | 100 → 108 %, Easing (`FreeCurveInOut`) over 34.7 s | universal (rung 7) | inspector at ¼ / ½ / ¾ matches the eased curve |
+| Captions | Arabic auto captions, Classic black box 7331662668685774086, y −0.73 | **house default** | `house-style.md` |
+| Caption fixes | dates as numbers; brand/tech terms | user choice | clipboard gate equals old text before typing |
+| Title | Arabic template 7659823758919699730, scale 0.22, X −961 / Y 860, 1.0 s for 3 s | shot-specific framing (no headroom) | frame: clear of head, logo and captions |
+| B-roll | `VID_20260416_203431` src 12.067 s, 4.000 s at 12.067, scale 0.4, X −1032 / Y 528, muted | shot-specific | frame: upper-left, clear of face and captions |
+| Audio | Reduce noise ✓, Enhance voice ✓ 75, no Normalize | user choice | exported loudness (−16.9 LUFS here) |
+| Logo | `logo-ink-tight.png`, 12 %, X 1610 / Y 874, full length | brand default (rung 14) | readable on the wall at 4 checkpoints |
+| Export | 1080P / Recommended / H.264 / mp4 / 30fps, sync off, `E:\videos\exports` | user choice | ffmpeg streams, frame count = draft |
 
 ## Undo / recovery
+- Each inspector field edit and each typed text change is one undo step. **Redo is
+  Ctrl+Shift+Z** (Ctrl+Y does nothing).
+- Remove filler words ▸ Delete is one undo step; Auto captions Generate is one step (undo it
+  before cutting, then regenerate: recognition is cached and deterministic).
+- Scripts abort before input on any state mismatch. Recover from a partial run by re-reading the
+  draft: `cut_bad_takes.py`, `tighten_cap16.py` and `punch_cap16.py` skip what is already done.
+- Track lock/unlock is attribute-only (4 / 5 ↔ 0 / 1); the diff is exactly inverse.
+- Leaving a project can re-save it with housekeeping-only changes (§B). Judge by content diff.
 
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| Tail cut aborted: "no draft save after a measuring split" | narrow last segment; the snap-avoided ruler click still snapped onto the join, and Ctrl+B on a boundary does nothing | step with arrows from the known join (0.1 s key gap), W; `place_exact_anchor` for narrow segments |
+| Estimated 27 gaps, ran 29 | `--min` filters on gap length; 1.0 s gaps remove only 0.733 s | always quote the dry-run figures, not a hand count |
+| Typing a caption fix did nothing | stale pre-template inspector; playhead outside the caption; click in text-box padding | ruler inside caption → re-click pill → click text line → Ctrl+A → Ctrl+C clipboard gate → type |
+| Space didn't pause after the easing preset started playback | focus still in the inspector Scale box | player ▶/⏸ button (1024,541) |
+| Timecode "still playing" false positives | audio meter animates; byte-hash crops differ by noise | timecode-only crops, tolerant pixel diff (`img_diff.py`) |
+| PowerShell `python -c` failures; one command blocked by the harness | PS 5.1 quote stripping; inline quoted draft path read as a delete | write helpers with the Write tool, call by file; verified nothing ran |
+| Completion-screen Close not at the rung-15 point | taller completion layout in this dialog | locate Close by screenshot ((1344,935) here) |
+| Scope helper reported `0707` NEW + MISSING and crashed on the logo path | baseline `.txt` files carry a UTF-8 BOM | read with `utf-8-sig` |
 
 ## Tree coverage notes
+- **UIA-usable:** the native Import dialog (Edit id 1148, Open id 1), window class waits
+  (`RoughCutWindow`, `ExportWindow_Container`, `HomeWindow`, `MainWindow`).
+- **Screenshot-only:** timeline, inspector (all fields), caption pills, keyframe markers and their
+  menu, audio panel checkboxes, player, Export dialog content and completion screen (the
+  container has no children), toasts and onboarding tips (`Qt622QWindowToolSaveBits` windows seen
+  in `cc.py windows` but without content).
+- **Draft JSON** is the ground truth for every edit; screenshots are used for placement and for
+  what the draft can't show (rendering, focus, playback).
 
 ## Open questions for the user
-- Which raw take (frame sheet pending).
+- **Review the exported video** `E:\videos\exports\0915 (1).mp4` (6:43). The agent can't hear it:
+  are the cut joins, Enhance voice and pacing acceptable?
+- **Loudness:** the file is −16.9 LUFS with a 0.0 dBFS true peak. YouTube normalises to about −14,
+  so it will play slightly quiet. Re-export with Normalize loudness, or keep as is?
+- **Promotion:** port `place_exact_anchor` into `scripts/tighten_gaps.py` after approval.
