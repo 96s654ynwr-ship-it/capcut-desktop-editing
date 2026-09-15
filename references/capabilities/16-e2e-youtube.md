@@ -1143,6 +1143,29 @@ draft and in frames, and the final file is checked with ffmpeg.
      `audioAlg` (the first upload being prepared).
    - Rung 11 took ≈11 min for 7 clips (7:30). Allow a long wait here for 56 short clips.
    - **Rule:** don't export until the watcher reports DONE.
+   - **Progress:** 1/56 at +177 s, 2 at +197 s, 3 at +237 s, **4 at +277 s**, roughly **one clip
+     per 40 s**, so ≈37 min for all 56.
+     - Each clip adds 4 files to `audioAlg` (upload, vocal, background, result), as in rung 11.
+     - Clips are processed one at a time.
+     - Timeline work continues meanwhile (stage 9 below). The job keys its results by file path,
+       not by selection.
+
+### O. Stage 9: Yousef AI logo overlay, rung 14 (2026-09-15, while Enhance voice processes)
+1. **Logo file baseline** (`logo-before.txt`): `E:\client-projects\yousef-omar-landing\public\brand\logo-ink-tight.png`,
+   mtime 2026-09-13 22:26:21.494, 22 638 B, sha256 DE5C…0597. It's the same file and hash as
+   rung 14, used to confirm the client project is never written.
+2. **Import** (rung 3 route):
+   - Click empty timeline (1000,670), which also deselects the 56 clips now the audio is
+     applied.
+   - `key ctrl+i`, `wait-for --id 1148` (2.1 s), `act set-value --id 1148 --value <logo path>`,
+     `act invoke --id 1 --name Open`, wait 6 s.
+   - **Agent-verified:** `draft_meta_info.json` lists `logo-ink-tight`; audio counts unchanged
+     (denoise 56 / enhance 56 / loudnesses 0); no dialogs.
+   - **Observed** (`62-logo-imported.png`):
+     - a **third media card "logo-ink-tight.png" at ≈(382,411)**, selected
+     - the player shows **"Previewing — Image" 00:00:05:00** (a still defaults to 5 s); the
+       transparent areas preview black
+     - main clips still read "Waiting to enhance voice…"
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
