@@ -245,6 +245,36 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **Expected:** 462.700 → 455.400 → 452.167 → 449.067 → 446.600 → **437.000 s**.
    - The nearest existing joins (38.6, 51.867, 67.1, 184.8, 238.4, 454.433) are all at least
      0.9 s from the cut points. Cut 1 lies inside the last segment (454.433 → end).
+7. **Driver:** `cap16/cut_bad_takes.py` reuses `scripts/tighten_gaps.py`'s verified primitives
+   (`place_exact` measuring split, `remove_range` = exact split + W with duration and
+   resume-source checks). It adds two edge cases:
+   - **tail:** exact playhead, select the last segment, **W**; verify the timeline ends at the
+     target
+   - **head:** exact playhead, select the first segment, **Q**; verify the duration drops by t, the
+     first segment starts at 0 and its source moves by t
+
+   It refuses to run while a text track exists and aborts on any mismatch.
+   - **Dry run:** 24 segments, 462.700 s → 5 planned cuts → **expected 437.000 s**, matching the
+     table.
+8. **First real run aborted safely, with nothing cut** (`cut_bad_takes-035637.json`,
+   `13-after-abort.png`):
+   - "ABORT: no draft save after a measuring split" on the **tail** cut after 125 s. The draft
+     stayed at 24 segments / 462.700 s.
+   - **Cause (observed):**
+     - At fit zoom (≈2.81 px/s) the last segment 454.433 → 462.700 is only ≈23 px wide.
+     - `place_exact`'s snap-avoid moves the ruler click 4.5 s away from the 454.433 join, but it
+       clamps inside the segment, so the click still lands within a few px of the join and
+       **snaps onto it**: the playhead is at 00:07:34:13 = 454.433, selected clip = the last one.
+     - **Ctrl+B with the playhead exactly on an existing boundary does nothing**, so no save.
+   - **Rule:** the measuring-split placement only works when the containing segment is wider than
+     ≈2 × snap-avoid (≈9 s) at fit zoom. For narrow segments, step with arrows from a known
+     boundary (or zoom in) and verify the timecode before cutting.
+   - **Recovery:**
+     - The playhead is known to be exactly on the join 454.433, so `key right --repeat 29`
+       (0.967 s at 30 fps) targets 455.400 = **00:07:35:12**. Check the timecode crop, then **W**
+       on the selected last segment.
+     - `trim_tail` now **skips** when the timeline already ends at the target, so the script can
+       re-run for the other four cuts.
 
 ## Wait conditions
 
