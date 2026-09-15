@@ -132,6 +132,16 @@ draft and in frames, and the final file is checked with ffmpeg.
    - Footer **Total duration: 00:07:42:21**, i.e. the preview with the pre-ticked detections
      removed: 484.233 → 462.7 s, **≈21.5 s pre-ticked**.
    - The mini-timeline is empty; Create compound clip is unticked; **Delete** (Pro) and Cancel.
+4. **Detection tabs** (`07-tab-*.png`):
+   - **Pauses** ≈(1297,103): Select all ✓ and a list of short pauses, **all pre-ticked**. The first
+     page shows 0.87 s @00:00:38:18, 1.17 s @00:52:22, 1.30 s @01:09:04, 1.33 s @01:16:06, 1.23 s
+     @01:20:28, 1.30 s @01:23:00, 0.90 s @01:27:00, 0.73 s @02:44:17, … (the full list is paged
+     in `pauses/`).
+   - **Repeats** ≈(1383,103): **"No repeats identified"**.
+   - **Filler words** ≈(1485,103): **"No filler words identified"**. Arabic filler detection found
+     nothing, as in rungs 3–4.
+   - Not detected as a pause: the **opening ≈10 s of empty chair** before «بسم الله» @00:00:09:29.
+     Stage 3b (bad takes / opening trim) has to remove it.
 
 ## Wait conditions
 
