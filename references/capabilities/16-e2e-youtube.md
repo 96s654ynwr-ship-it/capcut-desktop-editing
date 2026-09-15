@@ -1240,6 +1240,30 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **`0915-copy`** shows 02:59:12.029 → 03:36:55.177. That is the benign re-save on exit when
      leaving it after the rung-15 export (§B, housekeeping-only diff), not an edit in this rung.
    - **Logo file** mtime, size and SHA-256 unchanged (the client project is never written).
+
+### P. Stage 10 plan: save and export, rung 15 (waits for Enhance voice to finish)
+1. **Gate:** `enhance_watch.py` reports **DONE** (all 56 `vocal_beautifys` result files non-empty and
+   size-stable for ≥ 30 s). The player header must no longer read "Applying N features…".
+   Exporting before this could render un-enhanced audio.
+2. **Save:**
+   - Take a screenshot to check Menu ≈(140,22), then **Back to home page** ≈(183,303).
+   - Wait for `HomeWindow` and a newer draft mtime.
+   - Diff the on-disk draft vs a copy taken just before, expecting 0 lines.
+3. **Reopen** `0915 (1)` from Home and run the **Export dialog** (Ctrl+E, rung 15 route):
+   - 1080P / Recommended / H.264 / mp4 / 30fps
+   - ⚠ **untick "Sync exported videos to space"**, then check by crop
+   - Export to **`E:\videos\exports`**, the folder remembered from rung 15; confirm the path
+     by crop
+   - Export, poll the file size until stable, then **Close** the completion screen (never
+     Share)
+4. **Verify the file:** `export_check16.py <file>`:
+   - streams h264 1920×1080 30 fps + AAC
+   - duration 403.3 s and a full-decode frame count ≈ 12 099
+   - ebur128 loudness (no normalize, so expect ≈ −14 LUFS like the source)
+   - frames at the title, caption `25/4/2026`, B-roll PiP, fixed captions, push-in, end
+5. **Contact sheet:** `contact_sheet16.py`. Final scope check (project mtimes, logo hash, no other
+   new files in `E:\videos`). Write up, update the ladder, commit, send the sheet, and ask for
+   approval.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
