@@ -1,10 +1,10 @@
 # Capability 17: End-to-end vertical short
 
 ## Status
-- **Ladder status:** demonstrated
+- **Ladder status:** approved
 - **CapCut version:** 9.4.0.4015
 - **Demonstrated:** 2026-09-15 (export `E:\videos\exports\0915 (1)-copy.mp4`, §K)
-- **Approved:** not yet
+- **Approved:** 2026-09-15, "Approve rung 17 (Recommended)"
 - **Practice project:** `0915 (1)-copy`, a CapCut **Duplicate** of the approved rung-16 project
   `0915 (1)` (the original stays untouched)
 - **Evidence:** `evidence/2026-09-15/cap17/`
