@@ -1202,6 +1202,44 @@ draft and in frames, and the final file is checked with ffmpeg.
      `64-logo-placed.png`.
    - At fit zoom, a 5 s clip (≈16 px) can still be extended by grabbing 1 px inside its right
      edge. Releasing at the main-track end x (1528) snaps the duration exactly to 403.300.
+5. **Logo frames** (deselected via empty click (1000,680); Home + `right ×75 / ×420` for 2:15 /
+   14:00; ruler clicks x 870 / 1520 for mid / end; timecodes by crop; `logo_frames/`):
+
+   | Timecode | Section | Observed |
+   |---|---|---|
+   | 00:00:02:15 | title on screen | logo top-right ≈player (585–667, 15–58); title upper-left; caption «النهارده 25» |
+   | 00:00:14:00 | B-roll PiP on screen | logo top-right; PiP upper-left; caption «والفريق», no overlap |
+   | 00:03:16:20 | mid talk | logo top-right on plain wall |
+   | 00:06:40:24 | near end | logo top-right on plain wall |
+
+   - The dark ink wordmark with its blue dots is **readable against the light wall at every point**
+     and never touches the speaker's head (x≈320–440), the title, the PiP or the lower-third
+     captions.
+   - The draft was unchanged by these frame checks.
+6. **Undo/redo gate on the logo Y edit (agent-verified):**
+   - **Ctrl+Z** → tf (0.83854, **0.0**), only Y reverted.
+   - **Ctrl+Shift+Z** → tf (0.83854, **0.80926**); other tracks still byte-identical to
+     `draft-31-before-logo.json`.
+   - Diff vs `draft-33-logo-placed.json`: **0 lines** (`draft-34-logo-gate.json`).
+7. **Unlock the tracks locked for the audio selection (executed + agent-verified 2026-09-15):**
+   click each row's lock icon at x≈59, gated on `track_attrs.py`:
+
+   | Row (y) | Track | attribute |
+   |---|---|---|
+   | captions 893 | 1 text f1 | **4 → 0** |
+   | title 861 | 2 text | **4 → 0** |
+   | B-roll 811 | 3 video f2 | **5 → 1** (stays muted) |
+   | main 958 / logo 745 | 0 / 4 | 0 / 0 (untouched) |
+
+   - Diff `draft-35-before-unlock.json` → `draft-36-unlocked.json`: **257 lines, 0
+     non-attribute lines** (the exact inverse of the lock step).
+   - Evidence: `65-headers-before-unlock.png`, `65-headers-after-unlock.png`.
+8. **Midway scope check (read-only, `mtimes-midway.txt`):**
+   - **15 of 17** project drafts unchanged vs `cap16/mtimes-before.txt`.
+   - **`0915 (1)`** is NEW, this rung's practice project.
+   - **`0915-copy`** shows 02:59:12.029 → 03:36:55.177. That is the benign re-save on exit when
+     leaving it after the rung-15 export (§B, housekeeping-only diff), not an edit in this rung.
+   - **Logo file** mtime, size and SHA-256 unchanged (the client project is never written).
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
