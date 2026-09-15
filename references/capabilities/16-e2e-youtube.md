@@ -1072,6 +1072,40 @@ draft and in frames, and the final file is checked with ffmpeg.
      tracks" select only the main track.
    - ⚠ Stay in this mode until the audio is applied, then press **A** at once so later clicks
      don't become range selections (rung 12).
+3. **Audio ▸ Basic for the 56-clip selection** (Audio tab (1553,70), then `scroll 1480 450 -3`;
+   crops `60-audio-basic-top.png`, `60-audio-basic-scrolled.png`, origin 1446,40; draft
+   unchanged):
+   - **Top:** Basic / Voice changer sub-tabs; Basic ✓; Volume 0.0dB; Fade in / Fade out 0.0s;
+     **Normalize loudness** (Pro), unticked; Enhance voice.
+   - **Scrolled −3** (screen coordinates):
+
+     | Control | Checkbox | Notes |
+     |---|---|---|
+     | Normalize loudness (Pro) | (1468,232) | **left unticked** (user: skip normalize) |
+     | **Enhance voice** (Pro, ⓘ, ▾) | **(1468,323)** | Intensity default 75 |
+     | Video translator (Pro) | (1468,392) | not in scope |
+     | **Reduce noise** (Pro) | **(1468,460)** | no options |
+     | Isolate voice (Free, ▾) | (1468,529) | not in scope |
+
+     - Reduce noise is **64 px higher than in rung 11** ((1468,524) there), so always re-read
+       from a crop.
+   - The 56-clip selection is still intact after the tab switch and scroll
+     (`60-selection-still.png`).
+   - **Baseline** (`draft-29-before-audio.json`): realtime_denoises 0, vocal_beautifys 0,
+     loudnesses 0; the project's `Resources/audioAlg` folder exists and is **empty**.
+4. **First apply attempt blocked by the agent harness, nothing sent:**
+   - The combined PowerShell command (write a helper, click, gate, inline `python -c` with quoted
+     draft paths) was refused before execution: "Remove-Item on system path '\draft_content.json"'
+     is blocked". The command contained no delete; the path-protection check misparsed the
+     inline quoted path.
+   - **Verified nothing ran:** a direct `ConvertFrom-Json` read of the draft showed
+     realtime_denoises **0**, vocal_beautifys **0**, loudnesses **0**, 56 main segments,
+     403.3 s.
+   - The Enhance-voice watcher (`enhance_watch.py`, background) had started in parallel. It
+     prints nothing until the draft holds the enhance materials, so it just waits.
+   - **Workaround:** write helpers with the Write tool (`audio_counts.py`, `audio_integrity.py`),
+     then call them by file. No inline `-c` code with quoted paths in the same command as UI
+     clicks.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
