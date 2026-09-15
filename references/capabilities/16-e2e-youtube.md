@@ -1166,6 +1166,42 @@ draft and in frames, and the final file is checked with ffmpeg.
      - the player shows **"Previewing — Image" 00:00:05:00** (a still defaults to 5 s); the
        transparent areas preview black
      - main clips still read "Waiting to enhance voice…"
+3. **Drop onto a new top overlay track at 00:00 (executed + agent-verified 2026-09-15):**
+   - Click empty timeline (1000,670), **Home** (`63-tc-home.png`).
+   - `drag 382 411 232 680 --steps 40 --hold 0.4`. The draft saved on the first poll.
+   - Checked with a PowerShell `ConvertFrom-Json` read (no inline Python):
+     - tracks `video/f0/a0/n56 · text/f1/a4/n252 · text/f0/a4/n1 · video/f2/a5/n1 ·
+       **video/f2/a0/n1**`
+     - **LOGO track 4, flag 2, start 0, duration 5, source 0, scale 1, transform (0,0), type
+       photo**
+     - duration still 403.3
+   - `logo_state16.py draft-31-before-logo.json`: **all other tracks byte-identical**.
+   - **Observed** (`63-logo-dropped.png`):
+     - **Rows:** the logo row at the **top, y≈745**, with the clip selected at x≈229–245 (5 s at
+       fit zoom); B-roll overlay **y≈811** (locked, muted); title **y≈861**; captions **y≈893**;
+       main **y≈958**.
+     - **Inspector:** tabs Video / Animation / Tracking / Adjust / AI stylize; Scale ≈(1792,257),
+       Position X ≈(1666,352) / Y ≈(1787,352).
+     - **Player:** at 100 % the transparent wordmark fills the frame width over the speaker.
+     - **Header:** "Applying 50 features…", so Enhance voice kept processing through the import
+       and drop.
+4. **Extend to full length, scale and place (executed + agent-verified 2026-09-15):** one command,
+   gated on `logo_state16.py` after every step:
+
+   | Step | Action | Draft (first poll) |
+   |---|---|---|
+   | Extend | `drag 244 745 1528 745 --steps 60 --hold 0.4` (right edge → main-track end at fit zoom) | **start 0.000, dur 403.300** (snapped exactly to the timeline end); **other tracks byte-identical** |
+   | Scale | box (1792,257) `12` | scale **0.12**, tf (0,0) |
+   | X | box (1666,352) `1610` | tf (**0.83854**, 0) |
+   | Y | box (1787,352) `874` | tf (0.83854, **0.80926**) |
+
+   - Final `logo_state16.py draft-31-before-logo.json`: LOGO track 4 flag 2, start 0, dur 403.300,
+     scale 0.12, tf (0.83854, 0.80926); duration 403.300; **other tracks identical: True**.
+   - These are exactly rung 14's approved values on the same 1920×1080 canvas.
+   - Snapshot `draft-33-logo-placed.json`; screenshots `64-logo-extended.png`,
+     `64-logo-placed.png`.
+   - At fit zoom, a 5 s clip (≈16 px) can still be extended by grabbing 1 px inside its right
+     edge. Releasing at the main-track end x (1528) snaps the duration exactly to 403.300.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
