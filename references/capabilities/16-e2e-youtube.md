@@ -962,6 +962,52 @@ draft and in frames, and the final file is checked with ffmpeg.
      5. PiP at Scale 40 %, upper-left, and mute the track.
    - ⚠ The title (1–4 s) is also upper-left, but it ends before the PiP starts at 12.067, so they
      never overlap.
+4. **Drop at 00:00 (executed + agent-verified 2026-09-15):**
+   - Click empty timeline (1000,690), **Home** (`56-tc-home.png`).
+   - `drag 382 313 232 680 --steps 40 --hold 0.4`, from the card to the empty area above the
+     title row at the 00:00 x. The draft saved on the first poll.
+   - **`broll_state.py`:**
+     - tracks `video 56 / text(1) 252 / text(0) 1 / **video(flag 2) 1**`, a **new top overlay
+       track 3**
+     - B-roll segment **start 0.000, duration 261.733, source 0.000**, vol 1.0, scale 1,
+       transform (0,0), material 1280×720
+   - **All three previous tracks byte-identical**; duration stays 403.3 s. The overlay longer
+     than the main track doesn't extend the project duration.
+   - **Observed** (`56-broll-dropped.png`, `56-after-ruler.png`):
+     - The new overlay row sits at the **top, y≈745** (header icons: video, lock, eye, speaker ≈x
+       119, …), with the clip selected (white border x≈229–1900).
+     - The other rows shift down: title **y≈794**, captions **y≈826**, main **y≈890**.
+     - The inspector reads Video ▸ Basic: Scale ≈(1792,257), Position X ≈(1666,352) /
+       Y ≈(1787,352), Blend ✓.
+5. **Playhead to the caption start:** ruler click (853,628) **snapped to 00:00:12:02 = 12.067 s**,
+   the «قعدنا انا» caption start (`56-tc-ruler-1207.png`).
+   - **The B-roll stayed selected** (white border unchanged), so a ruler click doesn't deselect a
+     clip.
+   - The player shows the upright office B-roll full-frame on top of everything.
+6. **Geometry for the PiP:** the B-roll is 16:9 like the canvas, so at **Scale 40 %** it is
+   **768 × 432 canvas px**.
+   - Upper-left with 60 px margins: centre offset (−960 + 60 + 384, 540 − 60 − 216) =
+     **(−516, +264) px**.
+   - Typed Position = 2 × px: **X −1032, Y 528**, i.e. transform (−0.5375, 0.48889).
+   - The box spans canvas x 60–828, y 60–492: clear of the speaker's head (canvas x≈945–1225) and
+     the lower-third captions.
+7. **Trim, PiP and mute (executed + agent-verified 2026-09-15):** one command, gated on
+   `broll_state.py` after every step:
+
+   | Step | Action | Draft after (first poll) |
+   |---|---|---|
+   | Q | `key q` at 00:00:12:02, clip selected | start **12.067**, dur 249.667, **src 12.067** |
+   | W | `right ×120 --gap 0.1` (crop `57-tc-before-W.png`), then `key w` | start 12.067, **dur 4.000**, src 12.067 |
+   | Scale | box (1792,257) `40` | scale **0.4**, tf (0,0) |
+   | X | box (1666,352) `-1032` | tf (**−0.5375**, 0) |
+   | Y | box (1787,352) `528` | tf (−0.5375, **0.48889**) |
+   | Mute | overlay row speaker (119,745) | track **attribute 1** |
+
+   - Volume stays 1.0 on the segment; the mute is at track level, as in rung 10.
+   - **The three previous tracks are byte-identical** to `draft-24-before-broll-drop.json`
+     (`draft-25-broll-pip.json`); tracks 3 → 4; duration 403.3 → 403.3.
+   - The 120 key presses at 0.1 s landed exactly (W produced exactly 4.000 s), unlike the
+     390-press run at 0.04 s in rung 13.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
