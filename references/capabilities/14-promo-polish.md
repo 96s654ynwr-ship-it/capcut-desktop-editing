@@ -1,13 +1,14 @@
 # Capability 14: Promo polish (transitions, filters/adjust/color, logo/brand overlay, templates)
 
 ## Status
-- **Ladder status:** in-progress
+- **Ladder status:** demonstrated
 - **CapCut version:** 9.4.0.4015
-- **Demonstrated:** not yet
+- **Demonstrated:** 2026-09-15 by Claude Code. Delivered: logo overlay, Cross Fade transition, Pro
+  Auto adjust, plus the two fixes the user requested: overlay Fade Out and desk Canvas blur.
+  Templates were not in scope for this demonstration.
 - **Approved:** not yet
-- **Practice project:** to be chosen with the user. Must be agent-owned: a CapCut duplicate or a
-  new project. The approved results `0914 (4)-copy`, `0914 (4)-copy-copy` and `0915` stay as
-  they are unless the user says otherwise.
+- **Practice project:** **`0915-copy`**, a CapCut Duplicate of the approved rung-13 `0915` (source
+  content verified unchanged). `0914 (4)-copy`, `0914 (4)-copy-copy` and `0915` were not modified.
 - **Evidence:** `evidence/2026-09-15/cap14/`
 
 ## Goal
@@ -427,20 +428,83 @@ by player frames:
   - video_effects unchanged (the rung-13 Blur)
 
 ## Wait conditions
+- **Duplicate:** the new `<name>-copy` folder with `draft_content.json` appears within ≈1 s.
+- **Import (Ctrl+I):** `wait-for --type Edit --id 1148` is present after ≈2 s; the media card
+  appears ≈4 s after Open.
+- **Library search** (Effects/Transitions): "Loading…" for ≈3–9 s; screenshot only after the
+  cards render.
+- **Animation tab:** "Loading…" for ≈3–7 s after opening; the Out sub-tab needs ≈5 s more.
+- **Every library/inspector change here** (transition, Auto adjust, animation, canvas,
+  scale/position, trim) saved on the **first 0.5 s poll**. None showed async "Applying…" progress
+  (unlike Stabilize/Auto removal in rung 13).
+- **Canvas Blur:** choosing Blur in the dropdown does **not** save anything. Wait for the level-card
+  click, then poll `canvas_state.py --want-blur-desk`.
+- **Save:** Menu ▸ Back to home page → HomeWindow and a newer draft mtime within ≈4 s.
 
 ## Verification
+**Agent-verified 2026-09-15, on disk after Menu ▸ Back to home page.**
+- Menu checked first (`41-menu-open.png`); HomeWindow after 4 s; `0915-copy` mtime 02:59:12.029.
+- `draft_diff.py final-before-save.json final-after-save.json`: **no differences**.
+- **Final state:** see G (`build-summary.txt`). Summary:
+  - Logo overlay track 0–30 s at scale 0.12 top-right.
+  - Cross Fade 2.0 s at 00:15.
+  - Pro Auto adjust 0.8 on the three video clips.
+  - Cut-out overlay Fade Out 14–15 s.
+  - Desk canvas blur 0.75.
+  - Duration 30.0 s.
+- **Frames:** `rung14-contact-sheet.png` (Auto adjust before/after, transition + fade frames, logo
+  on black vs blurred pillarbox), plus the per-step screenshots listed in each section.
+- **Scope:**
+  - All **15** pre-existing projects have unchanged mtimes (`mtimes-after.txt`); `0915-copy` is
+    the only new one.
+  - The approved rung-13 source `0915` shows **no content differences** vs the copy taken before
+    duplicating (`diff-0915-source.txt`), which covers the duplicate-keeps-mtime quirk.
+- **Client project untouched:** the `logo-ink-tight.png` mtime, size and SHA-256 all match
+  `logo-before.txt`; the brand folder still holds 9 files.
+- **Cost:** no cost, credit or upsell dialog for any step, including Pro Auto adjust.
 
 ## Parameters
 | Parameter | Value used | Universal or shot-specific | How to judge it |
 |---|---|---|---|
+| Logo file | `public/brand/logo-ink-tight.png` (ink wordmark, transparent) | brand-specific; pick the ink/cream variant by background | readable in frames across every section |
+| Logo size / position | Scale 12 %, Position X 1610 / Y 874 (transform 0.8385 / 0.8093) on 1920×1080 | per canvas; typed X = tx × W, Y = ty × H | ≈40 px margins, clear of the face |
+| Logo range | 0–30 s (full timeline), own top overlay track | promo default | drag the right edge to the timeline end |
+| Transition | Cross Fade (free), duration 2.0 s default | subtle promo default | frames at cut ±0.5 s show the blend |
+| Colour | Pro Auto adjust, Intensity 80 (`smart_color_adjust` 0.8), on every video layer incl. the cut-out overlay | footage-specific | mean V/S before vs after; layers must match |
+| Overlay fade | Out ▸ Fade Out 1.0 s (14–15 s) | matches half of the 2.0 s transition | no opaque cut-out mid-blend |
+| Pillarbox fill | Canvas ▸ Blur, 3rd card (`blur` 0.75), desk clip only | portrait-in-landscape clips | logo readable; no black bars |
 
 ## Undo / recovery
+- Each step is its **own single undo step**, verified with Ctrl+Z / Ctrl+Shift+Z and diff = none:
+  - Cross Fade
+  - Auto adjust (all 3 clips at once)
+  - Fade Out: **two steps**, apply and duration change
+  - Canvas blur
+- Logo import/placement: not gated separately. It is covered by the final diff, and the logo guard
+  (scale/transform) stayed unchanged through every later gate.
+- **Ctrl+Y is not redo**; use Ctrl+Shift+Z (rung 13).
+- The whole rung lives on `0915-copy`, so deleting that duplicate (user-confirmed) fully reverts
+  it. `0915` is unchanged.
 
 ## Failure modes seen
 | Symptom | Cause | Recovery |
 |---|---|---|
+| The Cross Fade dissolved the background, but the sharp cut-out speaker stayed opaque and popped off at 15:00 | The overlay track is not part of a main-track transition | Out ▸ Fade Out on the overlay, sized to half the transition (1.0 s) |
+| The dark logo was nearly invisible in the desk section | The portrait clip's black pillarbox sits exactly under the top-right corner | Canvas ▸ Blur on that clip (or pick a cream logo variant) |
+| Picking "Blur" in the Canvas dropdown changed nothing in the draft | The dropdown only switches the panel mode | Click a blur-strength card; poll the draft |
+| An extra top-right window appeared after the canvas click | A "Background has been added to this clip" toast | Harmless; confirmed by screenshot |
+| The duplicate showed the same draft mtime as the source | CapCut Duplicate copies the file mtime | Scope-check the source by content diff against a pre-duplicate copy |
+| Inline Python `-c` failed with `SyntaxError` (quotes stripped) | Windows PowerShell 5.1 strips embedded double quotes when calling native exes | Write the script with `Set-Content`, then run the file |
 
 ## Tree coverage notes
+- **Tree-driven:** Ctrl+I file dialog (`Edit` id 1148, `Open` id 1) and window listing (the
+  Canvas dropdown and the toast both show up as separate `Qt622…` windows).
+- **Screenshot-only (QML):**
+  - project card context menu
+  - Transitions / Effects / Animation library cards and search results
+  - inspector tabs (Video / Adjust / Animation / Transition parameters)
+  - value boxes (Scale, Position, Duration), Auto adjust checkbox, Canvas row, blur-strength cards
+  - timeline clips and trim edges
 
 ## User choices (2026-09-15)
 - **Project:** "Duplicate of 0915 (Recommended)". A CapCut Duplicate of the approved rung-13

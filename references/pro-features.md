@@ -20,7 +20,7 @@ rungs) replaces it with the route actually observed in this install. Columns:
 | Split scenes | — | Timeline toolbar (clip selected) → **Split scenes** | "Free" badge | ? | 2 | route observed 2026-09-14 (not run) |
 | AI extend | — | Timeline toolbar (clip selected) → **AI extend** | none seen | likely | — | route observed 2026-09-14 (not run) |
 | AI edit | — | Timeline toolbar (clip selected) → **AI edit** | none seen | likely | — | route observed 2026-09-14 (not run) |
-| Auto adjust | — | Timeline toolbar (clip selected) → **Auto adjust** | Pro diamond | ? | 14 | route observed 2026-09-14 (not run) |
+| Auto adjust | — | Select clip(s) (Ctrl+click for several) → Inspector **Adjust ▸ Basic** → **Auto adjust** checkbox (▾ = Intensity, default 80); also timeline toolbar | Pro diamond | **none seen**: no dialog | 14 | **agent-verified 2026-09-15** on 3 clips at once (incl. a Remove-BG overlay). **Instant**, no progress. Draft: +1 `materials.effects` per clip {name "color-adjustment", type `smart_color_adjust`, value 0.8} + 1 `hsl` helper, segment `enable_smart_color_adjust` true, +2 refs. One undo step for all clips. Frames ≈+10 % brightness, slightly more saturation |
 | Enhance visuals | — | Timeline toolbar (clip selected) → **Enhance visuals** (HD icon) | none seen | ? | — | route observed 2026-09-14 (not run) |
 | Extract audio | — | Timeline toolbar (clip selected) → **Extract audio** | none seen | no | 2 | route observed 2026-09-14 (not run) |
 | Freeze frame | — | Timeline toolbar (clip selected) → **Freeze** | none seen | no | 2 | route observed 2026-09-14 (not run) |
