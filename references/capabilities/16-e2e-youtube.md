@@ -578,6 +578,22 @@ draft and in frames, and the final file is checked with ffmpeg.
      - Footer buttons: Save as preset / **Reset**.
    - The thumbnails are too small to identify "black box" by eye at this size, so a full-size crop
      is checked before clicking (`34-classic-grid-crop.png`).
+     - **Row 1 left** shows white "THE QUICK BROWN FOX" on a **solid black bar** with a Pro
+       diamond, the black-box look, in the same position as rung 8.
+     - Tiles 2, 3 and 6 had not rendered thumbnails yet (tiny placeholders).
+5. **Apply the template:** click the row-1-left tile **body** (1490,360), away from its ☆ and ⬇.
+   The draft saved after ≈2 s.
+   - **Agent-verified** (`template_check.py`, `draft-12-before-template.json` →
+     `draft-13-template.json`):
+     - **252 → 252 captions**, all **`text_templates` "边框弹出黑色", resource
+       7331662668685774086**, the house-style "Classic: black box"
+     - **y −0.73 for all 252** (lower third; a single-language track keeps its position, as in
+       rung 8)
+     - **start, duration and text identical for 252 of 252**
+     - materials: text_templates 252, effects 252, texts 252
+     - **video track byte-identical** (56 segments, 403.300 s)
+   - No new windows; the tile applied to all main captions in one click, because Apply to all
+     main captions was ticked.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
