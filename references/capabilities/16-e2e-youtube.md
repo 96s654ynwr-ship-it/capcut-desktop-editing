@@ -648,6 +648,35 @@ draft and in frames, and the final file is checked with ffmpeg.
    - No caret was visible in two crops 600 ms apart (it may blink off in both). Focus is
      therefore confirmed by the **Ctrl+A selection highlight** before typing
      (`40-box-*-ctrla.png`).
+9. **Focus confirmed** (no draft change):
+   - Click on the text line (1800,220): the crop shows a **caret** inside the line
+     (`40-box-before-ctrla.png`).
+   - `key ctrl+a`: the **whole text is highlighted** (`40-box-after-ctrla.png`).
+   - On the full screen (`40-after-ctrla-full.png`), only the target pill has a white border, so
+     Ctrl+A went to the text field and not the timeline.
+   - The live template inspector reads Font **Staatliches-Regular**, size **11** (the template's
+     font). The player shows the black-box caption with its bounding box.
+   - The inline pixel-count check failed on PowerShell 5.1 quote stripping (the rung-14 failure
+     mode), so the crops were judged visually instead.
+   - **Type immediately after Ctrl+A.** Any click in between would drop the selection.
+10. **Text fix 1 (executed + agent-verified 2026-09-15):**
+    - With the text selected, `type "وايه ممكن نضيف عليها او الافكار التانية"`.
+    - `caption_texts.py wait` matched after **7.2 s**, and a re-poll 1.5 s later was still
+      matching (fully saved, no partial autosave).
+    - **Changed vs `texts-before-fixes.json`:** exactly **1** caption, 17.4 s «…الافكار ال2» →
+      «…الافكار التانية». Still 252 captions.
+    - Video track byte-identical to `draft-13-template.json` (`draft-15-fix1.json`).
+    - Focus released with a ruler click inside the caption (1185,628).
+    - The template stays on the edited caption, as in rung 8.
+    - Frames: `41-fix1-player.png`, `41-fix1-inspector.png`.
+11. **Driver for the remaining fixes:** `cap16/fix_caption.py --x <pill x> --start <s> --old <text>
+    --new <text> --baseline texts-before-fixes.json` runs the proven steps 8–10. It adds a
+    **gate before typing**:
+    - After Ctrl+A it presses **Ctrl+C** and reads the clipboard (`Get-Clipboard`). It types only
+      if that equals `--old`. A wrong or unfocused selection aborts with nothing typed.
+    - It also refuses to start if the draft's caption at `--start` doesn't read `--old`.
+    - After typing: exactly one caption changed, 252 captions, and the video track byte-identical.
+    - ⚠ It overwrites the Windows clipboard.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
