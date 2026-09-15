@@ -81,6 +81,33 @@ draft and in frames, and the final file is checked with ffmpeg.
 - **User choice:** "#1 174820, grey tee (Recommended)" → **`E:\videos\VID_20260425_174820.mp4`**
   (8:04, 1280×720, 236 MB).
 
+### B. Leave `0915-copy` (after the rung-15 export)
+- Menu ≈(140,22), checked by screenshot (`01-menu-open.png`), then **Back to home page**
+  ≈(183,303). `HomeWindow` appeared after 3 s.
+- ⚠ **Leaving re-saved `0915-copy`** (mtime 02:59:12 → 03:36:55) even though nothing was edited
+  after the export. The diff vs the rung-15 baseline (`diff-0915-copy-home.txt`, 10 lines) is
+  **housekeeping only**:
+  - a new `materials.loudnesses[0]` with **`enable` false, `target_loudness` 0.0**, referenced by
+    the logo segment (a disabled placeholder, likely created when the export analysed audio)
+  - `vocal_separations[3].id` regenerated, with the logo segment's ref updated to match
+  - a `sound_channel_mappings[3].type` "" → "none" normalisation
+  - float noise on the logo scale (0.11999999999999997 → …95)
+  - No timing, transform, effect or visibility change. The approved rung-14 edit is intact.
+- **Lesson for scope checks:** opening and exporting a project can trigger a benign re-save on
+  exit. Judge by **content diff**, not by mtime alone.
+
+### C. New project and import (executed + agent-verified 2026-09-15)
+1. **Home top:** `scroll 1000 500 10` (`02-home-top.png`), then **Create project** ≈(1102,144).
+   - `MainWindow` appeared after 3 s.
+   - New draft folder **`0915 (1)`**, auto-named by date since `0915` exists.
+   - Then `focus --maximize`.
+2. **Import:**
+   - `key ctrl+i`; `wait-for --type Edit --id 1148` matched after 1.4 s.
+   - `act set-value --id 1148 --value "E:\videos\VID_20260425_174820.mp4"`, then
+     `act invoke --id 1 --name Open`.
+   - **Agent-verified:** `draft_meta_info.json` of `0915 (1)` lists `174820`, and no extra windows
+     remain (`03-imported.png`).
+
 ## Wait conditions
 
 ## Verification
