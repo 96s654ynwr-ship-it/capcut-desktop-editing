@@ -1106,6 +1106,43 @@ draft and in frames, and the final file is checked with ffmpeg.
    - **Workaround:** write helpers with the Write tool (`audio_counts.py`, `audio_integrity.py`),
      then call them by file. No inline `-c` code with quoted paths in the same command as UI
      clicks.
+5. **Reduce noise + Enhance voice on all 56 clips (executed + agent-verified 2026-09-15):** one
+   command, gated on `audio_counts.py` after each tick. The selection, tool mode and panel were
+   re-confirmed first (`61-state-after-block.png`).
+
+   | Step | Click | Draft (first poll) |
+   |---|---|---|
+   | Reduce noise ✓ | (1468,460) | **realtime_denoises 56, referenced by 56 main segments**; enhance 0; loudnesses 0 |
+   | Enhance voice ✓ | (1468,323) | denoise 56 / **vocal_beautifys 56, referenced by 56 main segments**, **ambient_sound_level [75]**; loudnesses **0** |
+
+   - **No cost, credit or upsell dialog** for either. After Reduce noise, one extra
+     `Qt622QWindowToolSaveBits` (879,576)–(1039,730) appeared, the same toast geometry as rung 11's
+     "Noise reduced" (checked in `61-reduce-noise.png`). It was gone after Enhance voice.
+   - Then **A** to return to the Select tool (`61-tool-icon-after-A.png`).
+   - **`audio_integrity.py`** vs `draft-29-before-audio.json`: **tracks 1–3 byte-identical**
+     (captions, title, B-roll); **main segments identical except `extra_material_refs`**;
+     duration 403.3 → 403.3.
+   - **Normalize loudness was not applied** (user choice): loudnesses 0.
+   - Snapshot: `draft-30-audio-applied.json`.
+   - **Observed:**
+     - **After Reduce noise** (`61-reduce-noise.png`): a **"Noise reduced"** toast above the
+       overlay row (the extra window), and the Reduce noise checkbox ticked cyan.
+     - **After Enhance voice** (`61-enhance-voice.png`):
+       - the player header reads **"Applying 56 features… ▾"** with a spinner
+       - the Enhance voice row shows **"Enhancing voice… 48.7%"**, with the **Intensity** slider
+         expanded at **75**
+       - **every main clip label reads "Waiting to enhance voice…"**
+       - Reduce noise stays ticked; Normalize loudness unticked
+     - **A** switched the tool icon back to the single **arrow** (Select;
+       `61-tool-icon-after-A.png`).
+6. **Enhance voice async processing (watcher `enhance_watch.py`, background):**
+   - It polls the draft for the 56 `vocal_beautifys` `production_path` result files, then
+     `Resources/audioAlg` every 20 s. It finishes when all expected files are non-empty and
+     size-stable for ≥ 30 s (timeout 60 min).
+   - At +137 s it reported **56 distinct result files expected**, 0 non-empty, 1 file in
+     `audioAlg` (the first upload being prepared).
+   - Rung 11 took ≈11 min for 7 clips (7:30). Allow a long wait here for 56 short clips.
+   - **Rule:** don't export until the watcher reports DONE.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
