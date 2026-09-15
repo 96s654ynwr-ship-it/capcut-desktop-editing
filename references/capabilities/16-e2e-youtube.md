@@ -807,6 +807,19 @@ draft and in frames, and the final file is checked with ffmpeg.
      audio meter, so an identical hash means the same timecode display.
    - Then hover the tile (357,340) and click + (396,378). `title_state.py` prints the new title
      segment's template, start, duration, texts, scale, transform and animations.
+8. **First gated add: STOPPED by a false negative; nothing added.**
+   - The gate printed `False` and the script stopped before hovering or clicking +. Draft mtime
+     unchanged (12:48:59).
+   - The crops show the navigation had actually worked:
+     - `48-tc-before-add.png` reads **00:00:01:00 / 00:06:43:0**, visibly identical to the
+       reference.
+     - `48-header-before-add.png` reads **"Player-Timeline 01"**, so the empty-timeline click did
+       leave the preview.
+   - **Cause:** a **byte-exact hash** of two captures of the same timecode isn't stable
+     (sub-pixel or anti-aliasing differences between captures).
+   - **Fix:** gate on a **tolerant pixel difference** (`img_diff.py`, mean absolute difference and
+     count of pixels > 15) calibrated against a real 1:00 vs 2:00 difference. The failure is safe
+     either way: a strict gate can only block, never mis-add.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
