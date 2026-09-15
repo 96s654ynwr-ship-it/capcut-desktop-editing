@@ -594,6 +594,38 @@ draft and in frames, and the final file is checked with ffmpeg.
      - **video track byte-identical** (56 segments, 403.300 s)
    - No new windows; the tile applied to all main captions in one click, because Apply to all
      main captions was ticked.
+   - **Observed after applying** (`35-template-applied.png`):
+     - The applied tile has a cyan border; the grid and inspector stay on Templates.
+     - The **timeline view scrolled back to 00:00** (00:00–00:30 visible at the same zoom), so
+       re-read pill positions before clicking. Pills now carry text plus A☰, e.g. «النهارده 25»
+       ≈(365,763) and «4 2,000 26» ≈(455,763).
+     - The player at 00:00:17:08 shows no caption (a gap between captions).
+6. **Text ▸ Basic on a templated caption** (1516,127) (`36-basic-tab-templated.png`; draft
+   unchanged):
+   - The selection survived the view scroll: the text box still shows «وايه ممكن نضيف عليها او
+     الافكار ال2».
+   - Layout: Apply to all main captions ✓ (1470,167); **text box ≈ x 1461–1893, y 205–285**
+     (click ≈1680,230); Font **System**; Font size **7**; Pattern B/U/I; Case TT/tt/Tt; Save as
+     preset.
+   - As in rung 8, a template adds no Bubble conflict here: the sub-tabs are Basic / Templates /
+     Bubble / Effects.
+7. **Text fix 1, first attempt: FAILED safely** (`37-fix1.png`, `37-fix1-inspector.png`):
+   - The sequence was: click (1680,230) in the empty lower part of the text box, `key ctrl+a`,
+     `type "وايه ممكن نضيف عليها او الافكار التانية"`, then poll the caption text for 30 s
+     (`caption_texts.py wait`).
+   - **Result:** the text stayed «…الافكار ال2» and no caption changed. The inspector box still
+     shows the old text with no caret.
+   - **Integrity check:** draft mtime **unchanged** (12:30:05.066, the template save), and diff vs
+     `draft-13-template.json` = **0 lines**, still 56 video + 252 text segments. Nothing typed
+     reached CapCut, and the stray Ctrl+A selected nothing that is saved.
+   - `cc.py type` sends each UTF-16 unit as a `KEYEVENTF_UNICODE` key event (`type_unicode`), not
+     through the clipboard. Only `cc.py paste` uses Set-Clipboard + Ctrl+V. So no clipboard content
+     could have been pasted onto the timeline.
+   - **Likely cause:** the click landed in the text area's padding below the single text line and
+     didn't give the QML text field keyboard focus. The follow-up ruler click (1500,628) only
+     moved the playhead to 00:00:24:19.
+   - **Next:** click on the text line itself (≈1800,220), confirm a caret by crop, confirm the Ctrl+A
+     highlight by crop, and only then type.
 6. **Tip dismissed:** OK ≈(795,540). The window is gone from `cc.py windows`, and the **draft mtime
    is unchanged** by the click (`18-tip-dismissed.png`).
 7. **Official dry run for the chosen setting:**
