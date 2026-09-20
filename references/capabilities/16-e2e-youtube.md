@@ -1151,7 +1151,7 @@ draft and in frames, and the final file is checked with ffmpeg.
        not by selection.
 
 ### O. Stage 9: Yousef AI logo overlay, rung 14 (2026-09-15, while Enhance voice processes)
-1. **Logo file baseline** (`logo-before.txt`): `E:\client-projects\yousef-omar-landing\public\brand\logo-ink-tight.png`,
+1. **Logo file baseline** (`logo-before.txt`): `<brand-assets>\public\brand\logo-ink-tight.png`,
    mtime 2026-09-13 22:26:21.494, 22 638 B, sha256 DE5C…0597. It's the same file and hash as
    rung 14, used to confirm the client project is never written.
 2. **Import** (rung 3 route):

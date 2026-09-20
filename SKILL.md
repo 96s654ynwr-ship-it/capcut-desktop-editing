@@ -1,7 +1,8 @@
 ---
 name: capcut-desktop-editing
 description: Edit video in the real CapCut desktop app on Windows through computer use — driving the UI the way a person does (grid screenshots, keyboard shortcuts and the UI Automation tree wherever CapCut exposes it) instead of generating video from code. Builds and applies user-approved CapCut procedures one demonstrated capability at a time and writes each exact working procedure back into this skill. Use this whenever the user wants anything done inside CapCut or CapCut Pro — splits, trims, removing pauses or filler words, bad takes, jump cuts, push-ins, auto captions, text animations, B-roll, 9:16 reframes, vocal isolation, background removal, camera tracking, transitions, color, export — or asks to map CapCut's controls, train or teach the agent on CapCut, or continue the CapCut capability ladder. Not for code-rendered video (HyperFrames, Remotion, ffmpeg pipelines) or CapCut web/mobile.
-compatibility: Windows 10/11 with CapCut desktop (mapped on 9.4.0.4015) and uv for the bundled Python venv. Written for both Claude Code and Codex.
+metadata:
+  compatibility: "Windows 10/11 with CapCut desktop (mapped on 9.4.0.4015) and uv for the bundled Python venv. Written for both Claude Code and Codex."
 ---
 
 # CapCut Desktop Editing
@@ -14,6 +15,14 @@ capability is demonstrated and approved.
 
 The references are a living document: they get better every time you run the loop. Treat anything
 not marked verified as a hypothesis to test, not a fact.
+
+For a requested production edit, reuse the approved procedures and read
+`references/house-style.md`; the capability loop below applies to learning new procedures.
+When all ladder rows are approved, proceed with the requested edit rather than restarting the
+ladder or asking for approval of each already-approved operation. Prior training projects are
+examples, not the target of a new editing request. Use the footage/project from the current task.
+For Codex, the platform file determines which control backend is usable; the `cc.py` commands
+below describe the bundled-script backend.
 
 ## 0. Orient yourself (every session)
 

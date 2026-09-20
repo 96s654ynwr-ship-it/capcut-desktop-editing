@@ -510,7 +510,7 @@ by player frames:
 - **Project:** "Duplicate of 0915 (Recommended)". A CapCut Duplicate of the approved rung-13
   project, so `0915` itself stays untouched. The talk→desk cut at 00:15 is the transition point.
 - **Logo:** "Check the Yousef AI logo in the downloads, or you can find the Yousef AI logos in
-  yousef-omar-landing project in E:\client-projects\yousef-omar-landing\public\brand. If you didn't
+  brand folder of my landing-page project at <brand-assets>\public\brand. If you didn't
   find them go with any text brand mark". Search those two places read-only; import the chosen file
   natively (Ctrl+I); fall back to a Text brand mark.
   - **Candidates found (read-only, `evidence/2026-09-15/cap14/logo-candidates.png`):**
@@ -522,7 +522,7 @@ by player frames:
       - `monogram-app-icon.png` (708², 4.7 % transparent)
       - `monogram-accent-square`, `monogram-ink-on-cream`, `monogram-knockout`,
         `monogram-yousef-ai-on-accent`: fully opaque, so they are not corner overlays
-  - **Chosen: `E:\client-projects\yousef-omar-landing\public\brand\logo-ink-tight.png`** (#7).
+  - **Chosen: `<brand-assets>\public\brand\logo-ink-tight.png`** (#7).
     - It is the official brand file, transparent and tightly cropped: ink wordmark with the blue
       accent dots.
     - Both sections have light walls (a cream blurred room and a white/purple desk wall), where

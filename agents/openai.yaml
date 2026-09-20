@@ -1,6 +1,7 @@
 interface:
   display_name: "CapCut Desktop Editing"
-  short_description: "Edit in the real CapCut desktop app on Windows via UI Automation + screenshots, one approved capability at a time"
+  short_description: "Edit videos in CapCut desktop with computer use"
+  default_prompt: "Use $capcut-desktop-editing to edit my footage in CapCut desktop using my approved procedures and house style."
   brand_color: "#111111"
 
 policy:
