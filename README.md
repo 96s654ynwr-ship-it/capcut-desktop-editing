@@ -15,7 +15,8 @@ executed on real footage and verified, not a guess.
 ![The agent editing an 8-minute talking-head take in CapCut, from import to export](docs/demo.gif)
 
 *Rung 16, the end-to-end YouTube edit: an 8:04 raw take cut down, captioned, graded and exported
-without a human touching the mouse. These are real screenshots captured during that run.*
+without a human touching the mouse. These are real screenshots captured during that run — faces in
+the preview and the clip thumbnails are blurred for privacy.*
 
 Modelled on [astra-premiere-editing](https://github.com/per-simmons/astra-premiere-editing)
 (Premiere Pro on macOS), rebuilt from scratch for CapCut, Windows, Claude Code and Codex.
