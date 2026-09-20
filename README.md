@@ -12,6 +12,11 @@ demonstrated and approved.
 **Status: rungs 0–17 approved.** Everything in the table below is a procedure that has been
 executed on real footage and verified, not a guess.
 
+![The agent editing an 8-minute talking-head take in CapCut, from import to export](docs/demo.gif)
+
+*Rung 16, the end-to-end YouTube edit: an 8:04 raw take cut down, captioned, graded and exported
+without a human touching the mouse. These are real screenshots captured during that run.*
+
 Modelled on [astra-premiere-editing](https://github.com/per-simmons/astra-premiere-editing)
 (Premiere Pro on macOS), rebuilt from scratch for CapCut, Windows, Claude Code and Codex.
 
@@ -181,6 +186,7 @@ scripts/
   tighten_gaps.py             native silence tightening (exact splits, verified per cut)
   tooltip_sheet.py            hover-tooltip contact sheets for icon-only controls
   setup.ps1                   creates scripts/.venv via uv
+docs/demo.gif                 the README demo, built from rung 16 evidence frames
 ```
 
 `evidence/` (screenshots, trees, draft summaries from each run) is gitignored — it's local proof,
