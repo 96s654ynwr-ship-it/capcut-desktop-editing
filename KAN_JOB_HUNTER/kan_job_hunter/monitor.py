@@ -20,7 +20,11 @@ class Monitor:
             return [dict(row) for row in c.execute("SELECT * FROM sources WHERE enabled=1 ORDER BY id")]
 
     async def check_source(self, source: dict) -> int:
-        entity = await self.client.get_entity(source["telegram_id"])
+        # A StringSession on a fresh runner may not contain the access hash for
+        # an entity stored only by numeric ID. Public usernames are resolvable
+        # without relying on the local entity cache.
+        entity_ref = source.get("username") or source["telegram_id"]
+        entity = await self.client.get_entity(entity_ref)
         newest = None; found = 0
         async for message in self.client.iter_messages(entity, limit=self.recent_limit):
             newest = newest or message.id
