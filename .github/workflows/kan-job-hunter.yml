@@ -2,6 +2,12 @@ name: KAN JOB HUNTER
 
 on:
   workflow_dispatch:
+    inputs:
+      discover:
+        description: "Run public-source discovery before checking"
+        required: false
+        default: true
+        type: boolean
   schedule:
     - cron: "17,47 * * * *"
     - cron: "7 3 * * *"
@@ -26,6 +32,7 @@ jobs:
       DATABASE_PATH: data/kan_job_hunter.sqlite3
       LOG_DIR: logs
       DISCOVERY_INTERVAL_SECONDS: 86400
+      DISCOVERY_LIMIT_PER_QUERY: 50
       LOG_LEVEL: WARNING
     steps:
       - name: Checkout private repository
@@ -55,7 +62,7 @@ jobs:
             cp "$state_dir/kan_job_hunter.sqlite3" KAN_JOB_HUNTER/data/kan_job_hunter.sqlite3
           fi
       - name: Daily public-source discovery
-        if: github.event_name == 'schedule' && github.event.schedule == '7 3 * * *'
+        if: (github.event_name == 'schedule' && github.event.schedule == '7 3 * * *') || (github.event_name == 'workflow_dispatch' && inputs.discover == true)
         working-directory: KAN_JOB_HUNTER
         run: python -m kan_job_hunter discover --non-interactive
       - name: Check monitored sources

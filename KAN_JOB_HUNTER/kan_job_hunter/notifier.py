@@ -19,8 +19,11 @@ class Notifier:
         text = (
             f"<b>{esc(row.get('title') or 'Новая вакансия')}</b>\n"
             f"Формат: {esc(row.get('city', 'не указан'))} / {esc(row.get('work_format', 'не указан'))}\n"
+            f"Дата публикации: {esc(row.get('published_at') or 'не указана')}\n"
+            f"Источник: {esc(row.get('source_title') or row.get('source_username') or 'не указан')}\n"
             f"Оплата: {esc(row.get('payment') or 'не указана')}\n"
             f"Соответствие: {float(row.get('match_score', 0)):.0%}\n\n"
+            f"Почему подходит: {esc(row.get('fit_reason') or 'соответствует заданным критериям')}\n\n"
             f"{esc(row.get('description', '')[:1200])}\n\n"
             f"<a href=\"{esc(row['original_url'])}\">Оригинал объявления</a>"
         )

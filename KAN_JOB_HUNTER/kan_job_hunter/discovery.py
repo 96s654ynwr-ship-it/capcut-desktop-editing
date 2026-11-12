@@ -5,7 +5,7 @@ from telethon import TelegramClient, types
 from telethon.tl import functions
 
 from .db import Database
-from .filters import analyze_text, discovery_queries
+from .filters import analyze_text, discovery_queries, is_recent_publication, message_publication_datetime
 
 logger = logging.getLogger(__name__)
 
@@ -24,8 +24,13 @@ class DiscoveryService:
                         continue
                     sample = []
                     async for message in self.client.iter_messages(entity, limit=self.recent_limit):
-                        if message.message:
+                        published_at = message_publication_datetime(message)
+                        # A dormant channel with only old job posts is not a
+                        # useful monitoring source. Keep discovery current too.
+                        if message.message and is_recent_publication(published_at, max_age_hours=30 * 24):
                             sample.append(message.message)
+                    if not sample:
+                        continue
                     analysis = analyze_text("\n".join(sample))
                     if not analysis["relevant"]:
                         continue

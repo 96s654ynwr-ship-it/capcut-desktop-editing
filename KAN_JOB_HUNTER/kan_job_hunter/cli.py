@@ -70,7 +70,18 @@ async def worker(command: str, non_interactive: bool = False) -> None:
         notifier = Notifier(settings.bot_token, settings.notification_chat_id) if settings.bot_token and settings.notification_chat_id is not None else None
         monitor = Monitor(user, db, notifier, settings.recent_messages_per_source)
         if command == "check":
-            print(f"New relevant messages: {await monitor.run_once()}")
+            accepted = await monitor.run_once()
+            stats = monitor.last_stats
+            print(
+                f"Checked messages: {stats['checked_messages']}; "
+                f"relevant in last 72h: {accepted}; "
+                f"no-text discarded: {stats['discarded_no_text']}; "
+                f"stale discarded: {stats['discarded_stale']}; "
+                f"unknown-date discarded: {stats['discarded_unknown_date']}; "
+                f"irrelevant discarded: {stats['discarded_irrelevant']}; "
+                f"notifications sent: {stats['notifications_sent']}; "
+                f"notification failures: {stats['notifications_failed']}"
+            )
             return
         discovery = DiscoveryService(user, db, settings.discovery_limit_per_query, settings.recent_messages_per_source)
         last_discovery = 0.0

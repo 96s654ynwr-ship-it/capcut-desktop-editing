@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import re
-from datetime import date
+from datetime import date, datetime, timezone
 
 
 PROFESSION_TERMS = {
-    "photographer": ["фотограф", "фотосъем", "фотосъём", "photo"],
-    "videographer": ["видеограф", "videographer", "съемка видео", "съёмка видео"],
-    "camera_operator": ["оператор", "кинооператор", "camera operator", "видеосъемка", "видеосъёмка"],
-    "video_editor": ["видеомонтаж", "монтажер", "монтажёр", "монтаж видео", "editor", "premiere pro", "davinci"],
-    "video_teacher": ["преподаватель видеосъемки", "преподаватель видеосъёмки", "курс видеосъемки", "курс видеосъёмки"],
-    "editing_teacher": ["преподаватель монтажа", "обучение монтажу", "цветокоррекции", "цветокоррекция"],
+    "photographer": ["фотограф", "фотосъем", "фотосъём", "photo", "fotógrafo", "fotografo", "fotografía", "fotografia"],
+    "videographer": ["видеограф", "videographer", "съемка видео", "съёмка видео", "videógrafo", "videografo"],
+    "camera_operator": ["оператор", "кинооператор", "camera operator", "видеосъемка", "видеосъёмка", "operador de cámara", "operador de camara"],
+    "video_editor": ["видеомонтаж", "монтажер", "монтажёр", "монтаж видео", "editor", "premiere pro", "davinci", "editor de video", "edición de video", "edicion de video", "montaje de video"],
+    "video_teacher": ["преподаватель видеосъемки", "преподаватель видеосъёмки", "курс видеосъемки", "курс видеосъёмки", "profesor de vídeo", "profesor de video", "curso de vídeo", "curso de video"],
+    "editing_teacher": ["преподаватель монтажа", "обучение монтажу", "цветокоррекции", "цветокоррекция", "curso de edición", "curso de edicion", "formación audiovisual"],
 }
 EXCLUDED_TERMS = ["ai-креатор", "ai creator", "нейросет", "генеративн", "motion designer", "моушн-дизайн", "моушн дизайнер"]
 MADRID = ["мадрид", "madrid"]
@@ -22,6 +22,52 @@ PAYMENT_RE = re.compile(r"(?:€|eur|руб(?:лей|\.| )?|₽|usd|\$)\s?\d[\d\
 
 def _contains(text: str, terms: list[str]) -> bool:
     return any(term in text for term in terms)
+
+
+def message_publication_datetime(message) -> datetime | None:
+    """Return the original Telegram publication time in UTC when available."""
+    forwarded = getattr(message, "fwd_from", None)
+    value = getattr(forwarded, "date", None) or getattr(message, "date", None)
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        value = value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def parse_publication_datetime(value: str | datetime | None) -> datetime | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        parsed = value
+    else:
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except (TypeError, ValueError):
+            return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def publication_age_hours(value: str | datetime | None, *, now: datetime | None = None) -> float | None:
+    parsed = parse_publication_datetime(value)
+    if parsed is None:
+        return None
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    return round((current.astimezone(timezone.utc) - parsed).total_seconds() / 3600, 3)
+
+
+def is_recent_publication(
+    value: str | datetime | None,
+    *,
+    now: datetime | None = None,
+    max_age_hours: int = 72,
+) -> bool:
+    age = publication_age_hours(value, now=now)
+    return age is not None and 0 <= age <= max_age_hours
 
 
 def current_city(today: date | None = None) -> str:
@@ -51,6 +97,10 @@ def analyze_text(text: str, *, published_at: str | None = None) -> dict:
     contact = None
     match = re.search(r"(?:@|t\.me/)[\w_]{4,}", raw, re.I)
     if match: contact = match.group(0)
+    reasons = list(professions)
+    if city: reasons.append(city)
+    if remote: reasons.append("удалённый формат")
+    if language == "русский": reasons.append("русский язык")
     return {
         "relevant": relevant,
         "professions": professions,
@@ -59,18 +109,24 @@ def analyze_text(text: str, *, published_at: str | None = None) -> dict:
         "language": language,
         "payment": PAYMENT_RE.search(raw).group(0) if PAYMENT_RE.search(raw) else None,
         "contact": contact,
+        "fit_reason": ", ".join(reasons),
         "title": title,
         "description": raw[:1200],
         "match_score": round(max(0.0, min(1.0, score)), 3),
         "published_at": published_at,
+        "publication_age_hours": publication_age_hours(published_at),
         "raw_text": raw,
     }
 
 
 def discovery_queries() -> list[str]:
     return [
-        "видеограф Мадрид", "видеомонтаж Мадрид", "фотограф Мадрид",
-        "оператор Мадрид", "съемка видео удаленно русский",
-        "видеограф Барселона", "видеомонтаж Барселона", "фотограф Барселона",
-        "оператор удаленная работа русский", "преподаватель видеомонтажа",
+        "видеограф Мадрид", "видеомонтаж Мадрид", "фотограф Мадрид", "оператор Мадрид",
+        "videographer Madrid", "fotógrafo Madrid", "producción audiovisual Madrid", "editor de video Madrid",
+        "Premiere Pro Madrid", "DaVinci Resolve Madrid", "видеограф Барселона", "видеомонтаж Барселона",
+        "фотограф Барселона", "оператор Барселона", "videographer Barcelona", "fotógrafo Barcelona",
+        "producción audiovisual Barcelona", "editor de video Barcelona", "Premiere Pro Barcelona",
+        "съемка видео удаленно русский", "видеомонтаж удаленно русский", "оператор удаленная работа русский",
+        "видеограф удаленно русский", "монтаж Premiere удаленно", "монтаж DaVinci удаленно",
+        "преподаватель видеомонтажа", "курс видеосъемки", "курс цветокоррекции", "video editing jobs russian",
     ]
