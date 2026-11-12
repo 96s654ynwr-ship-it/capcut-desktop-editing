@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.venv/
+data/*.session
+data/*.session-journal
+data/telegram_login_qr.png
+data/telegram_session_string.txt
+data/*.sqlite3
+data/*.sqlite3-*
+logs/*.log
+logs/*.jsonl
+__pycache__/
+*.py[cod]
+.DS_Store

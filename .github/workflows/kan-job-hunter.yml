@@ -1,0 +1,77 @@
+name: KAN JOB HUNTER
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17,47 * * * *"
+    - cron: "7 3 * * *"
+
+concurrency:
+  group: kan-job-hunter-state
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+      TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+      TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      NOTIFICATION_CHAT_ID: ${{ secrets.NOTIFICATION_CHAT_ID }}
+      DATABASE_PATH: data/kan_job_hunter.sqlite3
+      LOG_DIR: logs
+      DISCOVERY_INTERVAL_SECONDS: 86400
+      LOG_LEVEL: WARNING
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r KAN_JOB_HUNTER/requirements.txt
+      - name: Initialize state database
+        working-directory: KAN_JOB_HUNTER
+        run: python -m kan_job_hunter init
+      - name: Restore private SQLite state
+        env:
+          STATE_REPO: ${{ secrets.STATE_REPO }}
+          STATE_REPO_TOKEN: ${{ secrets.STATE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          state_dir="$RUNNER_TEMP/kan-job-hunter-state"
+          rm -rf "$state_dir"
+          git clone --depth 1 "https://x-access-token:${STATE_REPO_TOKEN}@github.com/${STATE_REPO}.git" "$state_dir"
+          if [ -f "$state_dir/kan_job_hunter.sqlite3" ]; then
+            cp "$state_dir/kan_job_hunter.sqlite3" KAN_JOB_HUNTER/data/kan_job_hunter.sqlite3
+          fi
+      - name: Daily public-source discovery
+        if: github.event_name == 'schedule' && github.event.schedule == '7 3 * * *'
+        working-directory: KAN_JOB_HUNTER
+        run: python -m kan_job_hunter discover --non-interactive
+      - name: Check monitored sources
+        working-directory: KAN_JOB_HUNTER
+        run: python -m kan_job_hunter check --non-interactive
+      - name: Save SQLite state to private repository
+        env:
+          STATE_REPO: ${{ secrets.STATE_REPO }}
+          STATE_REPO_TOKEN: ${{ secrets.STATE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          state_dir="$RUNNER_TEMP/kan-job-hunter-state"
+          cp KAN_JOB_HUNTER/data/kan_job_hunter.sqlite3 "$state_dir/kan_job_hunter.sqlite3"
+          cd "$state_dir"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kan_job_hunter.sqlite3
+          git diff --cached --quiet || git commit -m "chore(job-hunter): update monitoring state"
+          git push "https://x-access-token:${STATE_REPO_TOKEN}@github.com/${STATE_REPO}.git" HEAD:main

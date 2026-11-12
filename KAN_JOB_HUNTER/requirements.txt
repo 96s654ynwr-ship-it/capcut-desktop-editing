@@ -1,0 +1,4 @@
+Telethon>=1.45,<2
+python-dotenv>=1.0,<2
+pydantic-settings>=2.7,<3
+qrcode[pil]>=8,<9

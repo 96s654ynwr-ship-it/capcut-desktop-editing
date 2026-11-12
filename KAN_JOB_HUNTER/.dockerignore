@@ -1,0 +1,12 @@
+.env
+.git
+.gitignore
+.venv
+data/*.sqlite3
+data/*.session
+data/*.session-journal
+logs/*.log
+logs/*.jsonl
+__pycache__
+*.pyc
+tests

@@ -1,0 +1,20 @@
+[project]
+name = "kan-job-hunter"
+version = "0.1.0"
+description = "Local-first Telegram job and freelance source monitor."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "Telethon>=1.45,<2",
+  "python-dotenv>=1.0,<2",
+  "pydantic-settings>=2.7,<3",
+]
+
+[project.scripts]
+kan-job-hunter = "kan_job_hunter.cli:main"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["kan_job_hunter*"]
